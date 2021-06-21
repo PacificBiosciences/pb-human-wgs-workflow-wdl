@@ -1,0 +1,19 @@
+{
+  "sample_trial.md5sum_name": "md5sum",
+
+  "sample_trial.tr_bed": "/projectastro/inputs-process-sample/human_GRCh38_no_alt_analysis_set.trf.bed",
+  "sample_trial.regions": [ "chr8", "chrX" ],
+  "sample_trial.reference": {
+    "datafile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta",
+    "indexfile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
+  },
+  "sample_trial.chr_lengths": "/cromwell-executions/smrtcells/958d2edb-2e1d-4baa-8d51-04faf1498c1e/call-align_ubam_or_fastq/execution/rc",
+
+  "sample_trial.ref_modimers": "/cromwell-executions/smrtcells/958d2edb-2e1d-4baa-8d51-04faf1498c1e/call-align_ubam_or_fastq/execution/rc",
+  "sample_trial.movie_modimers": "/cromwell-executions/smrtcells/958d2edb-2e1d-4baa-8d51-04faf1498c1e/call-align_ubam_or_fastq/execution/rc",
+
+  "sample_trial.pb_conda_image": "pacbio.azurecr.io/pb-human-wgs-workflow:latest",
+  "sample_trial.deepvariant_image": "google/deepvariant:1.1.0",
+  "sample_trial.picard_image": "broadinstitute/picard"
+
+} 

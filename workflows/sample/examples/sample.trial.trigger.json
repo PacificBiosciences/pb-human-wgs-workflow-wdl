@@ -1,0 +1,9 @@
+{
+  "WorkflowUrl": "sample.trial.wdl",
+  "WorkflowInputsUrls": [
+    "sample.trial.inputs.json",
+    "trial.inputs.json"
+  ],
+  "WorkflowOptionsUrl": null,
+  "WorkflowDependenciesUrl": null
+}

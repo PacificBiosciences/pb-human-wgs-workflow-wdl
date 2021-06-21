@@ -1,0 +1,86 @@
+{
+  "sample_trial.sample_trial_inputs": {
+    "affected_patient_inputs": [
+      {
+        "bam_pairs": [
+          {
+            "bam": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-0/smrtcells/afb3cd98-5991-4fae-a7b8-b0caebfbc996/call-align_ubam_or_fastq/execution/m64011_181218_235052.bam",
+            "bai": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-0/smrtcells/afb3cd98-5991-4fae-a7b8-b0caebfbc996/call-align_ubam_or_fastq/execution/m64011_181218_235052.bam.bai"
+          },
+          {
+            "bam": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-1/smrtcells/d36449ca-56f0-4cd7-a66a-558ee453d0ed/call-align_ubam_or_fastq/execution/m64011_181227_224151.bam",
+            "bai": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-1/smrtcells/d36449ca-56f0-4cd7-a66a-558ee453d0ed/call-align_ubam_or_fastq/execution/m64011_181227_224151.bam.bai"
+          },
+          {
+            "bam": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-2/smrtcells/20d2cb71-1959-49f0-b565-8dbca07f4abd/call-align_ubam_or_fastq/execution/m64014_181210_152538.bam",
+            "bai": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-2/smrtcells/20d2cb71-1959-49f0-b565-8dbca07f4abd/call-align_ubam_or_fastq/execution/m64014_181210_152538.bam.bai"
+          },
+          {
+            "bam": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-3/smrtcells/d69f438f-8d96-4044-82a4-a9e45967bf4e/call-align_ubam_or_fastq/execution/m64017_190116_171555.bam",
+            "bai": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-3/smrtcells/d69f438f-8d96-4044-82a4-a9e45967bf4e/call-align_ubam_or_fastq/execution/m64017_190116_171555.bam.bai"
+          },
+          {
+            "bam": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-4/smrtcells/df3741ee-995c-4ba6-9c24-4941209fdbbd/call-align_ubam_or_fastq/execution/m64018_190129_193747.bam",
+            "bai": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-4/smrtcells/df3741ee-995c-4ba6-9c24-4941209fdbbd/call-align_ubam_or_fastq/execution/m64018_190129_193747.bam.bai"
+          },
+          {
+            "bam": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-5/smrtcells/94ad970e-ef70-4d04-aebb-975dd32bcc57/call-align_ubam_or_fastq/execution/m64020_190123_225958.bam",
+            "bai": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-5/smrtcells/94ad970e-ef70-4d04-aebb-975dd32bcc57/call-align_ubam_or_fastq/execution/m64020_190123_225958.bam.bai"
+          }
+        ],
+        "jellyfish_input": [
+          "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-0/smrtcells/afb3cd98-5991-4fae-a7b8-b0caebfbc996/call-jellyfish/jellyfish/f0ab3007-6582-43ee-b3df-39813e4e920e/call-jellyfish_count/execution/count.jf",
+          "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-1/smrtcells/d36449ca-56f0-4cd7-a66a-558ee453d0ed/call-jellyfish/jellyfish/4deac214-377d-4156-9333-913d0e89c6fc/call-jellyfish_count/execution/count.jf",
+          "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-2/smrtcells/20d2cb71-1959-49f0-b565-8dbca07f4abd/call-jellyfish/jellyfish/c02b5d0c-bc3d-40e6-8a1b-622a65632986/call-jellyfish_count/execution/count.jf",
+          "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-3/smrtcells/d69f438f-8d96-4044-82a4-a9e45967bf4e/call-jellyfish/jellyfish/21e265d0-8b44-4cfb-abd9-1b2f9bc76e2b/call-jellyfish_count/execution/count.jf",
+          "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-4/smrtcells/df3741ee-995c-4ba6-9c24-4941209fdbbd/call-jellyfish/jellyfish/61a394d3-d5c0-4a54-8061-3f25e651c3e2/call-jellyfish_count/execution/count.jf",
+          "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_affected_patient/shard-0/smrtcells_person/e2c37134-c035-4c0c-ab98-5e366454306a/call-smrtcells/shard-5/smrtcells/94ad970e-ef70-4d04-aebb-975dd32bcc57/call-jellyfish/jellyfish/915ef358-541d-49fb-b1b8-5c5c3c3e35b1/call-jellyfish_count/execution/count.jf"
+        ]
+      }
+    ],
+    "unaffected_patient_inputs": [
+      {
+        "bam_pairs": [
+          {
+            "bam": "/cromwell-executions/smrtcells_person/8f74b0e5-a51a-4968-b474-442e28b56223/call-smrtcells/shard-0/smrtcells/cd32bd92-a2d9-4941-92c6-31550725cedd/call-align_ubam_or_fastq/attempt-2/execution/m54262U_191105_163601.bam",
+            "bai": "/cromwell-executions/smrtcells_person/8f74b0e5-a51a-4968-b474-442e28b56223/call-smrtcells/shard-0/smrtcells/cd32bd92-a2d9-4941-92c6-31550725cedd/call-align_ubam_or_fastq/attempt-2/execution/m54262U_191105_163601.bam.bai"
+          },
+          {
+            "bam": "/cromwell-executions/smrtcells_person/8f74b0e5-a51a-4968-b474-442e28b56223/call-smrtcells/shard-1/smrtcells/3c5b8b57-ad63-4079-a94c-ffdbe5e26285/call-align_ubam_or_fastq/execution/m64017_191109_034853.bam",
+            "bai": "/cromwell-executions/smrtcells_person/8f74b0e5-a51a-4968-b474-442e28b56223/call-smrtcells/shard-1/smrtcells/3c5b8b57-ad63-4079-a94c-ffdbe5e26285/call-align_ubam_or_fastq/execution/m64017_191109_034853.bam.bai"
+          },
+          {
+            "bam": "/cromwell-executions/smrtcells_person/8f74b0e5-a51a-4968-b474-442e28b56223/call-smrtcells/shard-2/smrtcells/7cff32e2-5cda-4403-9aeb-75b0f4df69f6/call-align_ubam_or_fastq/execution/m64017_191110_150028.bam",
+            "bai": "/cromwell-executions/smrtcells_person/8f74b0e5-a51a-4968-b474-442e28b56223/call-smrtcells/shard-2/smrtcells/7cff32e2-5cda-4403-9aeb-75b0f4df69f6/call-align_ubam_or_fastq/execution/m64017_191110_150028.bam.bai"
+          }
+        ],
+        "jellyfish_input": [
+          "/cromwell-executions/smrtcells_person/8f74b0e5-a51a-4968-b474-442e28b56223/call-smrtcells/shard-0/smrtcells/cd32bd92-a2d9-4941-92c6-31550725cedd/call-jellyfish/jellyfish/4ef2253f-aee1-48a8-a25d-4e0be6e9ecd7/call-jellyfish_count/execution/count.jf",
+          "/cromwell-executions/smrtcells_person/8f74b0e5-a51a-4968-b474-442e28b56223/call-smrtcells/shard-1/smrtcells/3c5b8b57-ad63-4079-a94c-ffdbe5e26285/call-jellyfish/jellyfish/3635e6e4-2bdc-486c-b43e-ecabf38d2439/call-jellyfish_count/execution/count.jf",
+          "/cromwell-executions/smrtcells_person/8f74b0e5-a51a-4968-b474-442e28b56223/call-smrtcells/shard-2/smrtcells/7cff32e2-5cda-4403-9aeb-75b0f4df69f6/call-jellyfish/jellyfish/aa82aafa-ae61-418f-a6ae-6d0ec4c982b7/call-jellyfish_count/execution/count.jf"
+        ]
+      },
+      {
+        "bam_pairs": [
+          {
+            "bam": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_unaffected_patient/shard-1/smrtcells_person/998b7ca1-daf8-467d-8561-9aa539ac2cfd/call-smrtcells/shard-0/smrtcells/383a9d22-9a35-47de-996e-bcd0e08c9575/call-align_ubam_or_fastq/execution/m64017_191107_163840.bam",
+            "bai": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_unaffected_patient/shard-1/smrtcells_person/998b7ca1-daf8-467d-8561-9aa539ac2cfd/call-smrtcells/shard-0/smrtcells/383a9d22-9a35-47de-996e-bcd0e08c9575/call-align_ubam_or_fastq/execution/m64017_191107_163840.bam.bai"
+          },
+          {
+            "bam": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_unaffected_patient/shard-1/smrtcells_person/998b7ca1-daf8-467d-8561-9aa539ac2cfd/call-smrtcells/shard-1/smrtcells/50ecf8a2-9570-4e18-84df-efc0de6d2679/call-align_ubam_or_fastq/execution/m64017_191112_165230.bam",
+            "bai": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_unaffected_patient/shard-1/smrtcells_person/998b7ca1-daf8-467d-8561-9aa539ac2cfd/call-smrtcells/shard-1/smrtcells/50ecf8a2-9570-4e18-84df-efc0de6d2679/call-align_ubam_or_fastq/execution/m64017_191112_165230.bam.bai"
+          },
+          {
+            "bam": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_unaffected_patient/shard-1/smrtcells_person/998b7ca1-daf8-467d-8561-9aa539ac2cfd/call-smrtcells/shard-2/smrtcells/5cdfa839-7f92-4dfb-9f90-e7e4694b39bd/call-align_ubam_or_fastq/execution/m64017_191113_230503.bam",
+            "bai": "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_unaffected_patient/shard-1/smrtcells_person/998b7ca1-daf8-467d-8561-9aa539ac2cfd/call-smrtcells/shard-2/smrtcells/5cdfa839-7f92-4dfb-9f90-e7e4694b39bd/call-align_ubam_or_fastq/execution/m64017_191113_230503.bam.bai"
+          }
+        ],
+        "jellyfish_input": [
+          "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_unaffected_patient/shard-1/smrtcells_person/998b7ca1-daf8-467d-8561-9aa539ac2cfd/call-smrtcells/shard-0/smrtcells/383a9d22-9a35-47de-996e-bcd0e08c9575/call-jellyfish/jellyfish/2b81ac4e-33e1-4a4d-87d8-0baf8d15e6ed/call-jellyfish_count/execution/count.jf",
+          "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_unaffected_patient/shard-1/smrtcells_person/998b7ca1-daf8-467d-8561-9aa539ac2cfd/call-smrtcells/shard-1/smrtcells/50ecf8a2-9570-4e18-84df-efc0de6d2679/call-jellyfish/jellyfish/e0a333f9-2eae-47b8-b17e-37c2cb2ab52b/call-jellyfish_count/execution/count.jf",
+          "/cromwell-executions/smrtcells_family/7c3046b1-a841-40ab-97e4-fae0371f23af/call-smrtcells_unaffected_patient/shard-1/smrtcells_person/998b7ca1-daf8-467d-8561-9aa539ac2cfd/call-smrtcells/shard-2/smrtcells/5cdfa839-7f92-4dfb-9f90-e7e4694b39bd/call-jellyfish/jellyfish/62b411eb-98d4-48ce-af2b-501e9183ab41/call-jellyfish_count/execution/count.jf"
+        ]
+      }
+    ]
+  }
+}

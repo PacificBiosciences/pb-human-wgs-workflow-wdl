@@ -1,0 +1,6 @@
+{
+  "WorkflowUrl": "https://raw.githubusercontent.com/williamrowell/bug-free-octo-engine/main/workflows/smrtcells/smrtcells.wdl?token=AAEZFJL7YKV7ORX6VGL23LTAWUP2Q",
+  "WorkflowInputsUrl": "https://raw.githubusercontent.com/williamrowell/bug-free-octo-engine/main/workflows/smrtcells/examples/smrtcells.inputs.json?token=AAEZFJOLHJJP2ZZAWSAOX23AWUP5M",
+  "WorkflowOptionsUrl": null,
+  "WorkflowDependenciesUrl": null
+}

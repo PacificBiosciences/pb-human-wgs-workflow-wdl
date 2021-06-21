@@ -1,0 +1,8 @@
+{
+  "smrtcells.sample_name": "HG002_NA24385_son",
+  "smrtcells.smrtcell_info": {
+    "name": "m64018_190129_193747",
+    "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64018_190129_193747.fastq.gz",
+    "isUbam": false
+  }
+}

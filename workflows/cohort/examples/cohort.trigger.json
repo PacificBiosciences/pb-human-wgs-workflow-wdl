@@ -1,0 +1,9 @@
+{
+  "WorkflowUrl": "cohort.wdl",
+  "WorkflowInputsUrls": [
+    "cohort.inputs.json" ,
+    "AshkenazimTrio.inputs.json"
+  ],
+  "WorkflowOptionsUrl": null,
+  "WorkflowDependenciesUrl": null
+}

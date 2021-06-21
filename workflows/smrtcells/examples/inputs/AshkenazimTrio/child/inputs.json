@@ -1,0 +1,37 @@
+{
+  "smrtcells_person.sample": {
+    "name": "HG002_NA24385_son",
+    "smrtcells": [
+      {
+        "name": "m64011_181218_235052",
+        "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64011_181218_235052.fastq.gz",
+        "isUbam": false
+      },
+      {
+        "name": "m64011_181227_224151",
+        "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64011_181227_224151.fastq.gz",
+        "isUbam": false
+      },
+      {
+        "name": "m64014_181210_152538",
+        "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64014_181210_152538.fastq.gz",
+        "isUbam": false
+      },
+      {
+        "name": "m64017_190116_171555",
+        "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64017_190116_171555.fastq.gz",
+        "isUbam": false
+      },
+      {
+        "name": "m64018_190129_193747",
+        "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64018_190129_193747.fastq.gz",
+        "isUbam": false
+      },
+      {
+        "name": "m64020_190123_225958",
+        "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64020_190123_225958.fastq.gz",
+        "isUbam": false
+      }
+    ]
+  }
+}

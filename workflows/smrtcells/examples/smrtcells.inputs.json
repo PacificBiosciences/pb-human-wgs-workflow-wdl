@@ -1,0 +1,17 @@
+{
+  "smrtcells.smrtcell_info": {
+    "name": "m64011_190830_220126",
+    "path": "https://datasetgiab.blob.core.windows.net/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_CCS_15kb_20kb_chemistry2/reads/m64011_190830_220126.fastq.gz",
+    "isUbam": false
+  },
+  "smrtcells.reference": {
+    "datafile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta",
+    "indexfile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
+  },
+  "smrtcells.reference_name": "hg38",
+  "smrtcells.kmer_length": 21,
+
+  "smrtcells.md5sum_name": "md5sum",
+
+  "smrtcells.pb_conda_image": "pacbio.azurecr.io/pb-human-wgs-workflow:latest"
+}

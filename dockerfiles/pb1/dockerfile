@@ -1,0 +1,30 @@
+# To build, run this from the root directory of the repo:
+
+# sudo docker build -t projectastro.azurecr.io/pb4 -f dockerfiles/pb1/dockerfile_all . --no-cache
+# sudo az acr login --name projectastro
+# sudo docker push projectastro.azurecr.io/pb4
+#
+# To run locally:
+
+# sudo az acr login --name projectastro
+# sudo docker pull projectastro.azurecr.io/pb4:latest
+# sudo docker run -it projectastro.azurecr.io/pb4:latest bash
+
+FROM continuumio/miniconda3
+WORKDIR /opt/pb
+
+RUN conda update -n base -c defaults conda
+
+ADD "scripts" /opt/pb/scripts
+ADD "rules/envs" /opt/pb/envs
+ADD "dockerfiles/pb1/create_conda_envs.sh" /opt/pb/setup/create_conda_envs.sh
+
+WORKDIR /opt/pb/setup
+RUN chmod +x create_conda_envs.sh
+RUN ./create_conda_envs.sh
+
+RUN echo this is the path
+RUN echo $PATH
+RUN echo this is the end of the path
+
+#ENV PATH PATH
