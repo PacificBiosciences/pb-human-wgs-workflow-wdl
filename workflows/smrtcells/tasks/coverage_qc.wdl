@@ -1,11 +1,11 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
+import "../../common/structs.wdl"
 
 task infer_sex_from_coverage {
   input {
     SmrtcellInfo smrtcell_info
-    String reference_name
+    String? reference_name
     File mosdepth_summary
     String inferred_sex_file_name = "~{smrtcell_info.name}.~{reference_name}.mosdepth.inferred_sex.txt"
     String log_name = "infer_sex_from_coverage.log"
@@ -13,7 +13,12 @@ task infer_sex_from_coverage {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(smrtcell_info.path, "GB") + size(mosdepth_summary, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate pandas
     echo "$(conda info)"
@@ -30,14 +35,14 @@ task infer_sex_from_coverage {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
 task calculate_m2_ratio {
   input {
     SmrtcellInfo smrtcell_info
-    String reference_name
+    String? reference_name
     File mosdepth_summary
 
     String log_name = "calculate_M2_ratio.log"
@@ -46,7 +51,12 @@ task calculate_m2_ratio {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(smrtcell_info.path, "GB") + size(mosdepth_summary, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate pandas
     echo "$(conda info)"
@@ -63,14 +73,14 @@ task calculate_m2_ratio {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
 workflow coverage_qc {
   input {
     SmrtcellInfo smrtcell_info
-    String reference_name
+    String? reference_name
     File mosdepth_summary
     String pb_conda_image
   }

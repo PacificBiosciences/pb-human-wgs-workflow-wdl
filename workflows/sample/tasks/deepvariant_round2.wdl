@@ -1,7 +1,7 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
-import "./separate_data_and_index_files.wdl"
+import "../../common/structs.wdl"
+import "../../common/separate_data_and_index_files.wdl"
 
 task make_examples_round2 {
   input {
@@ -16,11 +16,17 @@ task make_examples_round2 {
     Int threads = 64
     Int threads_m1 = threads - 1
     String tfrecord_name = "examples.tfrecord@~{threads}.gz"
-    String nonvariant_site_tfrecord_name = "gvcF.tfrecord@~{threads}.gz" # temp(f"samples/{sample}/deepvariant/examples/gvcf.tfrecord-{{shard}}-of-{config['N_SHARDS']:05}.gz")
+    String nonvariant_site_tfrecord_name = "gvcF.tfrecord@~{threads}.gz"
     String commands_name = "commands.txt"
   }
 
+#  Float multiplier = 3.25
+#  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(bams, "GB") + size(bais, "GB"))) + 20
+  Int disk_size = 500
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+
     make_examples_func="       /opt/deepvariant/bin/make_examples \
         --norealign_reads \
         --vsc_min_fraction_indels ~{vsc_min_fraction_indels} \
@@ -53,7 +59,7 @@ task make_examples_round2 {
     maxRetries: 3
     memory: "256 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -62,14 +68,20 @@ task call_variants_round2 {
     Int threads = 64
     String model = "/opt/models/pacbio/model.ckpt"
     String log_name = "call_variants_round2.log"
-    Array[File] example_tfrecord # expand(f"samples/{sample}/deepvariant/examples/examples.tfrecord-{{shard}}-of-{config['N_SHARDS']:05}.gz", shard=shards)
+    Array[File] example_tfrecord
     String sample_name
     String? reference_name
     String call_variants_output_tfrecord_gz_name = "~{sample_name}.~{reference_name}.call_variants_output.tfrecord.gz"
     String deepvariant_image
   }
 
+#  Float multiplier = 3.25
+#  Int disk_size = ceil(multiplier * size(example_tfrecord, "GB")) + 20
+  Int disk_size = 500
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+
     tfrecords_csv=~{sep="," example_tfrecord}
 
     IFS=, paths=($tfrecords_csv)
@@ -102,7 +114,7 @@ task call_variants_round2 {
     maxRetries: 3
     memory: "256 GB"
     cpu: "~{threads}"
-    disk: "500 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -123,7 +135,12 @@ task postprocess_variants_round2 {
     String deepvariant_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(tfrecords, "GB") + size(nonvariant_site_tfrecords, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+
     nonvariant_site_tfrecords_csv=~{sep="," nonvariant_site_tfrecords}
     IFS=, paths=($nonvariant_site_tfrecords_csv)
     total_records=${#paths[@]}
@@ -165,7 +182,7 @@ task postprocess_variants_round2 {
     maxRetries: 3
     memory: "30 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -181,10 +198,15 @@ task bcftools_stats {
     String pb_conda_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(deepvariant_vcf_gz.datafile, "GB") + size(deepvariant_vcf_gz.indexfile, "GB"))) + 20
+
   command <<<
     source ~/.bashrc
     conda activate bcftools
     echo "$(conda info)"
+    echo
+    echo requested disk_size =  ~{disk_size}
 
     (bcftools stats --threads 3 ~{params} ~{deepvariant_vcf_gz.datafile} > ~{deepvariant_vcf_stats_txt_name}) > ~{log_name} 2>&1
   >>>
@@ -197,7 +219,7 @@ task bcftools_stats {
     preemptible: true
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 

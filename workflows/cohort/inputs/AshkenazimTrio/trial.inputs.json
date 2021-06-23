@@ -1,0 +1,576 @@
+{
+  "cohort.cohort_name": "AshkenazimTrio",
+
+  "cohort.slivar.allyaml": "/projectastro/inputs-process-cohort/AshkenazimTrio.yaml",
+  "cohort.slivar.ped": "/projectastro/inputs-process-cohort/AshkenazimTrio.ped",
+  "cohort.pbsv.affected_person_svsigs": [
+    [
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr1.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr1.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr1.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr1.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr1.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr1.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr2.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr2.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr2.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr2.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr2.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr2.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr3.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr3.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr3.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr3.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr3.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr3.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr4.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr4.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr4.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr4.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr4.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr4.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr5.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr5.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr5.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr5.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr5.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr5.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr6.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr6.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr6.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr6.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr6.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr6.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr7.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr7.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr7.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr7.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr7.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr7.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr8.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr8.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr8.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr8.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr8.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr8.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr9.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr9.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr9.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr9.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr9.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr9.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr10.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr10.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr10.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr10.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr10.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr10.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr11.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr11.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr11.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr11.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr11.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr11.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr12.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr12.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr12.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr12.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr12.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr12.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr13.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr13.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr13.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr13.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr13.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr13.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr14.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr14.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr14.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr14.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr14.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr14.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr15.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr15.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr15.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr15.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr15.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr15.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr16.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr16.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr16.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr16.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr16.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr16.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr17.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr17.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr17.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr17.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr17.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr17.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr18.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr18.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr18.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr18.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr18.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr18.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr19.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr19.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr19.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr19.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr19.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr19.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr20.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr20.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr20.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr20.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr20.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr20.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr21.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr21.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr21.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr21.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr21.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr21.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr22.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chr22.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chr22.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chr22.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chr22.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chr22.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chrX.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chrX.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chrX.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chrX.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chrX.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chrX.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chrY.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chrY.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chrY.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chrY.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chrY.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chrY.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chrM.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.chrM.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.chrM.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.chrM.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.chrM.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.chrM.svsig.gz"
+      ]
+    ]
+  ],
+
+  "cohort.pbsv.unaffected_person_svsigs": [
+    [
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr1.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr1.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr1.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr2.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr2.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr2.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr3.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr3.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr3.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr4.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr4.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr4.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr5.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr5.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr5.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr6.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr6.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr6.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr7.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr7.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr7.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr8.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr8.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr8.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr9.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr9.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr9.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr10.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr10.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr10.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr11.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr11.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr11.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr12.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr12.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr12.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr13.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr13.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr13.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr14.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr14.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr14.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr15.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr15.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr15.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr16.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr16.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr16.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr17.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr17.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr17.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr18.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr18.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr18.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr19.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr19.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr19.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr20.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr20.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr20.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr21.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr21.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr21.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chr22.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chr22.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chr22.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chrX.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chrX.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chrX.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chrY.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chrY.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chrY.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.chrM.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.chrM.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.chrM.svsig.gz"
+      ]
+    ],
+    [
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr1.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr1.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr1.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr2.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr2.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr2.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr3.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr3.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr3.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr4.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr4.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr4.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr5.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr5.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr5.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr6.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr6.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr6.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr7.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr7.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr7.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr8.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr8.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr8.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr9.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr9.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr9.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr10.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr10.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr10.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr11.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr11.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr11.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr12.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr12.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr12.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr13.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr13.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr13.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr14.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr14.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr14.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr15.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr15.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr15.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr16.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr16.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr16.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr17.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr17.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr17.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr18.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr18.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr18.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr19.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr19.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr19.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr20.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr20.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr20.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr21.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr21.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr21.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chr22.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chr22.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chr22.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chrX.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chrX.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chrX.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chrY.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chrY.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chrY.svsig.gz"
+      ],
+      [
+        "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.chrM.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.chrM.svsig.gz",
+        "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.chrM.svsig.gz"
+      ]
+    ]
+  ],
+
+  "cohort.glnexus.affected_person_gvcfs": [
+    {
+      "datafile": "/projectastro/inputs-process-cohort/inputs/HG002_NA24385_son.hg38.deepvariant.g.vcf.gz",
+      "indexfile": "/projectastro/inputs-process-cohort/inputs/HG002_NA24385_son.hg38.deepvariant.g.vcf.gz.tbi"
+    }
+  ],
+
+  "cohort.glnexus.unaffected_person_gvcfs": [
+    {
+      "datafile": "/projectastro/inputs-process-cohort/inputs/HG003_NA24149_father.hg38.deepvariant.g.vcf.gz",
+      "indexfile": "/projectastro/inputs-process-cohort/inputs/HG003_NA24149_father.hg38.deepvariant.g.vcf.gz.tbi"
+    },
+    {
+      "datafile": "/projectastro/inputs-process-cohort/inputs/HG004_NA24143_mother.hg38.deepvariant.g.vcf.gz",
+      "indexfile": "/projectastro/inputs-process-cohort/inputs/HG004_NA24143_mother.hg38.deepvariant.g.vcf.gz.tbi"
+    }
+  ],
+
+  "cohort.glnexus.affected_person_bams": [
+    [
+      {
+        "name": "m64011_181218_235052",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.bam.bai"
+      },
+      {
+        "name": "m64011_181227_224151",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64011_181227_224151.hg38.bam.bai"
+      },
+      {
+        "name": "m64014_181210_152538",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64014_181210_152538.hg38.bam.bai"
+      },
+      {
+        "name": "m64017_190116_171555",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64017_190116_171555.hg38.bam.bai"
+      },
+      {
+        "name": "m64018_190129_193747",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64018_190129_193747.hg38.bam.bai"
+      },
+      {
+        "name": "m64020_190123_225958",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64020_190123_225958.hg38.bam.bai"
+      }
+    ]
+  ],
+
+  "cohort.glnexus.unaffected_person_bams": [
+    [
+      {
+        "name": "m54262U_191105_163601",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m54262U_191105_163601.hg38.bam.bai"
+      },
+      {
+        "name": "m64017_191109_034853",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64017_191109_034853.hg38.bam.bai"
+      },
+      {
+        "name": "m64017_191110_150028",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64017_191110_150028.hg38.bam.bai"
+      }
+    ],
+    [
+      {
+        "name": "m64017_191107_163840",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64017_191107_163840.hg38.bam.bai"
+      },
+      {
+        "name": "m64017_191112_165230",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64017_191112_165230.hg38.bam.bai"
+      },
+      {
+        "name": "m64017_191113_230503",
+        "datafile": "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.bam",
+        "indexfile": "/projectastro/inputs-process-cohort/inputs/m64017_191113_230503.hg38.bam.bai"
+      }
+    ]
+  ],
+
+  "cohort.affected_person_deepvariant_phased_vcf_gz": [
+    {
+      "datafile": "/projectastro/inputs-process-cohort/inputs/HG002_NA24385_son.hg38.deepvariant.phased.vcf.gz",
+      "indexfile": "/projectastro/inputs-process-cohort/inputs/HG002_NA24385_son.hg38.deepvariant.phased.vcf.gz.tbi"
+    }
+  ],
+
+  "cohort.unaffected_person_deepvariant_phased_vcf_gz": [
+    {
+      "datafile": "/projectastro/inputs-process-cohort/inputs/HG003_NA24149_father.hg38.deepvariant.phased.vcf.gz",
+      "indexfile": "/projectastro/inputs-process-cohort/inputs/HG003_NA24149_father.hg38.deepvariant.phased.vcf.gz.tbi"
+    },
+    {
+      "datafile": "/projectastro/inputs-process-cohort/inputs/HG004_NA24143_mother.hg38.deepvariant.phased.vcf.gz",
+      "indexfile": "/projectastro/inputs-process-cohort/inputs/HG004_NA24143_mother.hg38.deepvariant.phased.vcf.gz.tbi"
+    }
+  ]
+
+}

@@ -1,0 +1,11 @@
+{
+  "WorkflowUrl": "cohort/cohort.wdl",
+  "WorkflowInputsUrls": [
+    "cohort/inputs/AshkenazimTrio/trial.inputs.json",
+    "cohort/inputs/defaultsettings.inputs.json",
+    "cohort/inputs/docker.inputs.json",
+    "cohort/inputs/reference.inputs.json"
+  ],
+  "WorkflowOptionsUrl": null,
+  "WorkflowDependenciesUrl": null
+}

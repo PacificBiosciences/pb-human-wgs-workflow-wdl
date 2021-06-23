@@ -1,6 +1,6 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
+import "../../common/structs.wdl"
 
 task bgzip_vcf {
   input {
@@ -14,7 +14,12 @@ task bgzip_vcf {
     String pb_conda_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * size(vcf_input, "GB")) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate htslib
     echo "$(conda info)"
@@ -36,48 +41,13 @@ task bgzip_vcf {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
-  }
-}
-
-task tabix_vcf {
-  input {
-    String params = "-p vcf"
-    String log_name = "tabix_vcf.log"
-    File vcf_gz_input
-    String vcf_gz_tbi_orig = "~{vcf_gz_input}.tbi"
-    String vcf_gz_output_name = "~{basename(vcf_gz_input)}.tbi"
-
-    Int threads = 4
-    String pb_conda_image
-  }
-
-  command <<<
-    source ~/.bashrc
-    conda activate htslib
-    echo "$(conda info)"
-
-    (tabix ~{params} ~{vcf_gz_input}) > ~{log_name} 2>&1
-    mv ~{vcf_gz_tbi_orig} ~{vcf_gz_output_name}
-  >>>
-  output {
-    File vcf_gz_tbi_output = "~{vcf_gz_output_name}"
-    File log = "~{log_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
-    cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
 workflow common {
   input {
     File vcf_input
-#    Array[BamPair] bam_pairs
     String pb_conda_image
   }
 
@@ -87,23 +57,8 @@ workflow common {
       pb_conda_image = pb_conda_image
   }
 
-#  call tabix_vcf {
-#    input:
-#      vcf_gz_input = bgzip_vcf.vcf_gz_output,
-#      pb_conda_image = pb_conda_image
-#  }
-
-#  call samtools_index_bam {
-#    input:
-#      bam_pairs = bam_pairs,
-#      pb_conda_image = pb_conda_image
-#  }
-
   output {
-#    File samtools_index_bam_outfile = samtools_index_bam.outfile1
-
     IndexedData vcf_gz = bgzip_vcf.vcf_gz_output
-#    File bai_file = samtools_index_bam.bai_file
   }
 
 }

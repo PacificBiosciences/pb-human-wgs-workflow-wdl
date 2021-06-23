@@ -1,0 +1,11 @@
+{
+  "WorkflowUrl": "smrtcells/smrtcells.person.wdl",
+  "WorkflowInputsUrls": [
+    "smrtcells/inputs/AshkenazimTrio/mother/inputs.json",
+    "smrtcells/inputs/defaultsettings.person.inputs.json",
+    "smrtcells/inputs/docker.person.inputs.json",
+    "smrtcells/inputs/reference.person.inputs.json"
+  ],
+  "WorkflowOptionsUrl": null,
+  "WorkflowDependenciesUrl": null
+}

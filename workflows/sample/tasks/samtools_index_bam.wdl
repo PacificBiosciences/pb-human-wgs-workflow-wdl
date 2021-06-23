@@ -1,14 +1,14 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
+import "../../common/structs.wdl"
 
 task samtools_index_bam {
   input {
-    File bam_input
+    File bam_datafile
     Int threads = 4
     String log_name = "samtools_index_bam.log"
     String pb_conda_image
-    String bam_input_name = "~{basename(bam_input)}"
+    String bam_datafile_name = "~{basename(bam_datafile)}"
   }
 
   command <<<
@@ -16,13 +16,11 @@ task samtools_index_bam {
     conda activate samtools
     echo "$(conda info)"
 
-    cp ~{bam_input} ~{bam_input_name}
-    (samtools index -@ 3 ~{bam_input_name}) > ~{log_name} 2>&1
+    cp ~{bam_datafile} ~{bam_datafile_name}
+    (samtools index -@ 3 ~{bam_datafile_name}) > ~{log_name} 2>&1
   >>>
   output {
-    File bam_data = "~{bam_input_name}"
-    File bam_index = "~{bam_input_name}.bai"
-    IndexedData bam_pair = { "datafile": bam_data, "indexfile": bam_index }
+    IndexedData bam = { "datafile":  "~{bam_datafile_name}", "indexfile": "~{bam_datafile_name}.bai" }
 
     File log = "~{log_name}"
   }

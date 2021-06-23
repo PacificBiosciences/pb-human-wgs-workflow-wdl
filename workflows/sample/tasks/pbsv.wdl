@@ -1,15 +1,15 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
+import "../../common/structs.wdl"
 import "./pbsv_discover.wdl" as pbsv_discover
 import "./common.wdl" as common
-import "./separate_data_and_index_files.wdl"
+import "../../common/separate_data_and_index_files.wdl"
 
 task pbsv_call {
   input {
     Int threads = 8
     String region 
-    String extra = "--ccs -m 20 -A 3 -O 3"
+    String extra = "--ccs -m 20 -A 3 -O 3 -P 20"
     String loglevel = "INFO"
     String log_name = "pbsv_call.log"
     Array[File] svsigs
@@ -20,15 +20,21 @@ task pbsv_call {
     String pb_conda_image
   }
 
+#  Float multiplier = 10
+#  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(svsigs, "GB"))) + 20
+  Int disk_size = 200
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate pbsv
     echo "$(conda info)"
 
     (pbsv call ~{extra} \
-      --log-level ~{loglevel} \
-      --num-threads ~{threads} \
-      ~{reference.datafile} ~{sep=" " svsigs} ~{pbsv_vcf_name}) > ~{log_name} 2>&1
+        --log-level ~{loglevel} \
+        --num-threads ~{threads} \
+        ~{reference.datafile} ~{sep=" " svsigs} ~{pbsv_vcf_name}) > ~{log_name} 2>&1
   >>>
   output {
     File pbsv_vcf = "~{pbsv_vcf_name}"
@@ -40,7 +46,7 @@ task pbsv_call {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -56,7 +62,12 @@ task bcftools_concat_pbsv_vcf {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(calls, "GB") + size(indices, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate bcftools
     echo "$(conda info)"
@@ -73,16 +84,17 @@ task bcftools_concat_pbsv_vcf {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
 workflow pbsv {
   input {
-    Array[String] regions
-    SampleInfo sample
+    String sample_name
+    Array[IndexedData] sample
     File tr_bed
     IndexedData reference
+    Array[String] regions
 
     String pb_conda_image
   }
@@ -104,7 +116,7 @@ workflow pbsv {
         region = regions[region_num],
         svsigs = pbsv_discover_by_smartcells_output.discover_svsig_gv[region_num],
         reference = reference,
-        sample_name = sample.name,
+        sample_name = sample_name,
         pb_conda_image = pb_conda_image
     }
   }
@@ -124,7 +136,7 @@ workflow pbsv {
 
   call bcftools_concat_pbsv_vcf {
    input:
-      sample_name = sample.name,
+      sample_name = sample_name,
       reference_name = reference.name,
       calls = separate_data_and_index_files.datafiles,
       indices = separate_data_and_index_files.indexfiles,

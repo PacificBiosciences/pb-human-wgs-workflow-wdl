@@ -1,41 +1,20 @@
 version 1.0
 
-import "./tasks/common.wdl" as common
 import "./tasks/pbsv.wdl" as pbsv
 import "./tasks/glnexus.wdl" as glnexus
 import "./tasks/slivar.wdl" as slivar
-import "./structs/BamPair.wdl"
-
-task md5sum {
-
-  input {
-    String name
-  }
-
-  command {
-    echo 'Hello from ${name}!'
-  }
-  output {
-    File outfile1 = stdout()
-  }
-  runtime {
-    docker: 'ubuntu:18.04'
-    preemptible: true
-  }
-}
+import "../common/structs.wdl"
 
 workflow cohort {
   input {
-    String md5sum_name
-
     String cohort_name
     IndexedData reference
     Array[String] regions
 
-    Array[IndexedData] affected_patient_deepvariant_phased_vcf_gz
-    Array[IndexedData] unaffected_patient_deepvariant_phased_vcf_gz
+    Array[IndexedData] affected_person_deepvariant_phased_vcf_gz
+    Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz
 
-    Int num_samples = length(affected_patient_deepvariant_phased_vcf_gz) + length(unaffected_patient_deepvariant_phased_vcf_gz)
+    Int num_samples = length(affected_person_deepvariant_phased_vcf_gz) + length(unaffected_person_deepvariant_phased_vcf_gz)
     Boolean singleton = if num_samples == 1 then true else false 
 
     String pb_conda_image
@@ -51,15 +30,15 @@ workflow cohort {
   }
 
   if (singleton) {
-      if (length(affected_patient_deepvariant_phased_vcf_gz) == 1) {
-        IndexedData singleton_affected_patient_slivar_input = affected_patient_deepvariant_phased_vcf_gz[0]
+      if (length(affected_person_deepvariant_phased_vcf_gz) == 1) {
+        IndexedData singleton_affected_person_slivar_input = affected_person_deepvariant_phased_vcf_gz[0]
       }
 
-      if (length(unaffected_patient_deepvariant_phased_vcf_gz) == 1) {
-        IndexedData singleton_unaffected_patient_slivar_input = unaffected_patient_deepvariant_phased_vcf_gz[0]
+      if (length(unaffected_person_deepvariant_phased_vcf_gz) == 1) {
+        IndexedData singleton_unaffected_person_slivar_input = unaffected_person_deepvariant_phased_vcf_gz[0]
       }
 
-      IndexedData? singleton_slivar_input = if defined(singleton_affected_patient_slivar_input) then singleton_affected_patient_slivar_input else singleton_unaffected_patient_slivar_input
+      IndexedData? singleton_slivar_input = if defined(singleton_affected_person_slivar_input) then singleton_affected_person_slivar_input else singleton_unaffected_person_slivar_input
   }
 
   if (!singleton) {
@@ -88,8 +67,11 @@ workflow cohort {
       pb_conda_image = pb_conda_image
   }
 
-#  call md5sum {
-#    input:
-#      name = md5sum_name
-#  }
+  output {
+    IndexedData pbsv_vcf    = pbsv.pbsv_vcf
+    IndexedData filt_vcf    = slivar.filt_vcf
+    IndexedData comphet_vcf = slivar.filt_vcf
+    File filt_tsv           = slivar.filt_tsv
+    File comphet_tsv        = slivar.comphet_tsv
+  }
 }

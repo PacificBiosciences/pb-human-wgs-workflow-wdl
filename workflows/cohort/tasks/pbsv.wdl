@@ -2,8 +2,8 @@ version 1.0
 
 import "./common_bgzip_vcf.wdl" as bgzip_vcf
 import "./pbsv_gather_svsigs.wdl"
-import "../structs/BamPair.wdl"
-import "./separate_data_and_index_files.wdl"
+import "../../common/structs.wdl"
+import "../../common/separate_data_and_index_files.wdl"
 
 task pbsv_call {
   input {
@@ -13,9 +13,9 @@ task pbsv_call {
 
     String log_name = "pbsv_call.log"
 
-    Array[File] cohort_affected_patient_svsigs
-    Array[File] cohort_unaffected_patient_svsigs
-    IndexedData reference 
+    Array[File] cohort_affected_person_svsigs
+    Array[File] cohort_unaffected_person_svsigs
+    IndexedData reference
     String cohort_name
     String region
 
@@ -23,7 +23,13 @@ task pbsv_call {
     String pb_conda_image
   }
 
+#  Float multiplier = 3.25
+#  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(cohort_affected_person_svsigs, "GB") + size(cohort_unaffected_person_svsigs, "GB"))) + 20
+  Int disk_size = 200
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate pbsv
     echo "$(conda info)"
@@ -32,7 +38,7 @@ task pbsv_call {
       pbsv call ~{extra} \
         --log-level ~{loglevel} \
         --num-threads ~{threads} \
-        ~{reference.datafile} ~{sep=" " cohort_affected_patient_svsigs}  ~{sep=" " cohort_unaffected_patient_svsigs} ~{pbsv_vcf_name}
+        ~{reference.datafile} ~{sep=" " cohort_affected_person_svsigs}  ~{sep=" " cohort_unaffected_person_svsigs} ~{pbsv_vcf_name}
     ) > ~{log_name} 2>&1
 
   >>>
@@ -46,13 +52,14 @@ task pbsv_call {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
 task bcftools_concat_pbsv_vcf {
   input {
     String log_name = "bcftools_concat_pbsv_vcf.log"
+
     Array[File] calls
     Array[File] indices
 
@@ -64,7 +71,12 @@ task bcftools_concat_pbsv_vcf {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(calls, "GB") + size(indices, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate bcftools
     echo "$(conda info)"
@@ -81,14 +93,14 @@ task bcftools_concat_pbsv_vcf {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
 workflow pbsv {
   input {
-    Array[Array[Array[File]]] affected_patient_svsigs
-    Array[Array[Array[File]]] unaffected_patient_svsigs
+    Array[Array[Array[File]]] affected_person_svsigs
+    Array[Array[Array[File]]] unaffected_person_svsigs
     IndexedData reference
     Array[String] regions
     String cohort_name
@@ -96,17 +108,17 @@ workflow pbsv {
   }
 
   scatter(region_num in range(length(regions))) {
-    call pbsv_gather_svsigs.gather_svsigs_by_region as gather_affected_patient_svsigs {
+    call pbsv_gather_svsigs.gather_svsigs_by_region as gather_affected_person_svsigs {
       input:
-        sample_svsigs = affected_patient_svsigs,
+        sample_svsigs = affected_person_svsigs,
         region_num = region_num
     }
   }
 
   scatter(region_num in range(length(regions))) {
-    call pbsv_gather_svsigs.gather_svsigs_by_region as gather_unaffected_patient_svsigs {
+    call pbsv_gather_svsigs.gather_svsigs_by_region as gather_unaffected_person_svsigs {
       input:
-        sample_svsigs = unaffected_patient_svsigs,
+        sample_svsigs = unaffected_person_svsigs,
         region_num = region_num
     }
   }
@@ -116,8 +128,8 @@ workflow pbsv {
       input:
         cohort_name = cohort_name,
         region = regions[region_num],
-        cohort_affected_patient_svsigs = if defined(gather_affected_patient_svsigs.svsigs) then gather_affected_patient_svsigs.svsigs[region_num] else [],
-        cohort_unaffected_patient_svsigs = if defined(gather_unaffected_patient_svsigs.svsigs) then gather_unaffected_patient_svsigs.svsigs[region_num] else [],
+        cohort_affected_person_svsigs = if defined(gather_affected_person_svsigs.svsigs) then gather_affected_person_svsigs.svsigs[region_num] else [],
+        cohort_unaffected_person_svsigs = if defined(gather_unaffected_person_svsigs.svsigs) then gather_unaffected_person_svsigs.svsigs[region_num] else [],
         reference = reference,
         pb_conda_image = pb_conda_image
     }
@@ -145,8 +157,14 @@ workflow pbsv {
       pb_conda_image = pb_conda_image
   }
 
-  output {
+  call bgzip_vcf.bgzip_vcf as bcftools_concat_pbsv_vcf_bgzip {
+    input :
+      vcf_input = bcftools_concat_pbsv_vcf.pbsv_vcf,
+      pb_conda_image = pb_conda_image
   }
 
+  output {
+    IndexedData pbsv_vcf = bcftools_concat_pbsv_vcf_bgzip.vcf_gz_output
+  }
 }
 

@@ -1,0 +1,11 @@
+{
+  "WorkflowUrl": "sample/sample.trial.wdl",
+  "WorkflowInputsUrls": [
+    "sample/inputs/AshkenazimTrio/trial.inputs.json",
+    "sample/inputs/defaultsettings.trial.inputs.json",
+    "sample/inputs/docker.trial.inputs.json",
+    "sample/inputs/reference.trial.inputs.json"
+  ],
+  "WorkflowOptionsUrl": null,
+  "WorkflowDependenciesUrl": null
+}

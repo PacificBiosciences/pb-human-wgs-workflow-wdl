@@ -11,7 +11,12 @@ task jellyfish_merge {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * size(jellyfish_input, "GB")) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate jellyfish
     echo "$(conda info)"
@@ -26,9 +31,26 @@ task jellyfish_merge {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "14 GB"
+    memory: "100 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
+workflow jellyfish {
+  input {
+    String sample_name
+    Array[File] jellyfish_input
+    String pb_conda_image
+  }
+
+  call jellyfish_merge {
+    input:
+      sample_name = sample_name,
+      jellyfish_input = jellyfish_input,
+      pb_conda_image = pb_conda_image
+  }
+
+  output {
+  }
+}

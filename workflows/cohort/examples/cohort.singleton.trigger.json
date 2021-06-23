@@ -1,9 +1,0 @@
-{
-  "WorkflowUrl": "cohort.wdl",
-  "WorkflowInputsUrls": [
-    "cohort.inputs.json",
-    "AshkenaziSon.inputs.json"
-  ],
-  "WorkflowOptionsUrl": null,
-  "WorkflowDependenciesUrl": null
-}

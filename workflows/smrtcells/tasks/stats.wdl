@@ -1,6 +1,6 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
+import "../../common/structs.wdl"
 
 task stats_ubam_or_fastq {
   input {
@@ -12,7 +12,12 @@ task stats_ubam_or_fastq {
     String pb_conda_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * size(smrtcell_info.path, "GB")) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate smrtcell_stats
     echo "$(conda info)"
@@ -29,7 +34,7 @@ task stats_ubam_or_fastq {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -47,7 +52,12 @@ task summary_stats {
     String pb_conda_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(smrtcell_info.path, "GB") + size(read_length_and_quality, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate smrtcell_stats
     echo "$(conda info)"
@@ -75,7 +85,7 @@ task summary_stats {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 

@@ -1,9 +1,8 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
+import "../../common/structs.wdl"
 import "./common_bgzip_vcf.wdl" as bgzip_vcf
-import "./collect_bams_and_bais.wdl"
-import "./separate_data_and_index_files.wdl"
+import "../../common/separate_data_and_index_files.wdl"
 
 task glnexus_task {
   input {
@@ -12,10 +11,10 @@ task glnexus_task {
     Int threads = 24
     String log_name = "glnexus_task.log"
 
-    Array[File] affected_patient_gvcfs
-    Array[File] affected_patient_gvcfs_index
-    Array[File] unaffected_patient_gvcfs
-    Array[File] unaffected_patient_gvcfs_index
+    Array[File] affected_person_gvcfs
+    Array[File] affected_person_gvcfs_index
+    Array[File] unaffected_person_gvcfs
+    Array[File] unaffected_person_gvcfs_index
 
     String bcf_name = "~{cohort_name}.~{reference_name}.deepvariant.glnexus.bcf"
     String scratch_dir = "./~{cohort_name}.~{reference_name}.GLnexus.DB"
@@ -23,12 +22,16 @@ task glnexus_task {
     String glnexus_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(affected_person_gvcfs, "GB") + size(affected_person_gvcfs_index, "GB") + size(unaffected_person_gvcfs, "GB") + size(unaffected_person_gvcfs_index, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+
     (
-#         rm -rf ~{scratch_dir} && \
         glnexus_cli --threads ~{threads} \
             --dir ~{scratch_dir} \
-            --config DeepVariant_unfiltered ~{sep=" " affected_patient_gvcfs}  ~{sep=" " unaffected_patient_gvcfs} > ~{bcf_name}
+            --config DeepVariant_unfiltered ~{sep=" " affected_person_gvcfs}  ~{sep=" " unaffected_person_gvcfs} > ~{bcf_name}
      )  > ~{log_name} 2>&1
   >>>
   output {
@@ -41,13 +44,14 @@ task glnexus_task {
     maxRetries: 3
     memory: "30 GB"
     cpu: "~{threads}"
-    disk: "600 GB"
+    disk: disk_size + " GB"
   }
 }
 
 task bcftools_bcf2vcf {
   input {
-    String params = "--threads 4 -Oz"
+    Int threads = 4
+    String params = "--threads ~{threads} -Oz"
     String bcftools_log_name = "bcftools_bcf2vcf.log"
     String tabix_log_name = "tabix.log"
     File bcf
@@ -55,10 +59,14 @@ task bcftools_bcf2vcf {
     String vcf_gz_name = sub("~{basename(bcf)}", "bcf", "vcf.gz")
 
     String pb_conda_image
-    Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * size(bcf, "GB")) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate bcftools
     echo "$(conda info)"
@@ -82,7 +90,7 @@ task bcftools_bcf2vcf {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -103,7 +111,12 @@ task split_glnexus_vcf {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(vcf.datafile, "GB") + size(vcf.indexfile, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate htslib
     echo "$(conda info)"
@@ -120,7 +133,7 @@ task split_glnexus_vcf {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -146,7 +159,13 @@ task whatshap_phase {
     Int threads = 4
   }
 
+#  Float multiplier = 3.25
+#  Int disk_size = ceil(multiplier * (size(phaseinput_affected, "GB") + size(phaseinputindex_affected, "GB") + size(phaseinput_unaffected, "GB") + size(phaseinputindex_unaffected, "GB"))) + 20
+  Int disk_size = 500
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate whatshap
     echo "$(conda info)"
@@ -175,9 +194,9 @@ task whatshap_phase {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "14 GB"
+    memory: "50 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -198,7 +217,12 @@ task whatshap_bcftools_concat {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(calls, "GB") + size(indices, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate bcftools
     echo "$(conda info)"
@@ -222,7 +246,7 @@ task whatshap_bcftools_concat {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -243,7 +267,12 @@ task whatshap_stats {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(vcf.datafile, "GB") + size(vcf.indexfile, "GB") + size(chr_lengths, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate whatshap
     echo "$(conda info)"
@@ -267,17 +296,17 @@ task whatshap_stats {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
 workflow glnexus {
   input {
     String cohort_name
-    Array[IndexedData] affected_patient_gvcfs
-    Array[IndexedData] unaffected_patient_gvcfs
-    Array[Array[IndexedData]] affected_patient_bams
-    Array[Array[IndexedData]] unaffected_patient_bams
+    Array[IndexedData] affected_person_gvcfs
+    Array[IndexedData] unaffected_person_gvcfs
+    Array[Array[IndexedData]] affected_person_bams
+    Array[Array[IndexedData]] unaffected_person_bams
     Array[String] regions
     IndexedData reference
     File chr_lengths
@@ -286,24 +315,24 @@ workflow glnexus {
     String glnexus_image
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files as gather_affected_patient_gvcfs {
+  call separate_data_and_index_files.separate_data_and_index_files as gather_affected_person_gvcfs {
     input:
-      indexed_data_array = affected_patient_gvcfs
+      indexed_data_array = affected_person_gvcfs
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files as gather_unaffected_patient_gvcfs {
+  call separate_data_and_index_files.separate_data_and_index_files as gather_unaffected_person_gvcfs {
     input:
-      indexed_data_array = unaffected_patient_gvcfs
+      indexed_data_array = unaffected_person_gvcfs
   }
 
   call glnexus_task {
     input:
       cohort_name = cohort_name,
       reference_name = reference.name,
-      affected_patient_gvcfs = gather_affected_patient_gvcfs.datafiles,
-      affected_patient_gvcfs_index = gather_affected_patient_gvcfs.indexfiles,
-      unaffected_patient_gvcfs = gather_unaffected_patient_gvcfs.datafiles,
-      unaffected_patient_gvcfs_index = gather_unaffected_patient_gvcfs.indexfiles,
+      affected_person_gvcfs = gather_affected_person_gvcfs.datafiles,
+      affected_person_gvcfs_index = gather_affected_person_gvcfs.indexfiles,
+      unaffected_person_gvcfs = gather_unaffected_person_gvcfs.datafiles,
+      unaffected_person_gvcfs_index = gather_unaffected_person_gvcfs.indexfiles,
       glnexus_image = glnexus_image
   }
 
@@ -332,17 +361,17 @@ workflow glnexus {
     }
   }
 
-  scatter (sample_bams in affected_patient_bams) {
-    call separate_data_and_index_files.separate_data_and_index_files as gather_affected_patient_bams_and_bais  {
+  scatter (sample_bams in affected_person_bams) {
+    call separate_data_and_index_files.separate_data_and_index_files as gather_affected_person_bams_and_bais  {
       input:
-        indexed_data_array = sample_bams,
+        indexed_data_array = sample_bams
     }
   }
 
-  scatter (sample_bams in affected_patient_bams) {
-    call separate_data_and_index_files.separate_data_and_index_files as gather_unaffected_patient_bams_and_bais  {
+  scatter (sample_bams in unaffected_person_bams) {
+    call separate_data_and_index_files.separate_data_and_index_files as gather_unaffected_person_bams_and_bais  {
       input:
-        indexed_data_array = sample_bams,
+        indexed_data_array = sample_bams
     }
   }
 
@@ -352,10 +381,10 @@ workflow glnexus {
         cohort_name = cohort_name,
         reference = reference, 
         vcf = bgzip_vcf.vcf_gz_output[region_num], 
-        phaseinput_affected = flatten(gather_affected_patient_bams_and_bais.datafiles), 
-        phaseinputindex_affected = flatten(gather_affected_patient_bams_and_bais.indexfiles),
-        phaseinput_unaffected = flatten(gather_unaffected_patient_bams_and_bais.datafiles), 
-        phaseinputindex_unaffected = flatten(gather_unaffected_patient_bams_and_bais.indexfiles),
+        phaseinput_affected = flatten(gather_affected_person_bams_and_bais.datafiles), 
+        phaseinputindex_affected = flatten(gather_affected_person_bams_and_bais.indexfiles),
+        phaseinput_unaffected = flatten(gather_unaffected_person_bams_and_bais.datafiles), 
+        phaseinputindex_unaffected = flatten(gather_unaffected_person_bams_and_bais.indexfiles),
         chromosome = regions[region_num],
         pb_conda_image = pb_conda_image
     }

@@ -1,14 +1,11 @@
 version 1.0
 
 import "./smrtcells.wdl" as smrtcells
-import "./structs/BamPair.wdl"
+import "../common/structs.wdl"
 
 workflow smrtcells_person {
   input {
-    String md5sum_name
-
     IndexedData reference
-    String reference_name
     SampleInfo sample
     Int kmer_length
 
@@ -18,10 +15,7 @@ workflow smrtcells_person {
   scatter(smrtcell_info in sample.smrtcells) {
     call smrtcells.smrtcells as smrtcells {
       input :
-        md5sum_name = md5sum_name,
-
         reference = reference,
-        reference_name = reference_name,
         sample_name = sample.name,
         smrtcell_info = smrtcell_info,
         kmer_length = kmer_length,
@@ -31,7 +25,7 @@ workflow smrtcells_person {
   }
 
   output {
-    Array[IndexedData] bam_pairs = smrtcells.bam_pair
+    Array[IndexedData] bams     = smrtcells.bam
     Array[File] jellyfish_count = smrtcells.count_jf
   }
 }

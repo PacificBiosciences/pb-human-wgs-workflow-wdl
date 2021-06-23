@@ -2,27 +2,26 @@ version 1.0
 
 import "./tasks/common.wdl" as common
 import "./tasks/pbsv.wdl" as pbsv
-import "./tasks/deepvariant.wdl" as deepvariant
+import "./tasks/deepvariant_round1.wdl" as deepvariant_round1
 import "./tasks/deepvariant_round2.wdl" as deepvariant_round2
-import "./tasks/check_kmer_consistency.wdl" as check_kmer_consistency
 import "./tasks/jellyfish.wdl" as jellyfish
 import "./tasks/mosdepth.wdl" as mosdepth
-import "./tasks/sample_hifiasm.wdl" as sample_hifiasm
-import "./tasks/whatshap.wdl" as whatshap
+import "./tasks/hifiasm.wdl" as hifiasm
+import "./tasks/whatshap_round1.wdl" as whatshap_round1
 import "./tasks/whatshap_round2.wdl" as whatshap_round2
-
+import "../common/structs.wdl"
 
 workflow sample {
   input {
-    String md5sum_name
-
-    SampleInfo sample
+    String sample_name
+    Array[IndexedData] sample
+    Array[File] jellyfish_input
     Array[String] regions
-    File tr_bed
     IndexedData reference
 
+    File tr_bed
     File chr_lengths
-    Array[File] jellyfish_input
+
     File ref_modimers
     File movie_modimers
 
@@ -33,26 +32,29 @@ workflow sample {
 
   call pbsv.pbsv {
     input:
-      regions = regions,
+      sample_name = sample_name,
       sample = sample,
-      tr_bed = tr_bed,
       reference = reference,
+      regions = regions,
+      tr_bed = tr_bed,
 
       pb_conda_image = pb_conda_image
   }
 
-  call deepvariant.deepvariant {
+  call deepvariant_round1.deepvariant_round1 {
     input:
+      sample_name = sample_name,
       sample = sample,
       reference = reference,
       
       deepvariant_image = deepvariant_image
   }
 
- call whatshap.whatshap {
+ call whatshap_round1.whatshap_round1 {
     input:
-      deepvariant_vcf_gz = deepvariant.postprocess_variants_round1_vcf,
+      deepvariant_vcf_gz = deepvariant_round1.postprocess_variants_round1_vcf,
       reference = reference,
+      sample_name = sample_name,
       sample = sample,
       regions = regions,
       pb_conda_image = pb_conda_image
@@ -61,8 +63,8 @@ workflow sample {
   call deepvariant_round2.deepvariant_round2 {
     input:
       reference = reference,
-      sample_name = sample.name,
-      whatshap_bams = whatshap.whatshap_bams,
+      sample_name = sample_name,
+      whatshap_bams = whatshap_round1.whatshap_bams,
       deepvariant_image = deepvariant_image,
       pb_conda_image = pb_conda_image
   }
@@ -71,46 +73,41 @@ workflow sample {
     input:
       deepvariant_vcf_gz = deepvariant_round2.vcf,
       reference = reference,
+      sample_name = sample_name,
       sample = sample,
-      chr_lengths = chr_lengths,
       regions = regions,
+      chr_lengths = chr_lengths,
       pb_conda_image = pb_conda_image,
       picard_image = picard_image
   }
 
   call mosdepth.mosdepth {
     input:
-      sample_name = sample.name,
-      bam_pair = whatshap_round2.deepvariant_haplotagged,
+      sample_name = sample_name,
+      bam = whatshap_round2.deepvariant_haplotagged,
       reference_name = reference.name,
       pb_conda_image = pb_conda_image
   }
 
-  call jellyfish.jellyfish_merge {
+  call jellyfish.jellyfish {
     input:
-      sample_name = sample.name,
+      sample_name = sample_name,
       jellyfish_input = jellyfish_input,
       pb_conda_image = pb_conda_image
   }
 
-#  call check_kmer_consistency.check_kmer_consistency {
-#    input:
-#      ref_modimers = ref_modimers, 
-#      movie_modimers = movie_modimers,
-#      pb_conda_image = pb_conda_image
-#  }
-
-    call sample_hifiasm.sample_hifiasm {
-      input:
-        sample = sample,
-        target = reference,
-        pb_conda_image = pb_conda_image
-    }
+  call hifiasm.hifiasm {
+    input:
+      sample_name = sample_name,
+      sample = sample,
+      target = reference,
+      pb_conda_image = pb_conda_image
+  }
 
   output {
     IndexedData gvcf = deepvariant_round2.gvcf
     Array[Array[File]] svsig_gv = pbsv.svsig_gv
-    IndexedData deepvariant_phased_vcf_gz = whatshap_bcftools_concat_round2.deepvariant_phased_vcf_gz
+    IndexedData deepvariant_phased_vcf_gz = whatshap_round2.deepvariant_phased_vcf_gz
   }
 
 }
