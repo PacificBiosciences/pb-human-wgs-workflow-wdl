@@ -1,7 +1,10 @@
 version 1.0
 
-import "../../common/structs.wdl"
-import "./common_bgzip_vcf.wdl" as bgzip_vcf
+#import "../../common/structs.wdl"
+#import "./common_bgzip_vcf.wdl" as bgzip_vcf
+
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
 
 task reformat_ensembl_gff {
   input {

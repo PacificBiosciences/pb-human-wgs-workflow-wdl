@@ -1,9 +1,14 @@
 version 1.0
 
-import "../../common/structs.wdl"
-import "./common.wdl" as common
-import "./samtools_index_bam.wdl" as samtools_common
-import "../../common/separate_data_and_index_files.wdl"
+#import "../../common/structs.wdl"
+#import "./common.wdl" as common
+#import "./samtools_index_bam.wdl" as samtools_common
+#import "../../common/separate_data_and_index_files.wdl"
+
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/tasks/common.wdl" as common
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/tasks/samtools_index_bam.wdl" as samtools_common
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/separate_data_and_index_files.wdl"
 
 task split_deepvariant_vcf_round1 {
   input {

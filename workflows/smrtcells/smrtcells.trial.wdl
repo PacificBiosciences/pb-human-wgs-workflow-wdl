@@ -1,7 +1,10 @@
 version 1.0
 
-import "./smrtcells.person.wdl" as smrtcells_person
-import "../common/structs.wdl"
+#import "./smrtcells.person.wdl" as smrtcells_person
+#import "../common/structs.wdl"
+
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/smrtcells.person.wdl" as smrtcells_person
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/structs.wdl"
 
 workflow smrtcells_trial {
   input {

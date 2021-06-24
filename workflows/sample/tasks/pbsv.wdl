@@ -1,9 +1,14 @@
 version 1.0
 
-import "../../common/structs.wdl"
-import "./pbsv_discover.wdl" as pbsv_discover
-import "./common.wdl" as common
-import "../../common/separate_data_and_index_files.wdl"
+#import "../../common/structs.wdl"
+#import "./pbsv_discover.wdl" as pbsv_discover
+#import "./common.wdl" as common
+#import "../../common/separate_data_and_index_files.wdl"
+
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/tasks/pbsv_discover.wdl" as pbsv_discover
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/tasks/common.wdl" as common
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/separate_data_and_index_files.wdl"
 
 task pbsv_call {
   input {

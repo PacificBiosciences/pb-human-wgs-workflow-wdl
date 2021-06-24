@@ -1,6 +1,8 @@
 version 1.0
 
-import "../../common/structs.wdl"
+#import "../../common/structs.wdl"
+
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/structs.wdl"
 
 task align_ubam_or_fastq {
   input {
