@@ -11,7 +11,7 @@ version 1.0
 #import "./tasks/whatshap_round2.wdl" as whatshap_round2
 #import "../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/common.wdl" as common
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/tasks/common.wdl" as common
 import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/tasks/pbsv.wdl" as pbsv
 import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/tasks/deepvariant_round1.wdl" as deepvariant_round1
 import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/tasks/deepvariant_round2.wdl" as deepvariant_round2
