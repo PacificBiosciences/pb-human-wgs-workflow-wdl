@@ -11,8 +11,9 @@ task jellyfish_merge {
     Int threads = 4
   }
 
-  Float multiplier = 3.25
-  Int disk_size = ceil(multiplier * size(jellyfish_input, "GB")) + 20
+#  Float multiplier = 3.25
+#  Int disk_size = ceil(multiplier * size(jellyfish_input, "GB")) + 20
+  Int disk_size = 500
 
   command <<<
     echo requested disk_size =  ~{disk_size}
