@@ -1,9 +1,9 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/cohort/tasks/pbsv.wdl" as pbsv
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/cohort/tasks/glnexus.wdl" as glnexus
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/cohort/tasks/slivar.wdl" as slivar
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/cohort/tasks/pbsv.wdl" as pbsv
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/cohort/tasks/glnexus.wdl" as glnexus
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/cohort/tasks/slivar.wdl" as slivar
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/structs.wdl"
 
 workflow cohort {
   input {
