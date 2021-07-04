@@ -1,0 +1,19 @@
+{
+  "trial.reference": {
+    "name": "hg38",
+    "datafile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta",
+    "indexfile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
+  },
+  "trial.tr_bed": "/projectastro/inputs-process-sample/human_GRCh38_no_alt_analysis_set.trf.bed",
+  "trial.slivar.gnomad_af": "/datasetpbhumanwgs/dataset/gnomad/gnomad.hg38.v3.custom.zip",
+  "trial.slivar.js": "https://raw.githubusercontent.com/brentp/slivar/master/js/slivar-functions.js",
+  "trial.slivar.clinvar_lookup": "ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/gene_condition_source_id",
+  "trial.slivar.lof_lookup": "https://storage.googleapis.com/gnomad-public/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_gene.txt.bgz",
+  "trial.slivar.gff": "ftp://ftp.ensembl.org//pub/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz",
+
+  "trial.slivar.hpoterms": "/datasetpbhumanwgs/dataset/hpo/hpoTerms.txt",
+  "trial.slivar.hpodag": "/datasetpbhumanwgs/dataset/hpo/hpoDag.txt",
+  "trial.slivar.hpoannotations": "/datasetpbhumanwgs/dataset/hpo/ensembl.hpoPhenotype.tsv",
+  "trial.slivar.ensembl_to_hgnc": "/datasetpbhumanwgs/dataset/hpo/ensembl.hgncSymbol.tsv",
+  "trial.slivar.hprc_af": "/datasetpbhumanwgs/dataset/hprc/hprc.deepvariant.glnexus.hg38.v1-20201012.zip"
+}

@@ -1,0 +1,8 @@
+{
+  "smrtcells_sample_trial.reference": {
+    "name": "hg38",
+    "datafile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta",
+    "indexfile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
+  },
+  "smrtcells_sample_trial.tr_bed": "/projectastro/inputs-process-sample/human_GRCh38_no_alt_analysis_set.trf.bed"
+}

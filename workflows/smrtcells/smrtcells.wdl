@@ -64,8 +64,8 @@ workflow smrtcells {
   }
 
   output {
-    IndexedData bam = align_ubam_or_fastq.bam
-    File count_jf   = jellyfish.count_jf
+    IndexedData bam    = align_ubam_or_fastq.bam
+    File count_jf      = jellyfish.count_jf
   }
 
 }
