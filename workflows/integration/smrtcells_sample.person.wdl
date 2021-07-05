@@ -26,8 +26,7 @@ workflow smrtcells_sample_person {
   call smrtcells.person.smrtcells_person  {
     input :
       reference = reference,
-      sample_name = sample.name,
-      smrtcell_info = smrtcell_info,
+      sample = sample,
       kmer_length = kmer_length,
 
       pb_conda_image = pb_conda_image
@@ -37,12 +36,12 @@ workflow smrtcells_sample_person {
     input:
       sample_name = sample.name,
       sample = smrtcells_person.bams,
-      jellyfish_input = smrtcells.count_jf,
+      jellyfish_input = smrtcells_person.count_jf,
       regions = regions,
       reference = reference,
 
       tr_bed = tr_bed,
-      chr_lengths = ch_length,
+      chr_lengths = chr_lengths,
 
       pb_conda_image = pb_conda_image,
       deepvariant_image = deepvariant_image,
