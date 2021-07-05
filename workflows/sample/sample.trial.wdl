@@ -3,8 +3,8 @@ version 1.0
 #import "./sample.wdl"
 #import "../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/sample/sample.wdl"
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/sample/sample.wdl"
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/common/structs.wdl"
 
 workflow sample_trial {
   input {
@@ -20,9 +20,6 @@ workflow sample_trial {
 
     File tr_bed
     File chr_lengths
-
-    File ref_modimers
-    File movie_modimers
 
     String pb_conda_image
     String deepvariant_image
@@ -42,9 +39,6 @@ workflow sample_trial {
         tr_bed = tr_bed,
         chr_lengths = chr_lengths,
 
-        ref_modimers = ref_modimers,
-        movie_modimers = movie_modimers,
-
         pb_conda_image = pb_conda_image,
         deepvariant_image = deepvariant_image,
         picard_image = picard_image
@@ -63,9 +57,6 @@ workflow sample_trial {
 
         tr_bed = tr_bed,
         chr_lengths = chr_lengths,
-
-        ref_modimers = ref_modimers,
-        movie_modimers = movie_modimers,
 
         pb_conda_image = pb_conda_image,
         deepvariant_image = deepvariant_image,

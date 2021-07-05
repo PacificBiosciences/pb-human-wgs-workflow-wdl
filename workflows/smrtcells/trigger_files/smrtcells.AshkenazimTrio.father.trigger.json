@@ -1,10 +1,10 @@
 {
-  "WorkflowUrl": "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/smrtcells.person.wdl",
+  "WorkflowUrl": "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/smrtcells.person.wdl",
   "WorkflowInputsUrls": [
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/inputs/AshkenazimTrio/father/inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/inputs/defaultsettings.person.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/inputs/docker.person.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/inputs/reference.person.inputs.json"
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/AshkenazimTrio/father/inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/defaultsettings.person.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/docker.person.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/reference.person.inputs.json"
   ],
   "WorkflowOptionsUrl": null,
   "WorkflowDependenciesUrl": null

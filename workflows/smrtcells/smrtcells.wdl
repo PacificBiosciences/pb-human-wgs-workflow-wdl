@@ -7,12 +7,12 @@ version 1.0
 #import "./tasks/jellyfish.wdl" as jellyfish
 #import "../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/tasks/pbmm2.wdl" as pbmm2
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/tasks/mosdepth.wdl" as mosdepth
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/tasks/stats.wdl" as stats
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/tasks/coverage_qc.wdl" as coverage_qc
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/smrtcells/tasks/jellyfish.wdl" as jellyfish
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/tasks/pbmm2.wdl" as pbmm2
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/tasks/mosdepth.wdl" as mosdepth
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/tasks/stats.wdl" as stats
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/tasks/coverage_qc.wdl" as coverage_qc
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/tasks/jellyfish.wdl" as jellyfish
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/common/structs.wdl"
 
 workflow smrtcells {
   input {

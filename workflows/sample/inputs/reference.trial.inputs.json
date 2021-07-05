@@ -4,8 +4,5 @@
     "name": "hg38",
     "datafile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta",
     "indexfile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
-  },
-
-  "sample_trial.ref_modimers": "/cromwell-executions/smrtcells/958d2edb-2e1d-4baa-8d51-04faf1498c1e/call-align_ubam_or_fastq/execution/rc",
-  "sample_trial.movie_modimers": "/cromwell-executions/smrtcells/958d2edb-2e1d-4baa-8d51-04faf1498c1e/call-align_ubam_or_fastq/execution/rc"
+  }
 } 

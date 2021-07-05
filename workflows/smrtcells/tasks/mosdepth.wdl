@@ -2,7 +2,7 @@ version 1.0
 
 #import "../../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/common/structs.wdl"
 
 task mosdepth {
   input {
