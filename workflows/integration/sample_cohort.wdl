@@ -56,7 +56,7 @@ workflow sample_cohort {
       reference = reference,
 
       affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
-      unaffected_person_deepvariant_phased_vcf_gz = = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
+      unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
 
       pb_conda_image = pb_conda_image,
       glnexus_image = glnexus_image
