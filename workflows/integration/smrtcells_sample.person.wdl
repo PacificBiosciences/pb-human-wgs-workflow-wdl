@@ -36,7 +36,7 @@ workflow smrtcells_sample_person {
     input:
       sample_name = sample.name,
       sample = smrtcells_person.bams,
-      jellyfish_input = smrtcells_person.count_jf,
+      jellyfish_input = smrtcells_person.jellyfish_count,
       regions = regions,
       reference = reference,
 
@@ -49,8 +49,8 @@ workflow smrtcells_sample_person {
   }
 
   output {
-    Array[IndexedData] bams     = smrtcells_person.bam
-    Array[File] jellyfish_count = smrtcells_person.count_jf
+    Array[IndexedData] bams     = smrtcells_person.bams
+    Array[File] jellyfish_count = smrtcells_person.jellyfish_count
 
     IndexedData gvcf = sample.gvcf
     Array[Array[File]] svsig_gv = sample.svsig_gv
