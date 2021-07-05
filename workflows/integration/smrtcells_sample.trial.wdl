@@ -23,7 +23,7 @@ workflow smrtcells_sample_trial {
     String picard_image
   }
 
-  call smrtcells_trial.smrtcells_trial {
+  call smrtcells.trial.smrtcells_trial {
     input:
       reference = reference,
       cohort = cohort,
