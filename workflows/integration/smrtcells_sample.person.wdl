@@ -23,7 +23,7 @@ workflow smrtcells_sample_person {
     String picard_image
   }
 
-  call smrtcells_person.smrtcells_person  {
+  call smrtcells.person.smrtcells_person  {
     input :
       reference = reference,
       sample_name = sample.name,
