@@ -53,11 +53,9 @@ workflow smrtcells_sample_trial {
   }
 
   output {
-    Array[String] affected_person_sample_names            = smrtcells_trial.affected_person_sample_names
     Array[Array[IndexedData]] affected_person_bams        = smrtcells_trial.affected_person_bams
     Array[Array[File]] affected_person_jellyfish_count    = smrtcells_trial.affected_person_jellyfish_count
 
-    Array[String] unaffected_person_sample_names          = smrtcells_trial.unaffected_person_sample_names
     Array[Array[IndexedData]] unaffected_person_bams      = smrtcells_trial.unaffected_person_bams
     Array[Array[File]] unaffected_person_jellyfish_count  = smrtcells_trial.unaffected_person_jellyfish_count
 
