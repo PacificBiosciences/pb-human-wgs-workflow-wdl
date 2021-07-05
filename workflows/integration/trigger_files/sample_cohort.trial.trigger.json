@@ -1,0 +1,11 @@
+{
+  "WorkflowUrl": "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/sample_cohort.wdl",
+  "WorkflowInputsUrls": [
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/inputs/AshkenazimTrio/sample_cohort.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/inputs/defaultsettings.sample_cohort.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/inputs/docker.sample_cohort.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/inputs/reference.sample_cohort.inputs.json"
+  ],
+  "WorkflowOptionsUrl": null,
+  "WorkflowDependenciesUrl": null
+}
