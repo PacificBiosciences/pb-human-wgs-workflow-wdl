@@ -1,5 +1,10 @@
 version 1.0
 
+#import "./tasks/pbsv.wdl" as pbsv
+#import "./tasks/glnexus.wdl" as glnexus
+#import "./tasks/slivar.wdl" as slivar
+#import "../common/structs.wdl"
+
 import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/cohort/tasks/pbsv.wdl" as pbsv
 import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/cohort/tasks/glnexus.wdl" as glnexus
 import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/cohort/tasks/slivar.wdl" as slivar

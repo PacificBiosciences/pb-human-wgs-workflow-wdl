@@ -1,5 +1,4 @@
 version 1.0
-version 1.0
 
 #import "./common_bgzip_vcf.wdl" as bgzip_vcf
 #import "./pbsv_gather_svsigs.wdl"
