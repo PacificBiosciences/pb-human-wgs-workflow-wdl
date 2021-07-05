@@ -27,6 +27,7 @@ workflow sample_cohort {
     String pb_conda_image
     String deepvariant_image
     String picard_image
+    String glnexus_image
   }
 
   call sample.trial.sample_trial {
