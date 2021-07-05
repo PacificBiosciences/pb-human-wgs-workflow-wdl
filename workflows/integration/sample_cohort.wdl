@@ -29,7 +29,7 @@ workflow sample_cohort {
     String picard_image
   }
 
-  call sample_trial.sample_trial {
+  call sample.trial.sample_trial {
     input:
       affected_person_sample_names = affected_person_sample_names,
       affected_person_sample = affected_person_sample,
