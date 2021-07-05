@@ -66,4 +66,5 @@ workflow smrtcells_sample_trial {
     Array[IndexedData] unaffected_person_gvcf                      = sample_trial.unaffected_person_gvcf
     Array[Array[Array[File]]] unaffected_person_svsig_gv           = sample_trial.unaffected_person_svsig_gv
     Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz
+  }
 }
