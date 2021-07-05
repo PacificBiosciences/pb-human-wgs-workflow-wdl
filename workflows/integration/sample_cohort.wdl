@@ -50,15 +50,16 @@ workflow sample_cohort {
   }
 
   call cohort.cohort {
-    cohort_name = cohort_name,
-    regions = regions,
-    reference = reference,
+    input:
+      cohort_name = cohort_name,
+      regions = regions,
+      reference = reference,
 
-    affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
-    unaffected_person_deepvariant_phased_vcf_gz = = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
+      affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
+      unaffected_person_deepvariant_phased_vcf_gz = = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
 
-    pb_conda_image = pb_conda_image,
-    glnexus_image = glnexus_image
+      pb_conda_image = pb_conda_image,
+      glnexus_image = glnexus_image
   }
 
   output {
