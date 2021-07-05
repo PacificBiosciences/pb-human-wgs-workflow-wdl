@@ -32,7 +32,7 @@ workflow smrtcells_sample_trial {
       pb_conda_image = pb_conda_image
   }
 
-  call sample_trial.sample_trial {
+  call sample.trial.sample_trial {
     input:
     affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
     affected_person_sample            = smrtcells_trial.affected_person_bams,
