@@ -106,25 +106,24 @@ workflow trial {
   }
 
   output {
-    Array[String] affected_person_sample_names                     = smrtcells_sample_trial.affected_person_sample_names
-    Array[Array[IndexedData]] affected_person_bams                 = smrtcells_sample_trial.affected_person_bams
-    Array[Array[File]] affected_person_jellyfish_count             = smrtcells_sample_trial.affected_person_jellyfish_count
+    Array[Array[IndexedData]] affected_person_bams        = smrtcells_trial.affected_person_bams
+    Array[Array[File]] affected_person_jellyfish_count    = smrtcells_trial.affected_person_jellyfish_count
 
-    Array[String] unaffected_person_sample_names                   = smrtcells_sample_trial.unaffected_person_sample_names
-    Array[Array[IndexedData]] unaffected_person_bams               = smrtcells_sample_trial.unaffected_person_bams
-    Array[Array[File]] unaffected_person_jellyfish_count           = smrtcells_sample_trial.unaffected_person_jellyfish_count
+    Array[Array[IndexedData]] unaffected_person_bams      = smrtcells_trial.unaffected_person_bams
+    Array[Array[File]] unaffected_person_jellyfish_count  = smrtcells_trial.unaffected_person_jellyfish_count
 
-    Array[IndexedData] affected_person_gvcf                        = smrtcells_sample_trial.affected_person_gvcf
-    Array[Array[Array[File]]] affected_person_svsig_gv             = smrtcells_sample_trial.affected_person_svsig_gv
-    Array[IndexedData] affected_person_deepvariant_phased_vcf_gz   = smrtcells_sample_trial.affected_person_deepvariant_phased_vcf_gz
+    Array[IndexedData] affected_person_gvcf                        = sample_trial.affected_person_gvcf
+    Array[Array[Array[File]]] affected_person_svsig_gv             = sample_trial.affected_person_svsig_gv
+    Array[IndexedData] affected_person_deepvariant_phased_vcf_gz   = sample_trial.affected_person_deepvariant_phased_vcf_gz
 
-    Array[IndexedData] unaffected_person_gvcf                      = smrtcells_sample_trial.unaffected_person_gvcf
-    Array[Array[Array[File]]] unaffected_person_svsig_gv           = smrtcells_sample_trial.unaffected_person_svsig_gv
-    Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = smrtcells_sample_trial.unaffected_person_deepvariant_phased_vcf_gz
+    Array[IndexedData] unaffected_person_gvcf                      = sample_trial.unaffected_person_gvcf
+    Array[Array[Array[File]]] unaffected_person_svsig_gv           = sample_trial.unaffected_person_svsig_gv
+    Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz
 
     IndexedData pbsv_vcf    = cohort.pbsv_vcf
     IndexedData filt_vcf    = cohort.filt_vcf
     IndexedData comphet_vcf = cohort.filt_vcf
     File filt_tsv           = cohort.filt_tsv
     File comphet_tsv        = cohort.comphet_tsv
+  }
 }
