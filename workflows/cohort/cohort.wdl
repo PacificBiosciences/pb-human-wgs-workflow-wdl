@@ -122,7 +122,7 @@ workflow cohort {
   output {
     IndexedData pbsv_vcf    = pbsv.pbsv_vcf
     IndexedData filt_vcf    = slivar.filt_vcf
-    IndexedData comphet_vcf = slivar.filt_vcf
+    IndexedData comphet_vcf = slivar.comphet_vcf
     File filt_tsv           = slivar.filt_tsv
     File comphet_tsv        = slivar.comphet_tsv
   }

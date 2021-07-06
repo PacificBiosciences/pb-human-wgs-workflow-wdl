@@ -109,7 +109,7 @@ workflow sample_cohort {
 
     IndexedData pbsv_vcf    = cohort.pbsv_vcf
     IndexedData filt_vcf    = cohort.filt_vcf
-    IndexedData comphet_vcf = cohort.filt_vcf
+    IndexedData comphet_vcf = cohort.comphet_vcf
     File filt_tsv           = cohort.filt_tsv
     File comphet_tsv        = cohort.comphet_tsv
   }
