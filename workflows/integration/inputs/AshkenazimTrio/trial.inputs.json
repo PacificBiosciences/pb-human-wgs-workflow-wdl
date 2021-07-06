@@ -2,7 +2,7 @@
   "trial.cohort_name": "AshkenazimTrio",
   "trial.allyaml": "/projectastro/inputs-process-cohort/AshkenazimTrio.yaml",
   "trial.ped": "/projectastro/inputs-process-cohort/AshkenazimTrio.ped",
-  "trial.cohort": {
+  "trial.cohort_info": {
     "affected_persons": [
       {
         "name": "HG002_NA24385_son",
