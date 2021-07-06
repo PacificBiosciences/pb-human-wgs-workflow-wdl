@@ -1,4 +1,7 @@
 {
+  "sample_cohort.cohort_name": "AshkenazimTrio",
+  "sample_cohort.allyaml": "/projectastro/inputs-process-cohort/AshkenazimTrio.yaml",
+  "sample_cohort.ped": "/projectastro/inputs-process-cohort/AshkenazimTrio.ped",
   "sample_cohort.affected_person_sample_names": [
     "HG002_NA24385_son"
   ],
