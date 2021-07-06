@@ -111,7 +111,7 @@ workflow cohort {
       lof_lookup = lof_lookup,
       clinvar_lookup = clinvar_lookup,
       gnomad_af = gnomad_af,
-      hprc_af = hprc_af
+      hprc_af = hprc_af,
       allyaml = allyaml,
       ped = ped,
 
