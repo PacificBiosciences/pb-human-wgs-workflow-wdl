@@ -91,7 +91,7 @@ workflow sample_cohort {
       unaffected_person_svsigs = sample_trial.unaffected_person_svsig_gv,
 
       affected_person_bams = affected_person_sample,
-      unaffected_person_bams = unaffected_person_sample
+      unaffected_person_bams = unaffected_person_sample,
       affected_person_gvcfs = sample_trial.affected_person_gvcf,
       unaffected_person_gvcfs sample_trial.unaffected_person_gvcf,
 
