@@ -68,11 +68,10 @@ workflow sample_cohort {
       cohort_name = cohort_name,
       regions = regions,
       reference = reference,
+      chr_lengths = chr_lengths, 
 
       affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
       unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
-
-      chr_lengths = chr_lengths, 
       
       hpoannotations = hpoannotations,
       hpoterms = hpoterms,

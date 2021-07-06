@@ -1,4 +1,7 @@
 {
+  "trial.cohort_name": "AshkenazimTrio",
+  "trial.allyaml": "/projectastro/inputs-process-cohort/AshkenazimTrio.yaml",
+  "trial.ped": "/projectastro/inputs-process-cohort/AshkenazimTrio.ped",
   "trial.cohort": {
     "affected_persons": [
       {
