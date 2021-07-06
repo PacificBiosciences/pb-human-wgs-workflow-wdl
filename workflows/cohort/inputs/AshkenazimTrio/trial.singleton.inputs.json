@@ -1,9 +1,9 @@
 {
   "cohort.cohort_name": "AshkenaziSon",
 
-  "cohort.slivar.allyaml": "/projectastro/inputs-process-cohort/AshkenaziSon.yaml",
-  "cohort.slivar.ped": "/projectastro/inputs-process-cohort/AshkenaziSon.ped",
-  "cohort.pbsv.affected_person_svsigs": [
+  "cohort.allyaml": "/projectastro/inputs-process-cohort/AshkenaziSon.yaml",
+  "cohort.ped": "/projectastro/inputs-process-cohort/AshkenaziSon.ped",
+  "cohort.affected_person_svsigs": [
     [
       [
         "/projectastro/inputs-process-cohort/inputs/m64011_181218_235052.hg38.chr1.svsig.gz",
@@ -208,20 +208,20 @@
     ]
   ],
 
-  "cohort.pbsv.unaffected_person_svsigs": [
+  "cohort.unaffected_person_svsigs": [
   ],
 
-  "cohort.glnexus.affected_person_gvcfs": [
+  "cohort.affected_person_gvcfs": [
     {
       "datafile": "/projectastro/inputs-process-cohort/inputs/HG002_NA24385_son.hg38.deepvariant.g.vcf.gz",
       "indexfile": "/projectastro/inputs-process-cohort/inputs/HG002_NA24385_son.hg38.deepvariant.g.vcf.gz.tbi"
     }
   ],
 
-  "cohort.glnexus.unaffected_person_gvcfs": [
+  "cohort.unaffected_person_gvcfs": [
   ],
 
-  "cohort.glnexus.affected_person_bams": [
+  "cohort.affected_person_bams": [
     [
       {
         "name": "m64011_181218_235052",
@@ -256,7 +256,7 @@
     ]
   ],
 
-  "cohort.glnexus.unaffected_person_bams": [
+  "cohort.unaffected_person_bams": [
   ],
 
   "cohort.affected_person_deepvariant_phased_vcf_gz": [

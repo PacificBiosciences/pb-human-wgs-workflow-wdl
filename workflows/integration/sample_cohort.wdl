@@ -24,6 +24,19 @@ workflow sample_cohort {
     File tr_bed
     File chr_lengths
 
+    File hpoannotations
+    File hpoterms
+    File hpodag
+    File gff
+    File ensembl_to_hgnc
+    File js
+    File lof_lookup
+    File gnomad_af
+    File hprc_af
+    File allyaml
+    File ped
+    File clinvar_lookup
+
     String pb_conda_image
     String deepvariant_image
     String picard_image
@@ -58,6 +71,29 @@ workflow sample_cohort {
 
       affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
       unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
+
+      chr_lengths = chr_lengths, 
+      
+      hpoannotations = hpoannotations,
+      hpoterms = hpoterms,
+      hpodag = hpodag,
+      gff = gff,
+      ensembl_to_hgnc = ensembl_to_hgnc,
+      js = js,
+      lof_lookup = lof_lookup,
+      clinvar_lookup = clinvar_lookup,
+      gnomad_af = gnomad_af,
+      hprc_af = hprc_af,
+      allyaml = allyaml,
+      ped = ped,
+
+      affected_person_svsigs = sample_trial.affected_person_svsig_gv,
+      unaffected_person_svsigs = sample_trial.unaffected_person_svsig_gv,
+
+      affected_person_bams = affected_person_sample,
+      unaffected_person_bams = unaffected_person_sample
+      affected_person_gvcfs = sample_trial.affected_person_gvcf,
+      unaffected_person_gvcfs sample_trial.unaffected_person_gvcf,
 
       pb_conda_image = pb_conda_image,
       glnexus_image = glnexus_image

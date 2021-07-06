@@ -22,6 +22,31 @@ workflow cohort {
     Int num_samples = length(affected_person_deepvariant_phased_vcf_gz) + length(unaffected_person_deepvariant_phased_vcf_gz)
     Boolean singleton = if num_samples == 1 then true else false 
 
+    #slivar
+    File hpoannotations
+    File hpoterms
+    File hpodag
+    File gff
+    File ensembl_to_hgnc
+    File js
+    File lof_lookup
+    File gnomad_af
+    File hprc_af
+    File allyaml
+    File ped
+    File clinvar_lookup
+
+    #pbsv
+    Array[Array[Array[File]]] affected_person_svsigs
+    Array[Array[Array[File]]] unaffected_person_svsigs
+
+    #glnexus
+    File chr_lengths
+    Array[Array[IndexedData]] affected_person_bams
+    Array[Array[IndexedData]] unaffected_person_bams
+    Array[IndexedData] affected_person_gvcfs
+    Array[IndexedData] unaffected_person_gvcfs
+    
     String pb_conda_image
     String glnexus_image
   }
@@ -31,6 +56,8 @@ workflow cohort {
       cohort_name = cohort_name,
       reference = reference,
       regions = regions,
+      affected_person_svsigs = affected_person_svsigs,
+      unaffected_person_svsigs = unaffected_person_svsigs,
       pb_conda_image = pb_conda_image
   }
 
@@ -53,6 +80,12 @@ workflow cohort {
         regions = regions,
         reference = reference,
 
+        chr_lengths = chr_lengths,
+        affected_person_bams = affected_person_bams,
+        unaffected_person_bams = unaffected_person_bams,
+        affected_person_gvcfs = affected_person_gvcfs,
+        unaffected_person_gvcfs = unaffected_person_gvcfs,
+
         pb_conda_image = pb_conda_image,
         glnexus_image = glnexus_image
     }
@@ -68,6 +101,20 @@ workflow cohort {
       singleton = singleton,
 
       slivar_input = if singleton then singleton_slivar_input else non_singleton_slivar_input,
+
+      hpoannotations = hpoannotations,
+      hpoterms = hpoterms,
+      hpodag = hpodag,
+      gff = gff,
+      ensembl_to_hgnc = ensembl_to_hgnc,
+      js = js,
+      lof_lookup = lof_lookup,
+      clinvar_lookup = clinvar_lookup,
+      gnomad_af = gnomad_af,
+      hprc_af = hprc_af
+      allyaml = allyaml,
+      ped = ped,
+
 
       pb_conda_image = pb_conda_image
   }

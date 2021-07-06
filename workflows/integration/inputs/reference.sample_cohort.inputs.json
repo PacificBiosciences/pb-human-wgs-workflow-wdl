@@ -5,15 +5,15 @@
     "indexfile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
   },
   "sample_cohort.tr_bed": "/projectastro/inputs-process-sample/human_GRCh38_no_alt_analysis_set.trf.bed",
-  "sample_cohort.slivar.gnomad_af": "/datasetpbhumanwgs/dataset/gnomad/gnomad.hg38.v3.custom.zip",
-  "sample_cohort.slivar.js": "https://raw.githubusercontent.com/brentp/slivar/master/js/slivar-functions.js",
-  "sample_cohort.slivar.clinvar_lookup": "ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/gene_condition_source_id",
-  "sample_cohort.slivar.lof_lookup": "https://storage.googleapis.com/gnomad-public/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_gene.txt.bgz",
-  "sample_cohort.slivar.gff": "ftp://ftp.ensembl.org//pub/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz",
+  "sample_cohort.gnomad_af": "/datasetpbhumanwgs/dataset/gnomad/gnomad.hg38.v3.custom.zip",
+  "sample_cohort.js": "https://raw.githubusercontent.com/brentp/slivar/master/js/slivar-functions.js",
+  "sample_cohort.clinvar_lookup": "ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/gene_condition_source_id",
+  "sample_cohort.lof_lookup": "https://storage.googleapis.com/gnomad-public/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_gene.txt.bgz",
+  "sample_cohort.gff": "ftp://ftp.ensembl.org//pub/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz",
 
-  "sample_cohort.slivar.hpoterms": "/datasetpbhumanwgs/dataset/hpo/hpoTerms.txt",
-  "sample_cohort.slivar.hpodag": "/datasetpbhumanwgs/dataset/hpo/hpoDag.txt",
-  "sample_cohort.slivar.hpoannotations": "/datasetpbhumanwgs/dataset/hpo/ensembl.hpoPhenotype.tsv",
-  "sample_cohort.slivar.ensembl_to_hgnc": "/datasetpbhumanwgs/dataset/hpo/ensembl.hgncSymbol.tsv",
-  "sample_cohort.slivar.hprc_af": "/datasetpbhumanwgs/dataset/hprc/hprc.deepvariant.glnexus.hg38.v1-20201012.zip"
+  "sample_cohort.hpoterms": "/datasetpbhumanwgs/dataset/hpo/hpoTerms.txt",
+  "sample_cohort.hpodag": "/datasetpbhumanwgs/dataset/hpo/hpoDag.txt",
+  "sample_cohort.hpoannotations": "/datasetpbhumanwgs/dataset/hpo/ensembl.hpoPhenotype.tsv",
+  "sample_cohort.ensembl_to_hgnc": "/datasetpbhumanwgs/dataset/hpo/ensembl.hgncSymbol.tsv",
+  "sample_cohort.hprc_af": "/datasetpbhumanwgs/dataset/hprc/hprc.deepvariant.glnexus.hg38.v1-20201012.zip"
 }
