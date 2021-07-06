@@ -1,7 +1,7 @@
 version 1.0
 
-import "../smrtcells/smrtcells.trial.wdl"
-import "../sample/sample.trial.wdl"
+#import "../smrtcells/smrtcells.trial.wdl"
+#import "../sample/sample.trial.wdl"
 #import "../cohort/cohort.wdl"
 #import "../common/structs.wdl"
 
