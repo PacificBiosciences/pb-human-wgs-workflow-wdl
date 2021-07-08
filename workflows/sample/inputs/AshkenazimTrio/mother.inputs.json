@@ -3,24 +3,24 @@
   "sample.sample": [
     {
       "name": "m64017_191107_163840",
-      "datafile": "/projectastro/inputs-process-sample/inputs/HG004_NA24143_mother/m64017_191107_163840.hg38.bam",
-      "indexfile": "/projectastro/inputs-process-sample/inputs/HG004_NA24143_mother/m64017_191107_163840.hg38.bam.bai"
+      "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG004_NA24143_mother/m64017_191107_163840.hg38.bam",
+      "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG004_NA24143_mother/m64017_191107_163840.hg38.bam.bai"
     },
     {
       "name": "m64017_191112_165230",
-      "datafile": "/projectastro/inputs-process-sample/inputs/HG004_NA24143_mother/m64017_191112_165230.hg38.bam",
-      "indexfile": "/projectastro/inputs-process-sample/inputs/HG004_NA24143_mother/m64017_191112_165230.hg38.bam.bai"
+      "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG004_NA24143_mother/m64017_191112_165230.hg38.bam",
+      "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG004_NA24143_mother/m64017_191112_165230.hg38.bam.bai"
     },
     {
       "name": "m64017_191113_230503",
-      "datafile": "/projectastro/inputs-process-sample/inputs/HG004_NA24143_mother/m64017_191113_230503.hg38.bam",
-      "indexfile": "/projectastro/inputs-process-sample/inputs/HG004_NA24143_mother/m64017_191113_230503.hg38.bam.bai"
+      "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG004_NA24143_mother/m64017_191113_230503.hg38.bam",
+      "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG004_NA24143_mother/m64017_191113_230503.hg38.bam.bai"
     }
   ],
 
   "sample.jellyfish_input": [
-    "/projectastro/inputs-process-sample/inputs/HG004_NA24143_mother/m64017_191107_163840.count.jf",
-    "/projectastro/inputs-process-sample/inputs/HG004_NA24143_mother/m64017_191112_165230.count.jf",
-    "/projectastro/inputs-process-sample/inputs/HG004_NA24143_mother/m64017_191113_230503.count.jf"
+    "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG004_NA24143_mother/m64017_191107_163840.count.jf",
+    "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG004_NA24143_mother/m64017_191112_165230.count.jf",
+    "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG004_NA24143_mother/m64017_191113_230503.count.jf"
   ]
 }
