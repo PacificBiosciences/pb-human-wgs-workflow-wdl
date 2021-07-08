@@ -9,13 +9,13 @@ import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemos
 workflow smrtcells_person {
   input {
     IndexedData reference
-    SampleInfo sample
+    SampleInfo sample_info
     Int kmer_length
 
     String pb_conda_image
   }
 
-  scatter(smrtcell_info in sample.smrtcells) {
+  scatter(smrtcell_info in sample_info.smrtcells) {
     call smrtcells.smrtcells as smrtcells {
       input :
         reference = reference,

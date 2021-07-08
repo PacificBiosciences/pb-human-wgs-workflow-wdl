@@ -9,13 +9,13 @@ import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemos
 workflow smrtcells_trial {
   input {
     IndexedData reference
-    CohortInfo cohort
+    CohortInfo cohort_info
     Int kmer_length
 
     String pb_conda_image
   }
 
-  scatter (sample in cohort.affected_persons) {
+  scatter (sample in cohort_info.affected_persons) {
     call smrtcells_person.smrtcells_person as smrtcells_affected_person {
       input:
         reference = reference,
@@ -26,7 +26,7 @@ workflow smrtcells_trial {
     }
   }
 
-  scatter (sample in cohort.unaffected_persons) {
+  scatter (sample in cohort_info.unaffected_persons) {
     call smrtcells_person.smrtcells_person as smrtcells_unaffected_person {
       input:
         reference = reference,
