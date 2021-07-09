@@ -33,6 +33,9 @@ task make_examples_round1 {
         --norealign_reads \
         --vsc_min_fraction_indels ~{vsc_min_fraction_indels} \
         --alt_aligned_pileup=diff_channels \
+        --add_hp_channel \
+        --sort_by_haplotypes \
+        --parse_sam_aux_fields \
         --mode calling \
         --ref ~{reference.datafile} \
         --reads ~{sep="," bams} \
