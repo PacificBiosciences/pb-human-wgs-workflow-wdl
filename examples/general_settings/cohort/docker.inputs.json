@@ -1,4 +1,4 @@
 {
-  "cohort.pb_conda_image": "pacbio.azurecr.io/pb-human-wgs-workflow:latest",
+  "cohort.pb_conda_image": "projectastro.azurecr.io/pb4:latest",
   "cohort.glnexus_image": "quay.io/mlin/glnexus:v1.2.7"
 }
