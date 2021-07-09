@@ -14,7 +14,7 @@ task pbsv_call {
   input {
     Int threads = 8
     String region 
-    String extra = "--ccs -m 20 -A 3 -O 3 -P 20"
+    String extra = "--ccs -m 20 -A 3 -O 3"
     String loglevel = "INFO"
     String log_name = "pbsv_call.log"
     Array[File] svsigs
