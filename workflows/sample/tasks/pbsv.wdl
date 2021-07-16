@@ -49,7 +49,7 @@ task pbsv_call {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "14 GB"
+    memory: "48 GB"
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
