@@ -1,0 +1,18 @@
+{
+  "WorkflowUrl": "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/smrtcells.trial.wdl",
+  "WorkflowInputsUrls": [
+<<<<<<< HEAD:workflows/smrtcells/trigger_files/smrtcells.AshkenazimTrio.trigger.json
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/AshkenazimTrio/trial.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/defaultsettings.trial.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/docker.trial.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/reference.trial.inputs.json"
+=======
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/examples/AshkenazimTrio/smrtcells/inputs/trial.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/examples/general_settings/smrtcells/defaultsettings.trial.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/examples/general_settings/smrtcells/docker.trial.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/examples/general_settings/smrtcells/reference.trial.inputs.json"
+>>>>>>> bemosk-latest:examples/AshkenazimTrio/smrtcells/trigger_files/smrtcells.AshkenazimTrio.trigger.json
+  ],
+  "WorkflowOptionsUrl": null,
+  "WorkflowDependenciesUrl": null
+}
