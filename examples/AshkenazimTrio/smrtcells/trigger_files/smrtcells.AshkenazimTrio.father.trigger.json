@@ -1,17 +1,10 @@
 {
   "WorkflowUrl": "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/smrtcells.person.wdl",
   "WorkflowInputsUrls": [
-<<<<<<< HEAD:workflows/smrtcells/trigger_files/smrtcells.AshkenazimTrio.father.trigger.json
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/AshkenazimTrio/father/inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/defaultsettings.person.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/docker.person.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/smrtcells/inputs/reference.person.inputs.json"
-=======
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/examples/AshkenazimTrio/smrtcells/inputs/father/inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/examples/general_settings/smrtcells/defaultsettings.person.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/examples/general_settings/smrtcells/docker.person.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-latest/examples/general_settings/smrtcells/reference.person.inputs.json"
->>>>>>> bemosk-latest:examples/AshkenazimTrio/smrtcells/trigger_files/smrtcells.AshkenazimTrio.father.trigger.json
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/examples/AshkenazimTrio/smrtcells/inputs/father/inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/examples/general_settings/smrtcells/defaultsettings.person.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/examples/general_settings/smrtcells/docker.person.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/examples/general_settings/smrtcells/reference.person.inputs.json"
   ],
   "WorkflowOptionsUrl": null,
   "WorkflowDependenciesUrl": null
