@@ -1,10 +1,10 @@
 {
   "WorkflowUrl": "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/smrtcells_sample.trial.wdl",
   "WorkflowInputsUrls": [
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/inputs/AshkenazimTrio/smrtcells_sample.trial.singleton.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/inputs/defaultsettings.smrtcells_sample.trial.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/inputs/docker.smrtcells_sample.trial.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/inputs/reference.smrtcells_sample.trial.inputs.json"
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/examples/AshkenazimTrio/integration/inputs/smrtcells_sample.trial.singleton.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/examples/general_settings/integration/defaultsettings.smrtcells_sample.trial.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/examples/general_settings/integration/docker.smrtcells_sample.trial.inputs.json",
+    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/examples/general_settings/integration/reference.smrtcells_sample.trial.inputs.json"
   ],
   "WorkflowOptionsUrl": null,
   "WorkflowDependenciesUrl": null
