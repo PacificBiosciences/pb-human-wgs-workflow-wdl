@@ -15,22 +15,22 @@ workflow smrtcells_trial {
     String pb_conda_image
   }
 
-  scatter (sample in cohort_info.affected_persons) {
+  scatter (sample_info in cohort_info.affected_persons) {
     call smrtcells_person.smrtcells_person as smrtcells_affected_person {
       input:
         reference = reference,
-        sample = sample,
+        sample_info = sample_info,
         kmer_length = kmer_length,
 
         pb_conda_image = pb_conda_image
     }
   }
 
-  scatter (sample in cohort_info.unaffected_persons) {
+  scatter (sample_info in cohort_info.unaffected_persons) {
     call smrtcells_person.smrtcells_person as smrtcells_unaffected_person {
       input:
         reference = reference,
-        sample = sample,
+        sample_info = sample_info,
         kmer_length = kmer_length,
 
         pb_conda_image = pb_conda_image

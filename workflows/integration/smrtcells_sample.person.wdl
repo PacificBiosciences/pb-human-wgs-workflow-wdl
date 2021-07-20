@@ -12,7 +12,7 @@ workflow smrtcells_sample_person {
   input {
     IndexedData reference
     Array[String] regions
-    SampleInfo sample
+    SampleInfo sample_info
     Int kmer_length
 
     File tr_bed
@@ -25,16 +25,16 @@ workflow smrtcells_sample_person {
 
   call smrtcells.person.smrtcells_person  {
     input :
-      reference = reference,
-      sample = sample,
-      kmer_length = kmer_length,
+        reference = reference,
+        sample_name = sample_info.name,
+        kmer_length = kmer_length,
 
-      pb_conda_image = pb_conda_image
+        pb_conda_image = pb_conda_image
   }
 
   call sample.sample {
     input:
-      sample_name = sample.name,
+      sample_name = sample_info.name,
       sample = smrtcells_person.bams,
       jellyfish_input = smrtcells_person.jellyfish_count,
       regions = regions,
