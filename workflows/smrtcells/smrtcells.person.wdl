@@ -19,7 +19,7 @@ workflow smrtcells_person {
     call smrtcells.smrtcells as smrtcells {
       input :
         reference = reference,
-        sample_name = sample.name,
+        sample_name = sample_info.name,
         smrtcell_info = smrtcell_info,
         kmer_length = kmer_length,
 
@@ -30,6 +30,6 @@ workflow smrtcells_person {
   output {
     Array[IndexedData] bams     = smrtcells.bam
     Array[File] jellyfish_count = smrtcells.count_jf
-    String sample_name          = sample.name
+    String sample_name          = sample_info.name
   }
 }
