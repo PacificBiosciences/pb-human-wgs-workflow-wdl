@@ -12,7 +12,7 @@ workflow smrtcells_sample_trial {
   input {
     IndexedData reference
     Array[String] regions
-    CohortInfo cohort
+    CohortInfo cohort_info
     Int kmer_length
 
     File tr_bed
@@ -26,7 +26,7 @@ workflow smrtcells_sample_trial {
   call smrtcells.trial.smrtcells_trial {
     input:
       reference = reference,
-      cohort = cohort,
+      cohort_info = cohort_info,
       kmer_length = kmer_length,
 
       pb_conda_image = pb_conda_image
