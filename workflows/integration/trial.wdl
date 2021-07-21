@@ -43,7 +43,7 @@ workflow trial {
   call smrtcells.trial.smrtcells_trial {
     input:
       reference = reference,
-      cohort = cohort_info,
+      cohort_info = cohort_info,
       kmer_length = kmer_length,
 
       pb_conda_image = pb_conda_image
