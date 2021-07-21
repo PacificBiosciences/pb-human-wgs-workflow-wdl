@@ -1,7 +1,10 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
-import "./common_bgzip_vcf.wdl" as bgzip_vcf
+#import "../../common/structs.wdl"
+#import "./common_bgzip_vcf.wdl" as bgzip_vcf
+
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
 
 task reformat_ensembl_gff {
   input {
@@ -114,7 +117,13 @@ task bcftools_norm {
     Int threads = 4
   }
 
+#  Float multiplier = 3.25
+#  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(select_first([vcf]).datafile, "GB") + size(select_first([vcf]).indexfile, "GB"))) + 20
+  Int disk_size = 200
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate bcftools
     echo "$(conda info)"
@@ -131,7 +140,7 @@ task bcftools_norm {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -146,7 +155,12 @@ task tabix_bcf {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * size(bcf_datafile, "GB")) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate htslib
     echo "$(conda info)"
@@ -164,7 +178,7 @@ task tabix_bcf {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -208,7 +222,13 @@ task slivar_small_variant {
     String pb_conda_image
   }
 
+#  Float multiplier = 3.25
+#  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(bcf.datafile, "GB") + size(bcf.indexfile, "GB") + size(ped, "GB") + size(gnomad_af, "GB") + size(hprc_af, "GB") + size(js, "GB") + size(gff, "GB"))) + 20
+  Int disk_size = 200
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate slivar
     echo "$(conda info)"
@@ -219,23 +239,11 @@ task slivar_small_variant {
         --js ~{js} \
         ~{sep=" " slivar_filters} \
         --gnotate ~{gnomad_af} \
+        --gnotate ~{hprc_af} \
         --vcf ~{bcf.datafile} \
         --ped ~{ped} \
         | bcftools csq -l -s - --ncsq 40 \
             -g ~{gff} -f ~{reference.datafile} - -o ~{deepvariant_phased_slivar_vcf_name}) > ~{log_name} 2>&1
-
-#  hprc was removed
-#    (pslivar --processes ~{threads} \
-#        --fasta ~{reference.datafile}\
-#        --pass-only \
-#        --js ~{js} \
-#        ~{sep="," slivar_filters} \
-#        --gnotate ~{gnomad_af} \
-#        --gnotate ~{hprc_af} \
-#        --vcf ~{bcf.datafile} \
-#        --ped ~{ped} \
-#        | bcftools csq -l -s - --ncsq 40 \
-#            -g ~{gff} -f ~{reference.datafile} - -o ~{deepvariant_phased_slivar_vcf_name}) > ~{log_name} 2>&1
 
 
   >>>
@@ -249,7 +257,7 @@ task slivar_small_variant {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -281,7 +289,12 @@ task slivar_compound_hets {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(vcf.datafile, "GB") + size(vcf.indexfile, "GB") + size(ped, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate slivar
     echo "$(conda info)"
@@ -305,34 +318,39 @@ task slivar_compound_hets {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
 task calculate_phrank {
   input {
     String log_name = "calculate_phrank.log"
-    File hpoterms #= config['hpo']['terms'],
-    File hpodag #= config['hpo']['dag'],
-    File hpoannotations #= config['hpo']['annotations'],
-    File ensembltohgnc #= config['ensembl_to_hgnc'],
-    File allyaml #= config['cohort_yaml']
+    File hpoterms
+    File hpodag
+    File hpoannotations
+    File ensembl_to_hgnc
+    File allyaml
     String cohort_name
 
-    File phrank_tsv_name = "~{cohort_name}_phrank.tsv"
+    String phrank_tsv_name = "~{cohort_name}_phrank.tsv"
 
     String pb_conda_image
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(hpoterms, "GB") + size(hpodag, "GB") + size(hpoannotations, "GB") + size(ensembl_to_hgnc, "GB") + size(allyaml, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate phrank
     echo "$(conda info)"
 
     (python3 /opt/pb/scripts/calculate_phrank.py \
         ~{hpoterms} ~{hpodag} ~{hpoannotations} \
-        ~{ensembltohgnc} ~{allyaml} ~{cohort_name} ~{phrank_tsv_name}) > ~{log_name} 2>&1
+        ~{ensembl_to_hgnc} ~{allyaml} ~{cohort_name} ~{phrank_tsv_name}) > ~{log_name} 2>&1
   >>>
   output {
     File log = "~{log_name}"
@@ -344,7 +362,7 @@ task calculate_phrank {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -356,14 +374,14 @@ task slivar_tsv {
     String cohort_name
     String? reference_name
     IndexedData filt_vcf
-    File comphet_vcf #= f"cohorts/{cohort}/slivar/{cohort}.{ref}.deepvariant.phased.slivar.compound-hets.vcf.gz",
-    File ped #= f"cohorts/{cohort}/{cohort}.ped",
-    File lof_lookup #= config['lof_lookup'],
-    File clinvar_lookup #= config['clinvar_lookup'],
-    File phrank_lookup #= f"cohorts/{cohort}/{cohort}_phrank.tsv"
+    IndexedData comphet_vcf
+    File ped
+    File lof_lookup
+    File clinvar_lookup
+    File phrank_lookup
 
-    String filt_tsv_name = "~{cohort_name}.~{reference_name}.deepvariant.phased.slivar.tsv" #= f"cohorts/{cohort}/slivar/{cohort}.{ref}.deepvariant.phased.slivar.tsv",
-    String comphet_tsv_name = "~{cohort_name}.~{reference_name}.deepvariant.phased.slivar.compound-hets.tsv" #= f"cohorts/{cohort}/slivar/{cohort}.{ref}.deepvariant.phased.slivar.compound-hets.tsv"
+    String filt_tsv_name = "~{cohort_name}.~{reference_name}.deepvariant.phased.slivar.tsv"
+    String comphet_tsv_name = "~{cohort_name}.~{reference_name}.deepvariant.phased.slivar.compound-hets.tsv"
 
     Array[String] info_fields = [
       "gnomad_af",
@@ -377,14 +395,19 @@ task slivar_tsv {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(filt_vcf.datafile, "GB") + size(filt_vcf.indexfile, "GB") + size(comphet_vcf.datafile, "GB") + size(comphet_vcf.indexfile, "GB") + size(ped, "GB") + size(lof_lookup, "GB") + size(clinvar_lookup, "GB") + size(phrank_lookup, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate slivar
     echo "$(conda info)"
 
     (
       slivar tsv \
-            ~{sep=" --info-field " info_fields } \
+            --info-field ~{sep=" --info-field " info_fields } \
             --sample-field dominant \
             --sample-field x_dominant \
             --sample-field recessive \
@@ -394,19 +417,19 @@ task slivar_tsv {
             --gene-description ~{clinvar_lookup} \
             --gene-description ~{phrank_lookup} \
             --ped ~{ped} \
-            --out {output.filt_tsv} \
-            {input.filt_vcf.datafile}
+            --out ~{filt_tsv_name} \
+            ~{filt_vcf.datafile}
       slivar tsv \
-            ~{sep=" --info-field " info_fields } \
+            --info-field ~{sep=" --info-field " info_fields } \
             --sample-field slivar_comphet \
             --info-field slivar_comphet \
             --csq-field BCSQ \
             --gene-description ~{lof_lookup} \
             --gene-description ~{clinvar_lookup} \
             --gene-description ~{phrank_lookup} \
-            --ped {input.ped} \
-            --out ~{comphet_tsv} \
-            ~{comphet_vcf}
+            --ped ~{ped} \
+            --out ~{comphet_tsv_name} \
+            ~{comphet_vcf.datafile}
     ) > ~{log_name} 2>&1
   >>>
   output {
@@ -420,7 +443,7 @@ task slivar_tsv {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -442,11 +465,11 @@ workflow slivar {
     File js
     File gff
 
-    File hpoterms #= config['hpo']['terms'],
-    File hpodag #= config['hpo']['dag'],
-    File hpoannotations #= config['hpo']['annotations'],
-    File ensembltohgnc #= config['ensembl_to_hgnc'],
-    File allyaml #= config['cohort_yaml']
+    File hpoterms
+    File hpodag
+    File hpoannotations
+    File ensembl_to_hgnc
+    File allyaml
 
     String pb_conda_image
   }
@@ -497,7 +520,7 @@ workflow slivar {
       pb_conda_image = pb_conda_image
   }
 
-  call bgzip_vcf.bgzip_vcf {
+  call bgzip_vcf.bgzip_vcf as slivar_small_variant_bgzip_vcf {
     input :
       vcf_input = slivar_small_variant.deepvariant_phased_slivar_vcf,
       pb_conda_image = pb_conda_image
@@ -507,38 +530,49 @@ workflow slivar {
     input:
       cohort_name = cohort_name,
       reference_name = reference.name,
-      vcf = bgzip_vcf.vcf_gz_output,
+      vcf = slivar_small_variant_bgzip_vcf.vcf_gz_output,
       ped = ped,
 
       pb_conda_image = pb_conda_image
   }
 
-#  call calculate_phrank {
-#    input:
-#      hpoterms = hpoterms, #= config['hpo']['terms'],
-#      hpodag = hpodag, #= config['hpo']['dag'],
-#      hpoannotations = hpoannotations, #= config['hpo']['annotations'],
-#      ensembltohgnc = ensembltohgnc, #= config['ensembl_to_hgnc'],
-#      allyaml = allyaml, #= config['cohort_yaml']
-#      cohort_name = cohort_name,
+  call bgzip_vcf.bgzip_vcf as slivar_compound_hets_bgzip_vcf {
+    input :
+      vcf_input = slivar_compound_hets.deepvariant_phased_slivar_compound_hets_vcf,
+      pb_conda_image = pb_conda_image
+  }
 
-#      pb_conda_image = pb_conda_image
-#  }
+  call calculate_phrank {
+    input:
+      hpoterms = hpoterms,
+      hpodag = hpodag,
+      hpoannotations = hpoannotations,
+      ensembl_to_hgnc = ensembl_to_hgnc,
+      allyaml = allyaml,
+      cohort_name = cohort_name,
 
-#  call slivar_tsv {
-#    input:
-#      cohort_name = cohort_name,
-#      filt_vcf = bgzip_vcf.vcf_gz_output, 
-#      comphet_vcf = slivar_compound_hets.deepvariant_phased_slivar_compound_hets_vcf, 
-#      ped = ped, 
-#      lof_lookup = generate_lof_lookup.lof_lookup, 
-#      clinvar_lookup = generate_clinvar_lookup.clinvar_lookup, 
-#      phrank_lookup = calculate_phrank.phrank_tsv,
+      pb_conda_image = pb_conda_image
+  }
 
-#      pb_conda_image = pb_conda_image
-#  }
+  call slivar_tsv {
+    input:
+      cohort_name = cohort_name,
+      reference_name = reference.name,
+      filt_vcf = slivar_small_variant_bgzip_vcf.vcf_gz_output, 
+      comphet_vcf = slivar_compound_hets_bgzip_vcf.vcf_gz_output, 
+      ped = ped, 
+      lof_lookup = generate_lof_lookup.lof_lookup, 
+      clinvar_lookup = generate_clinvar_lookup.clinvar_lookup, 
+      phrank_lookup = calculate_phrank.phrank_tsv,
+
+      pb_conda_image = pb_conda_image
+  }
 
   output {
+    IndexedData filt_vcf    = slivar_small_variant_bgzip_vcf.vcf_gz_output
+    IndexedData comphet_vcf = slivar_compound_hets_bgzip_vcf.vcf_gz_output
+    File filt_tsv = slivar_tsv.filt_tsv
+    File comphet_tsv = slivar_tsv.comphet_tsv
   }
 }
 

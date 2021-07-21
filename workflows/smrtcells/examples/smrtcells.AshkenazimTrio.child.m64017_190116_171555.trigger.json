@@ -1,9 +1,0 @@
-{
-  "WorkflowUrl": "smrtcells.wdl",
-  "WorkflowInputsUrls": [
-    "smrtcells.inputs.json",
-    "inputs/AshkenazimTrio/child/m64017_190116_171555.inputs.json"
-  ],
-  "WorkflowOptionsUrl": null,
-  "WorkflowDependenciesUrl": null
-}

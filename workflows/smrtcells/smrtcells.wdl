@@ -1,19 +1,22 @@
 version 1.0
 
-import "./tasks/pbmm2.wdl" as pbmm2
-import "./tasks/mosdepth.wdl" as mosdepth
-import "./tasks/stats.wdl" as stats
-import "./tasks/coverage_qc.wdl" as coverage_qc
-import "./tasks/jellyfish.wdl" as jellyfish
-import "./structs/BamPair.wdl"
+#import "./tasks/pbmm2.wdl" as pbmm2
+#import "./tasks/mosdepth.wdl" as mosdepth
+#import "./tasks/stats.wdl" as stats
+#import "./tasks/coverage_qc.wdl" as coverage_qc
+#import "./tasks/jellyfish.wdl" as jellyfish
+#import "../common/structs.wdl"
 
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/smrtcells/tasks/pbmm2.wdl" as pbmm2
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/smrtcells/tasks/mosdepth.wdl" as mosdepth
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/smrtcells/tasks/stats.wdl" as stats
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/smrtcells/tasks/coverage_qc.wdl" as coverage_qc
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/smrtcells/tasks/jellyfish.wdl" as jellyfish
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/common/structs.wdl"
 
 workflow smrtcells {
   input {
-    String md5sum_name
-
     IndexedData reference
-    String reference_name
     String sample_name
     SmrtcellInfo smrtcell_info
     Int kmer_length
@@ -24,7 +27,6 @@ workflow smrtcells {
   call pbmm2.align_ubam_or_fastq {
     input:
       reference = reference,
-      reference_name = reference_name,
 
       sample_name = sample_name,
       smrtcell_info = smrtcell_info,
@@ -33,9 +35,9 @@ workflow smrtcells {
 
   call mosdepth.mosdepth {
     input:
-      bam_pair = align_ubam_or_fastq.bam_pair,
+      bam = align_ubam_or_fastq.bam,
       smrtcell_name = smrtcell_info.name,
-      reference_name = reference_name,
+      reference_name = reference.name,
 
       pb_conda_image = pb_conda_image
   }
@@ -49,7 +51,7 @@ workflow smrtcells {
   call coverage_qc.coverage_qc {
     input:
       smrtcell_info = smrtcell_info,
-      reference_name = reference_name,
+      reference_name = reference.name,
       mosdepth_summary = mosdepth.summary,
       pb_conda_image = pb_conda_image
   }
@@ -62,8 +64,8 @@ workflow smrtcells {
   }
 
   output {
-    IndexedData bam_pair  = align_ubam_or_fastq.bam_pair
-    File count_jf     = jellyfish.count_jf
+    IndexedData bam = align_ubam_or_fastq.bam
+    File count_jf   = jellyfish.count_jf
   }
 
 }

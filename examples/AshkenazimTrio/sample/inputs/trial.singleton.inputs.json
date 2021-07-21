@@ -1,0 +1,60 @@
+{
+  "sample_trial.affected_person_sample_names": [
+    "HG002_NA24385_son"
+  ],
+
+  "sample_trial.affected_person_sample": [
+    [
+      {
+        "name": "m64011_181218_235052",
+        "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181218_235052.hg38.bam",
+        "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181218_235052.hg38.bam.bai"
+      },
+      {
+        "name": "m64011_181227_224151",
+        "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181227_224151.hg38.bam",
+        "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181227_224151.hg38.bam.bai"
+      },
+      {
+        "name": "m64014_181210_152538",
+        "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64014_181210_152538.hg38.bam",
+        "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64014_181210_152538.hg38.bam.bai"
+      },
+      {
+        "name": "m64017_190116_171555",
+        "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64017_190116_171555.hg38.bam",
+        "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64017_190116_171555.hg38.bam.bai"
+      },
+      {
+        "name": "m64018_190129_193747",
+        "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64018_190129_193747.hg38.bam",
+        "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64018_190129_193747.hg38.bam.bai"
+      },
+      {
+        "name": "m64020_190123_225958",
+        "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64020_190123_225958.hg38.bam",
+        "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64020_190123_225958.hg38.bam.bai"
+      }
+    ]
+  ],
+
+  "sample_trial.unaffected_person_sample_names": [
+  ],
+
+  "sample_trial.unaffected_person_sample": [
+  ],
+
+  "sample_trial.affected_person_jellyfish_input": [
+    [
+      "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181218_235052.count.jf",
+      "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181227_224151.count.jf",
+      "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64014_181210_152538.count.jf",
+      "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64017_190116_171555.count.jf",
+      "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64018_190129_193747.count.jf",
+      "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64020_190123_225958.count.jf"
+    ]
+  ],
+
+  "sample_trial.unaffected_person_jellyfish_input": [
+  ]
+}

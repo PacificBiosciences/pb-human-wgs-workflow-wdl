@@ -1,0 +1,7 @@
+{
+  "smrtcells_person.reference": {
+    "name": "hg38",
+    "datafile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta",
+    "indexfile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
+  }
+}

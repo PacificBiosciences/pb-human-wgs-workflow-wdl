@@ -1,0 +1,18 @@
+__default__:
+  account: 100humans
+  partition: compute
+  cpus: 1
+  extra: ""
+  out: cluster_logs/slurm-%x-%j-%N.out
+pbmm2_align_ubam:
+  cpus: 24
+pbmm2_align_fastq:
+  cpus: 24
+mosdepth:
+  cpus: 4
+samtools_fasta:
+  cpus: 4
+jellyfish_count:
+  cpus: 24
+dump_modimers:
+  cpus: 2

@@ -1,23 +1,29 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
+#import "../../common/structs.wdl"
+
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/common/structs.wdl"
 
 task samtools_fasta {
   input {
     SmrtcellInfo smrtcell_info
-    File ubam_file
     Int threads = 4
     String log_name = "samtools_fasta.log"
     String jellyfish_fasta_name = "~{smrtcell_info.name}.jellyfish.fasta"
     String pb_conda_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * size(smrtcell_info.path, "GB")) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate samtools
     echo "$(conda info)"
 
-    (samtools fasta -@ 3 ~{ubam_file} > ~{jellyfish_fasta_name}) > ~{log_name} 2>&1
+    (samtools fasta -@ 3 ~{smrtcell_info.path} > ~{jellyfish_fasta_name}) > ~{log_name} 2>&1
   >>>
   output {
     File jellyfish_fasta = "~{jellyfish_fasta_name}"
@@ -29,26 +35,30 @@ task samtools_fasta {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
 task seqtk_fastq_to_fasta {
   input {
     SmrtcellInfo smrtcell_info
-    File fastq_file
     String log_name = "seqtk_fastq_to_fasta.log"
     String jellyfish_fasta_name = "~{smrtcell_info.name}.jellyfish.fasta"
     String pb_conda_image
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * size(smrtcell_info.path, "GB")) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate seqtk
     echo "$(conda info)"
 
-    (seqtk seq -A ~{fastq_file} > ~{jellyfish_fasta_name}) > ~{log_name} 2>&1
+    (seqtk seq -A ~{smrtcell_info.path} > ~{jellyfish_fasta_name}) > ~{log_name} 2>&1
   >>>
   output {
     File jellyfish_fasta = "~{jellyfish_fasta_name}"
@@ -60,7 +70,7 @@ task seqtk_fastq_to_fasta {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -77,7 +87,12 @@ task jellyfish_count {
     String pb_conda_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(smrtcell_info.path, "GB") + size(jellyfish_fasta, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate jellyfish
     echo "$(conda info)"
@@ -100,7 +115,7 @@ task jellyfish_count {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -109,19 +124,23 @@ task dump_modimers {
     SmrtcellInfo smrtcell_info
     File count_jf
     Int threads = 2
-    Int mod = 5003
     String log_name = "dump_modimers.log"
     String modimers_tsv_name = "~{smrtcell_info.name}.modimers.tsv.gz"
     String pb_conda_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(smrtcell_info.path, "GB") + size(count_jf, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate jellyfish
     echo "$(conda info)"
 
     (jellyfish dump -c -t ~{count_jf} \
-        | PYTHONHASHSEED=0 python /opt/pb/scripts/modimer.py -N ~{mod} /dev/stdin \
+        | PYTHONHASHSEED=0 python /opt/pb/scripts/modimer.py -N 5003 /dev/stdin \
         | sort | gzip > ~{modimers_tsv_name}) > ~{log_name} 2>&1
   >>>
   output {
@@ -134,7 +153,7 @@ task dump_modimers {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -150,7 +169,6 @@ workflow jellyfish {
     call samtools_fasta {
       input:
         smrtcell_info = smrtcell_info,
-        ubam_file = smrtcell_info.path,
         pb_conda_image = pb_conda_image
     }
   }
@@ -160,7 +178,6 @@ workflow jellyfish {
     call seqtk_fastq_to_fasta {
       input:
         smrtcell_info = smrtcell_info,
-        fastq_file = smrtcell_info.path,
         pb_conda_image = pb_conda_image
     }
   }
@@ -182,6 +199,5 @@ workflow jellyfish {
 
   output {
     File count_jf = jellyfish_count.count_jf
-    File modimers_tsv = dump_modimers.modimers_tsv
   }
 }
