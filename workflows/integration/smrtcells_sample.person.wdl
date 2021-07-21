@@ -26,7 +26,7 @@ workflow smrtcells_sample_person {
   call smrtcells.person.smrtcells_person  {
     input :
         reference = reference,
-        sample_name = sample_info.name,
+        sample_info = sample_info,
         kmer_length = kmer_length,
 
         pb_conda_image = pb_conda_image
