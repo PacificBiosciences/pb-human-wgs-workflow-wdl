@@ -1,5 +1,8 @@
 {
-  "smrtcells_sample_trial.cohort_info": {
+  "trial.cohort_name": "AshkenazimTrio",
+  "trial.allyaml": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.yaml",
+  "trial.ped": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.ped",
+  "trial.cohort_info": {
     "affected_persons": [
       {
         "name": "HG002_NA24385_son",
