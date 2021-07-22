@@ -1,0 +1,50 @@
+__default__:
+  account: 100humans
+  partition: compute
+  cpus: 1
+  extra: ""
+  out: cluster_logs/slurm-%x-%j-%N.out
+pbsv_call:
+  cpus: 8
+bgzip_vcf:
+  cpus: 2
+deepvariant_make_examples_round1:
+  extra: "--constraint=avx512"
+deepvariant_call_variants_gpu_round1:
+  partition: ml
+  cpus: 8
+  extra: "--gpus=1"
+deepvariant_postprocess_variants_round1:
+  cpus: 4
+  extra: "--constraint=avx512"
+deepvariant_make_examples_round2:
+  extra: "--constraint=avx512"
+deepvariant_call_variants_gpu_round2:
+  partition: ml
+  cpus: 8
+  extra: "--gpus=1"
+deepvariant_postprocess_variants_round2:
+  cpus: 4
+  extra: "--constraint=avx512"
+bcftools_stats:
+  cpus: 4
+jellyfish_histo:
+  cpus: 24
+samtools_fasta:
+  cpus: 4
+hifiasm_assemble:
+  cpus: 48
+bgzip_fasta:
+  cpus: 4
+minimap2_align_assembly:
+  cpus: 24
+samtools_sam_to_bam:
+  cpus: 8
+samtools_sort_alignments:
+  cpus: 8
+samtools_index_bam:
+  cpus: 4
+merge_haplotagged_bams:
+  cpus: 8
+mosdepth:
+  cpus: 4

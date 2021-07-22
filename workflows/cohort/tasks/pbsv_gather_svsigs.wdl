@@ -1,7 +1,5 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
-
 task gather_svsigs_by_sample_and_region {
   input {
     Array[Array[File]] svsigs_by_regions
@@ -14,7 +12,10 @@ task gather_svsigs_by_sample_and_region {
   }
   runtime {
     docker: 'ubuntu:18.04'
-    preemptible: true
+    maxRetries: 3
+    memory: "256 GB"
+    cpu: "3"
+    disk: "200 GB"
   }
 }
 

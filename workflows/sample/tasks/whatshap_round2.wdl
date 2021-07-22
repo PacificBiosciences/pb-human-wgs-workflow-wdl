@@ -1,9 +1,14 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
-import "./common.wdl" as common
-import "./samtools_index_bam.wdl" as samtools_common
-import "./separate_data_and_index_files.wdl"
+#import "../../common/structs.wdl"
+#import "./common.wdl" as common
+#import "./samtools_index_bam.wdl" as samtools_common
+#import "../../common/separate_data_and_index_files.wdl"
+
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/sample/tasks/common.wdl" as common
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/sample/tasks/samtools_index_bam.wdl" as samtools_common
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/common/separate_data_and_index_files.wdl"
 
 task split_deepvariant_vcf_round2 {
   input {
@@ -20,7 +25,12 @@ task split_deepvariant_vcf_round2 {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(deepvariant_vcf_gz.datafile, "GB") + size(deepvariant_vcf_gz.indexfile, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate htslib
     echo "$(conda info)"
@@ -37,7 +47,7 @@ task split_deepvariant_vcf_round2 {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -58,10 +68,15 @@ task whatshap_phase_round2 {
     String deepvariant_phased_vcf_gz_name =  "~{sample_name}.~{reference.name}.~{chromosome}.deepvariant.phased.vcf.gz"
 
     String pb_conda_image
-    Int threads = 4
+    Int threads = 32
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(vcf.datafile, "GB") + size(vcf.indexfile, "GB") + size(phaseinput, "GB") + size(phaseinputindex, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate whatshap
     echo "$(conda info)"
@@ -93,7 +108,7 @@ task whatshap_phase_round2 {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -115,7 +130,12 @@ task whatshap_bcftools_concat_round2 {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(calls, "GB")+ size(indices, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate bcftools
     echo "$(conda info)"
@@ -142,7 +162,7 @@ task whatshap_bcftools_concat_round2 {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -164,7 +184,12 @@ task whatshap_stats {
     Int threads = 4
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(vcf.datafile, "GB") + size(vcf.indexfile, "GB") + size(chr_lengths, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate whatshap
     echo "$(conda info)"
@@ -189,7 +214,7 @@ task whatshap_stats {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -207,10 +232,15 @@ task whatshap_haplotag_round2 {
     String deepvariant_haplotagged_bam_name = "~{sample_name}.~{reference.name}.~{smrtcell.name}.deepvariant.haplotagged.bam"
 
     String pb_conda_image
-    Int threads = 4
+    Int threads = 8
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(vcf.datafile, "GB") + size(vcf.indexfile, "GB") + size(smrtcell.datafile, "GB") + size(smrtcell.indexfile, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate whatshap
     echo "$(conda info)"
@@ -230,7 +260,7 @@ task whatshap_haplotag_round2 {
     maxRetries: 3
     memory: "30 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -248,7 +278,12 @@ task merge_haplotagged_bams {
     Int threads = 8
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(deepvariant_haplotagged_bams, "GB") + size(deepvariant_haplotagged_bais, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+
     (
       java -jar /usr/picard/picard.jar MergeSamFiles I=~{sep=" I=" deepvariant_haplotagged_bams} O=~{merged_deepvariant_haplotagged_bam_name} VALIDATION_STRINGENCY=LENIENT
     ) > ~{log_name} 2>&1	
@@ -263,7 +298,7 @@ task merge_haplotagged_bams {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
 
@@ -271,7 +306,8 @@ workflow whatshap_round2 {
   input {
     IndexedData deepvariant_vcf_gz
     IndexedData reference
-    SampleInfo sample
+    String sample_name
+    Array[IndexedData] sample
 
     File chr_lengths
     Array[String] regions
@@ -284,7 +320,7 @@ workflow whatshap_round2 {
         input:
           deepvariant_vcf_gz = deepvariant_vcf_gz,
           region = region,
-          sample_name = sample.name,
+          sample_name = sample_name,
           reference_name = reference.name,
           pb_conda_image = pb_conda_image
       }
@@ -300,7 +336,7 @@ workflow whatshap_round2 {
 
   call separate_data_and_index_files.separate_data_and_index_files as whatshap_phase_phaseinput {
     input:
-      indexed_data_array = sample.smrtcells,
+      indexed_data_array = sample,
   }
 
   scatter (region_num in range(length(regions))) {
@@ -311,7 +347,7 @@ workflow whatshap_round2 {
         phaseinput = whatshap_phase_phaseinput.datafiles,
         phaseinputindex = whatshap_phase_phaseinput.indexfiles,
         chromosome = regions[region_num],
-        sample_name = sample.name,
+        sample_name = sample_name,
         pb_conda_image = pb_conda_image
     }
   }
@@ -325,7 +361,7 @@ workflow whatshap_round2 {
     input:
       calls = whatshap_phased_gvcf.datafiles,
       indices = whatshap_phased_gvcf.indexfiles,
-      sample_name = sample.name,
+      sample_name = sample_name,
       reference_name = reference.name,
       pb_conda_image = pb_conda_image
   }
@@ -335,38 +371,38 @@ workflow whatshap_round2 {
     input:
       vcf = whatshap_bcftools_concat_round2.deepvariant_phased_vcf_gz,
       chr_lengths = chr_lengths,
-      sample_name = sample.name,
+      sample_name = sample_name,
       reference_name = reference.name,
       pb_conda_image = pb_conda_image
   }
 
-  scatter(smtrcell_num in range(length(sample.smrtcells))) {
+  scatter(smtrcell_num in range(length(sample))) {
     call whatshap_haplotag_round2 {
       input:
         reference = reference,
         vcf = whatshap_bcftools_concat_round2.deepvariant_phased_vcf_gz,
-        smrtcell = sample.smrtcells[smtrcell_num],
-        sample_name = sample.name,
+        smrtcell = sample[smtrcell_num],
+        sample_name = sample_name,
         pb_conda_image = pb_conda_image
     }
   }
 
-  scatter(smtrcell_num in range(length(sample.smrtcells))) {
+  scatter(smtrcell_num in range(length(sample))) {
     call samtools_common.samtools_index_bam as deepvariant_haplotagged_bam_indexing {
       input:
-        bam_input = whatshap_haplotag_round2.deepvariant_haplotagged_bam[smtrcell_num],
+        bam_datafile = whatshap_haplotag_round2.deepvariant_haplotagged_bam[smtrcell_num],
         pb_conda_image = pb_conda_image
     }
   }
 
   call separate_data_and_index_files.separate_data_and_index_files as deepvariant_haplotagged_bam_data_and_index_files {
     input:
-      indexed_data_array = deepvariant_haplotagged_bam_indexing.bam_pair
+      indexed_data_array = deepvariant_haplotagged_bam_indexing.bam
   }
 
   call merge_haplotagged_bams {
     input:
-      sample_name = sample.name,
+      sample_name = sample_name,
       reference_name = reference.name,
       deepvariant_haplotagged_bams = deepvariant_haplotagged_bam_data_and_index_files.datafiles,
       deepvariant_haplotagged_bais = deepvariant_haplotagged_bam_data_and_index_files.indexfiles,
@@ -375,12 +411,12 @@ workflow whatshap_round2 {
 
   call samtools_common.samtools_index_bam as merge_haplotagged_bams_indexing {
     input:
-      bam_input = merge_haplotagged_bams.merged_deepvariant_haplotagged_bam,
+      bam_datafile = merge_haplotagged_bams.merged_deepvariant_haplotagged_bam,
       pb_conda_image = pb_conda_image
   }
 
   output {
-    IndexedData deepvariant_haplotagged = merge_haplotagged_bams_indexing.bam_pair
+    IndexedData deepvariant_haplotagged = merge_haplotagged_bams_indexing.bam
     IndexedData deepvariant_phased_vcf_gz = whatshap_bcftools_concat_round2.deepvariant_phased_vcf_gz
   }
 }

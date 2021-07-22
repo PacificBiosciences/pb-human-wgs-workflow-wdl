@@ -1,6 +1,8 @@
 version 1.0
 
-import "../structs/BamPair.wdl"
+#import "../../common/structs.wdl"
+
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/common/structs.wdl"
 
 task mosdepth {
   input {
@@ -13,18 +15,23 @@ task mosdepth {
     String prefix = "~{sample_name}.~{reference_name}"
 
     String log_name = "mosdepth.log"
-    IndexedData bam_pair 
+    IndexedData bam
 
     String pb_conda_image
   }
 
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(bam.datafile, "GB") + size(bam.indexfile, "GB"))) + 20
+
   command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
     source ~/.bashrc
     conda activate mosdepth
     echo "$(conda info)"
 
     (mosdepth --threads ~{threads} --by ~{by} \
-        ~{extra} ~{prefix} ~{bam_pair.datafile}) > ~{log_name} 2>&1
+        ~{extra} ~{prefix} ~{bam.datafile}) > ~{log_name} 2>&1
   >>>
   output {
     File global = "~{prefix}.mosdepth.global.dist.txt"
@@ -40,6 +47,6 @@ task mosdepth {
     maxRetries: 3
     memory: "14 GB"
     cpu: "~{threads}"
-    disk: "200 GB"
+    disk: disk_size + " GB"
   }
 }
