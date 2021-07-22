@@ -1,6 +1,6 @@
 {
   "trial.pb_conda_image": "projectastro.azurecr.io/pb4:latest",
-  "trial.deepvariant_image": "google/deepvariant:1.0.0",
+  "trial.deepvariant_image": "google/deepvariant:1.1.0-gpu",
   "trial.picard_image": "broadinstitute/picard",
   "trial.glnexus_image": "quay.io/mlin/glnexus:v1.2.7"
 }
