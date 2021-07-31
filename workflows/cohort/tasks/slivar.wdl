@@ -3,8 +3,8 @@ version 1.0
 #import "../../common/structs.wdl"
 #import "./common_bgzip_vcf.wdl" as bgzip_vcf
 
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
 
 task reformat_ensembl_gff {
   input {

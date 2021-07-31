@@ -1,10 +1,10 @@
 {
-  "WorkflowUrl": "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/integration/smrtcells_sample.person.wdl",
+  "WorkflowUrl": "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/integration/smrtcells_sample.person.wdl",
   "WorkflowInputsUrls": [
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/examples/AshkenazimTrio/integration/inputs/integration/child/smrtcells_sample.person.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/examples/general_settings/integration/defaultsettings.smrtcells_sample.person.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/examples/general_settings/integration/docker.smrtcells_sample.person.inputs.json",
-    "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemosk-integration/workflows/examples/general_settings/integration/reference.smrtcells_sample.person.inputs.json"
+    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/examples/AshkenazimTrio/integration/inputs/integration/child/smrtcells_sample.person.inputs.json",
+    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/examples/general_settings/integration/defaultsettings.smrtcells_sample.person.inputs.json",
+    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/examples/general_settings/integration/docker.smrtcells_sample.person.inputs.json",
+    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/examples/general_settings/integration/reference.smrtcells_sample.person.inputs.json"
   ],
   "WorkflowOptionsUrl": null,
   "WorkflowDependenciesUrl": null
