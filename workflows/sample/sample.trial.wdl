@@ -15,7 +15,7 @@ workflow sample_trial {
     Array[Array[IndexedData]] unaffected_person_sample
     Array[Array[File]]        unaffected_person_jellyfish_input
 
-    Array[String] regions
+    File regions_file
     IndexedData reference
 
     File tr_bed
@@ -32,7 +32,7 @@ workflow sample_trial {
         sample_name = affected_person_sample_names[person_num],
         sample = affected_person_sample[person_num],
         jellyfish_input = affected_person_jellyfish_input[person_num],
-        regions = regions,
+        regions_file = regions_file,
 
         reference = reference,
 
@@ -51,7 +51,7 @@ workflow sample_trial {
         sample_name = unaffected_person_sample_names[person_num],
         sample = unaffected_person_sample[person_num],
         jellyfish_input = unaffected_person_jellyfish_input[person_num],
-        regions = regions,
+        regions_file = regions_file,
 
         reference = reference,
 

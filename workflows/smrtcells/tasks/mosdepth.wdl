@@ -40,7 +40,7 @@ task mosdepth {
     File global = "~{prefix}.mosdepth.global.dist.txt"
     File region = "~{prefix}.mosdepth.region.dist.txt"
     File summary = "~{prefix}.mosdepth.summary.txt"
-    File regions = "~{prefix}.regions.bed.gz"
+    File regions_bed = "~{prefix}.regions.bed.gz"
     File log = "~{log_name}"
   }
   runtime {

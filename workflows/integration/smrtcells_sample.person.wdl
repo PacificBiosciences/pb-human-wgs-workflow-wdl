@@ -11,7 +11,7 @@ import "https://raw.githubusercontent.com/bemosk/pb-human-wgs-workflow-wdl/bemos
 workflow smrtcells_sample_person {
   input {
     IndexedData reference
-    Array[String] regions
+    File regions_file
     SampleInfo sample_info
     Int kmer_length
 
@@ -37,7 +37,7 @@ workflow smrtcells_sample_person {
       sample_name = sample_info.name,
       sample = smrtcells_person.bams,
       jellyfish_input = smrtcells_person.jellyfish_count,
-      regions = regions,
+      regions_file = regions_file,
       reference = reference,
 
       tr_bed = tr_bed,

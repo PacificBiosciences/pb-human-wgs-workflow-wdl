@@ -18,7 +18,7 @@ workflow sample_cohort {
     Array[Array[File]]        unaffected_person_jellyfish_input
 
     String cohort_name
-    Array[String] regions
+    File regions_file
     IndexedData reference
 
     File tr_bed
@@ -52,7 +52,7 @@ workflow sample_cohort {
       unaffected_person_sample = unaffected_person_sample,
       unaffected_person_jellyfish_input = unaffected_person_jellyfish_input,
 
-      regions = regions,
+      regions_file = regions_file,
       reference = reference,
 
       tr_bed = tr_bed,
@@ -66,7 +66,7 @@ workflow sample_cohort {
   call cohort.cohort {
     input:
       cohort_name = cohort_name,
-      regions = regions,
+      regions_file = regions_file,
       reference = reference,
       chr_lengths = chr_lengths, 
 

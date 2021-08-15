@@ -14,7 +14,7 @@ workflow cohort {
   input {
     String cohort_name
     IndexedData reference
-    Array[String] regions
+    File regions_file
 
     Array[IndexedData] affected_person_deepvariant_phased_vcf_gz
     Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz
@@ -50,6 +50,8 @@ workflow cohort {
     String pb_conda_image
     String glnexus_image
   }
+
+  Array[String] regions = read_lines(regions_file)
 
   call pbsv.pbsv {
     input:

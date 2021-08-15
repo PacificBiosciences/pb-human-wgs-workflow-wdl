@@ -11,7 +11,7 @@ import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workfl
 workflow smrtcells_sample_trial {
   input {
     IndexedData reference
-    Array[String] regions
+    File regions_file
     CohortInfo cohort_info
     Int kmer_length
 
@@ -41,7 +41,7 @@ workflow smrtcells_sample_trial {
     unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
     unaffected_person_jellyfish_input = smrtcells_trial.unaffected_person_jellyfish_count,
 
-    regions = regions,
+    regions_file = regions_file,
     reference = reference,
 
     tr_bed = tr_bed,

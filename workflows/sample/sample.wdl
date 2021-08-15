@@ -27,7 +27,7 @@ workflow sample {
     String sample_name
     Array[IndexedData] sample
     Array[File] jellyfish_input
-    Array[String] regions
+    File regions_file
     IndexedData reference
 
     File tr_bed
@@ -37,6 +37,8 @@ workflow sample {
     String deepvariant_image
     String picard_image
   }
+
+  Array[String] regions = read_lines(regions_file)
 
   call pbsv.pbsv {
     input:

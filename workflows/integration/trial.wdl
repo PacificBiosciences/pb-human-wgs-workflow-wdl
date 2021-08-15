@@ -14,7 +14,7 @@ workflow trial {
   input {
     String cohort_name
     IndexedData reference
-    Array[String] regions
+    File regions_file
     CohortInfo cohort_info
     Int kmer_length
 
@@ -58,7 +58,7 @@ workflow trial {
     unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
     unaffected_person_jellyfish_input = smrtcells_trial.unaffected_person_jellyfish_count,
 
-    regions = regions,
+    regions_file = regions_file,
     reference = reference,
 
     tr_bed = tr_bed,
@@ -72,7 +72,7 @@ workflow trial {
   call cohort.cohort {
     input:
       cohort_name = cohort_name,
-      regions = regions,
+      regions_file = regions_file,
       reference = reference,
 
       affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
