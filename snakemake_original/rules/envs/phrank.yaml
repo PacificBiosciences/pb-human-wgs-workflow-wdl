@@ -1,0 +1,4 @@
+channels:
+  - anaconda
+dependencies:
+  - pyyaml ==5.3.1

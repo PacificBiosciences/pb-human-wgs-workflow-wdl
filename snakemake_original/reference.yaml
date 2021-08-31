@@ -1,0 +1,22 @@
+# GRCh38
+ref:
+  shortname: 'GRCh38'
+  igvname: 'hg38'
+  fasta: 'reference/human_GRCh38_no_alt_analysis_set.fasta'
+  index: 'reference/human_GRCh38_no_alt_analysis_set.fasta.fai'
+  modimers: 'reference/human_GRCh38_no_alt_analysis_set.modimers.tsv.gz'
+  chr_lengths: 'reference/human_GRCh38_no_alt_analysis_set.chr_lengths.txt'
+  ploidy: 'reference/human_GRCh38_no_alt_analysis_set.ploidy.txt'
+  tr_bed: 'reference/human_GRCh38_no_alt_analysis_set.trf.bed'
+  snpeff_db: 'GRCh38.86'
+  ensembl_gff_url: 'ftp://ftp.ensembl.org//pub/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz'
+  ensembl_gff: 'reference/ensembl.GRCh38.101.reformatted.gff3.gz'
+  gnomad_gnotate: 'resources/slivar/gnomad.hg38.v3.custom.zip'
+  hprc_dv_gnotate: 'resources/slivar/hprc.deepvariant.glnexus.hg38.v1.zip'
+  autosomes: ['chr1', 'chr2', 'chr3', 'chr4', 'chr5',
+              'chr6', 'chr7', 'chr8', 'chr9', 'chr10',
+              'chr11', 'chr12', 'chr13', 'chr14', 'chr15',
+              'chr16', 'chr17', 'chr18', 'chr19', 'chr20',
+              'chr21', 'chr22']
+  sex_chrom: ['chrX', 'chrY']
+  mit_chrom: ['chrM']

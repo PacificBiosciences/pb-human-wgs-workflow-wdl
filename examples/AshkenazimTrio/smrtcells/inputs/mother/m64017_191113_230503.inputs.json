@@ -1,0 +1,8 @@
+{
+  "smrtcells.sample_name": "HG004_NA24143_mother",
+  "smrtcells.smrtcell_info": {
+    "name": "m64017_191113_230503",
+    "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG004_NA24143_mother/PacBio_CCS_Google_15kb/m64017_191113_230503.fastq.gz",
+    "isUbam": false
+  }
+}

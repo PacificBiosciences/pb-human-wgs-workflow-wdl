@@ -1,0 +1,3 @@
+{
+  "smrtcells_person.pb_conda_image": "pacbio.azurecr.io/pb-human-wgs-workflow:latest"
+}

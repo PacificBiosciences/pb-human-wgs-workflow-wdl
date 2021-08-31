@@ -1,1 +1,1 @@
-# pb-human-wgs-workflow-wdl
+# Documentation updated soon.

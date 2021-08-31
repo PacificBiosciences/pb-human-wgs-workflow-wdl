@@ -1,0 +1,13 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/slnx.sqlite
+/workflows/smrtcells/.vs
+/.vs/pbRUGD-workflow/v16
+/.process_sample.smk.swp
+/.vs/PythonSettings.json
+/.vs/ProjectSettings.json
+/.vs/pbRUGD-workflow/v16/.suo
+/.vs/VSWorkspaceState.json
+/.vs/pb-human-wgs-workflow-wdl/v16
