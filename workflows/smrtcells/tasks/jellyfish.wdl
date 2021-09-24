@@ -2,7 +2,7 @@ version 1.0
 
 #import "../../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/dev/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 task samtools_fasta {
   input {
@@ -140,7 +140,7 @@ task dump_modimers {
     echo "$(conda info)"
 
     (jellyfish dump -c -t ~{count_jf} \
-        | PYTHONHASHSEED=0 python /opt/pb/scripts/modimer.py -N 5003 /dev/stdin \
+        | PYTHONHASHSEED=0 python /opt/pb/scripts/modimer.py -N 5003 /main/stdin \
         | sort | gzip > ~{modimers_tsv_name}) > ~{log_name} 2>&1
   >>>
   output {
