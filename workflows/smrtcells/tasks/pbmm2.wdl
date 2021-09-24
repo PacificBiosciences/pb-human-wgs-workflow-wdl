@@ -25,9 +25,14 @@ task align_ubam_or_fastq {
     Int threads = 24
     String pb_conda_image
   }
-
-#  Float multiplier = 3.25
-#  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(smrtcell_info.path, "GB"))) + 20
+  
+  # check to see if input data is BAM or FASTQ. If input=bam, remove readgroup override flag information.
+  if(smrtcell_info.isubam){
+      sample = ""
+  }
+  
+  #  Float multiplier = 3.25
+  #  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(smrtcell_info.path, "GB"))) + 20
   Int disk_size = 200
 
   command <<<
