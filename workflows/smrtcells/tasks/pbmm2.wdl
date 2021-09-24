@@ -27,7 +27,7 @@ task align_ubam_or_fastq {
   }
   
   # check to see if input data is BAM or FASTQ. If input=bam, remove readgroup override flag information.
-  if(smrtcell_info.isubam){
+  if(smrtcell_info.isUbam){
       sample = ""
   }
   
