@@ -14,7 +14,7 @@ task align_ubam_or_fastq {
     String preset = "CCS"
     String extra = "--sort --unmapped -c 0 -y 70"
     String loglevel = "INFO"
-    String sample = "--rg '@RG\tID:~{sample_name}\tSM:~{sample_name}'"
+    String sample = "--sample ~{sample_name}"
 
     String pbmm2_index_log_name = "pbmm2_index.log"
     String pbmm2_align_log_name = "pbmm2_align.log"
