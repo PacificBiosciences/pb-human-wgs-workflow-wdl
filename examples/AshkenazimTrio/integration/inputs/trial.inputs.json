@@ -1,0 +1,86 @@
+{
+  "trial.cohort_name": "AshkenazimTrio",
+  "trial.allyaml": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.yaml",
+  "trial.ped": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.ped",
+  "trial.cohort_info": {
+    "affected_persons": [
+      {
+        "name": "HG002_NA24385_son",
+        "smrtcells": [
+          {
+            "name": "m64011_181218_235052",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64011_181218_235052.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64011_181227_224151",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64011_181227_224151.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64014_181210_152538",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64014_181210_152538.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64017_190116_171555",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64017_190116_171555.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64018_190129_193747",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64018_190129_193747.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64020_190123_225958",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64020_190123_225958.fastq.gz",
+            "isUbam": false
+          }
+        ]
+      }
+    ],
+    "unaffected_persons": [
+      {
+        "name": "HG003_NA24149_father",
+        "smrtcells": [
+          {
+            "name": "m54262U_191105_163601",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG003_NA24149_father/PacBio_CCS_Google_15kb/m54262U_191105_163601.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64017_191109_034853",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG003_NA24149_father/PacBio_CCS_Google_15kb/m64017_191109_034853.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64017_191110_150028",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG003_NA24149_father/PacBio_CCS_Google_15kb/m64017_191110_150028.fastq.gz",
+            "isUbam": false
+          }
+        ]
+      },
+      {
+        "name": "HG004_NA24143_mother",
+        "smrtcells": [
+          {
+            "name": "m64017_191107_163840",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG004_NA24143_mother/PacBio_CCS_Google_15kb/m64017_191107_163840.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64017_191112_165230",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG004_NA24143_mother/PacBio_CCS_Google_15kb/m64017_191112_165230.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64017_191113_230503",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG004_NA24143_mother/PacBio_CCS_Google_15kb/m64017_191113_230503.fastq.gz",
+            "isUbam": false
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "smrtcells_sample_person.sample_info": {
+    "name": "HG003_NA24149_father",
+    "smrtcells": [
+      {
+        "name": "m54262U_191105_163601",
+        "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG003_NA24149_father/PacBio_CCS_Google_15kb/m54262U_191105_163601.fastq.gz",
+        "isUbam": false
+      },
+      {
+        "name": "m64017_191109_034853",
+        "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG003_NA24149_father/PacBio_CCS_Google_15kb/m64017_191109_034853.fastq.gz",
+        "isUbam": false
+      },
+      {
+        "name": "m64017_191110_150028",
+        "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG003_NA24149_father/PacBio_CCS_Google_15kb/m64017_191110_150028.fastq.gz",
+        "isUbam": false
+      }
+    ]
+  }
+}

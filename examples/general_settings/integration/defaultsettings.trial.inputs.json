@@ -1,0 +1,5 @@
+{
+  "trial.kmer_length": 21,
+  "trial.regions_file": "/datasetpbhumandemodata/dataset/reference/regions.txt",
+  "trial.chr_lengths": "/datasetpbhumandemodata/dataset/reference/chr_lengths.tsv"
+}
