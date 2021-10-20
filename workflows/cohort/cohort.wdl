@@ -51,11 +51,11 @@ workflow cohort {
         cohort_name = cohort_name,
         regions = regions,
         reference = reference,
-        affected_person_gvcfs = affected_person_gvcfs.datafile[],
-        unaffected_person_gvcfs = unaffected_person_gvcfs.datafile[],
+        affected_person_gvcfs = select_all(affected_person_gvcfs.datafile),
+        unaffected_person_gvcfs = select_all(unaffected_person_gvcfs.datafile),
       
-        affected_person_gvcfs_index = affected_person_gvcfs.indexfile[],
-        unaffected_person_gvcfs_index = unaffected_person_gvcfs.indexfile[],
+        affected_person_gvcfs_index = select_all(affected_person_gvcfs.indexfile),
+        unaffected_person_gvcfs_index = select_all(unaffected_person_gvcfs.indexfile),
 
         pb_conda_image = pb_conda_image,
         glnexus_image = glnexus_image
