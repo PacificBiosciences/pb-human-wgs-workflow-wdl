@@ -25,6 +25,19 @@ workflow cohort {
 
     String pb_conda_image
     String glnexus_image
+
+    File hpoannotations
+    File hpoterms
+    File hpodag
+    File gff
+    File ensembl_to_hgnc
+    File js
+    File lof_lookup
+    File gnomad_af
+    File hprc_af
+    File allyaml
+    File ped
+    File clinvar_lookup
   }
 
   call pbsv.pbsv {
