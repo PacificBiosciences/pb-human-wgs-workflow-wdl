@@ -4,7 +4,8 @@ import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/glnexus.wdl" as glnexus
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/slivar.wdl" as slivar
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl" as separate
+import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl" as separateaffected
+import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl" as separateunaffected
 
 workflow cohort {
   input {
@@ -46,21 +47,21 @@ workflow cohort {
       IndexedData? singleton_slivar_input = if defined(singleton_affected_person_slivar_input) then singleton_affected_person_slivar_input else singleton_unaffected_person_slivar_input
   }
 
-  call separate.separate_data_and_index_files {
+  call separateaffected.separate_data_and_index_files {
     input:
       indexed_data_array=affected_person_gvcfs
   }
 
-  Array[File] affected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
-  Array[File] affected_person_gvcfs_index = separate.separate_data_and_index_files.indexfiles
+  Array[File] affected_person_gvcfs_data = separateaffected.separate_data_and_index_files.datafiles
+  Array[File] affected_person_gvcfs_index = separateaffected.separate_data_and_index_files.indexfiles
 
-  call separate.separate_data_and_index_files {
+  call separateunaffected.separate_data_and_index_files {
     input:
       indexed_data_array=unaffected_person_gvcfs
   }
 
-  Array[File] unaffected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
-  Array[File] unaffected_person_gvcfs_index = separate.separate_data_and_index_files.indexfiles
+  Array[File] unaffected_person_gvcfs_data = separateunaffected.separate_data_and_index_files.datafiles
+  Array[File] unaffected_person_gvcfs_index = separateunaffected.separate_data_and_index_files.indexfiles
 
   if (!singleton) {
     call glnexus.glnexus {
