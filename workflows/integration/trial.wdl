@@ -100,8 +100,6 @@ workflow trial {
 
       affected_person_bams = smrtcells_trial.affected_person_bams,
       unaffected_person_bams = smrtcells_trial.unaffected_person_bams,
-      affected_person_gvcfs = sample_trial.affected_person_gvcf,
-      unaffected_person_gvcfs = sample_trial.unaffected_person_gvcf,
 
       pb_conda_image = pb_conda_image,
       glnexus_image = glnexus_image
