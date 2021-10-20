@@ -4,6 +4,7 @@ import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/glnexus.wdl" as glnexus
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/slivar.wdl" as slivar
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl" as separate
 
 workflow cohort {
   input {
@@ -45,17 +46,33 @@ workflow cohort {
       IndexedData? singleton_slivar_input = if defined(singleton_affected_person_slivar_input) then singleton_affected_person_slivar_input else singleton_unaffected_person_slivar_input
   }
 
+  call separate.separate_data_and_index_files {
+    input:
+      indexed_data=affected_person_gvcfs
+  }
+
+  Array[Files] affected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
+  Array[Files] affected_person_gvcfs_index = separate.separate_data_and_index_files.indexfiles
+
+  call separate.separate_data_and_index_files {
+    input:
+      indexed_data=unaffected_person_gvcfs
+  }
+
+  Array[Files] unaffected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
+  Array[Files] unaffected_person_gvcfs_index = separate.separate_data_and_index_files.indexfiles
+
   if (!singleton) {
     call glnexus.glnexus {
       input:
         cohort_name = cohort_name,
         regions = regions,
         reference = reference,
-        affected_person_gvcfs = select_all(affected_person_gvcfs.datafile),
-        unaffected_person_gvcfs = select_all(unaffected_person_gvcfs.datafile),
+        affected_person_gvcfs = affected_person_gvcfs_data,
+        unaffected_person_gvcfs = unaffected_person_gvcfs_data,
       
-        affected_person_gvcfs_index = select_all(affected_person_gvcfs.indexfile),
-        unaffected_person_gvcfs_index = select_all(unaffected_person_gvcfs.indexfile),
+        affected_person_gvcfs_index = affected_person_gvcfs_index,
+        unaffected_person_gvcfs_index = unaffected_person_gvcfs_index,
 
         pb_conda_image = pb_conda_image,
         glnexus_image = glnexus_image
