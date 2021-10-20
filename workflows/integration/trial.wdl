@@ -49,7 +49,7 @@ workflow trial {
       pb_conda_image = pb_conda_image
   }
 
-  Array[String] regions = read_tsv(regions_file)
+  Array[String] regions = read_lines(regions_file)
 
   call sample.trial.sample_trial {
     input:
