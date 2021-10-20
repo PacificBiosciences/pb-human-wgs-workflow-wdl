@@ -47,21 +47,6 @@ workflow cohort {
       IndexedData? singleton_slivar_input = if defined(singleton_affected_person_slivar_input) then singleton_affected_person_slivar_input else singleton_unaffected_person_slivar_input
   }
 
-  call separateaffected.separate_data_and_index_files {
-    input:
-      indexed_data_array=affected_person_gvcfs
-  }
-
-  Array[File] affected_person_gvcfs_data = separateaffected.separate_data_and_index_files.datafiles
-  Array[File] affected_person_gvcfs_index = separateaffected.separate_data_and_index_files.indexfiles
-
-  call separateunaffected.separate_data_and_index_files {
-    input:
-      indexed_data_array=unaffected_person_gvcfs
-  }
-
-  Array[File] unaffected_person_gvcfs_data = separateunaffected.separate_data_and_index_files.datafiles
-  Array[File] unaffected_person_gvcfs_index = separateunaffected.separate_data_and_index_files.indexfiles
 
   if (!singleton) {
     call glnexus.glnexus {
@@ -69,11 +54,8 @@ workflow cohort {
         cohort_name = cohort_name,
         regions = regions,
         reference = reference,
-        affected_person_gvcfs = affected_person_gvcfs_data,
-        unaffected_person_gvcfs = unaffected_person_gvcfs_data,
-      
-        affected_person_gvcfs_index = affected_person_gvcfs_index,
-        unaffected_person_gvcfs_index = unaffected_person_gvcfs_index,
+        affected_person_gvcfs = affected_person_gvcfs,
+        unaffected_person_gvcfs = unaffected_person_gvcfs,
 
         pb_conda_image = pb_conda_image,
         glnexus_image = glnexus_image
