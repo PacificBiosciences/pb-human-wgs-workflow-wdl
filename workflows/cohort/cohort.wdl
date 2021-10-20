@@ -48,7 +48,7 @@ workflow cohort {
 
   call separate.separate_data_and_index_files {
     input:
-      indexed_data=affected_person_gvcfs
+      indexed_data_array=affected_person_gvcfs
   }
 
   Array[File] affected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
@@ -56,7 +56,7 @@ workflow cohort {
 
   call separate.separate_data_and_index_files {
     input:
-      indexed_data=unaffected_person_gvcfs
+      indexed_data_array=unaffected_person_gvcfs
   }
 
   Array[File] unaffected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
