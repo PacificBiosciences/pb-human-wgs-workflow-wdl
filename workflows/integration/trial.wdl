@@ -49,6 +49,8 @@ workflow trial {
       pb_conda_image = pb_conda_image
   }
 
+  Array[String] regions = read_tsv(regions_file)
+
   call sample.trial.sample_trial {
     input:
     affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
@@ -58,7 +60,7 @@ workflow trial {
     unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
     unaffected_person_jellyfish_input = smrtcells_trial.unaffected_person_jellyfish_count,
 
-    regions_file = regions_file,
+    regions = regions,
     reference = reference,
 
     tr_bed = tr_bed,
@@ -72,7 +74,7 @@ workflow trial {
   call cohort.cohort {
     input:
       cohort_name = cohort_name,
-      regions_file = regions_file,
+      regions = regions,
       reference = reference,
 
       affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
