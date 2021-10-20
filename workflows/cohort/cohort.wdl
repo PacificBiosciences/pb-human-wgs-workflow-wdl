@@ -14,6 +14,10 @@ workflow cohort {
     Array[IndexedData] affected_person_deepvariant_phased_vcf_gz
     Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz
 
+    Array[IndexedData] affected_person_gvcfs
+    Array[IndexedData] unaffected_person_gvcfs
+
+
     Int num_samples = length(affected_person_deepvariant_phased_vcf_gz) + length(unaffected_person_deepvariant_phased_vcf_gz)
     Boolean singleton = if num_samples == 1 then true else false 
 
@@ -47,6 +51,11 @@ workflow cohort {
         cohort_name = cohort_name,
         regions = regions,
         reference = reference,
+        affected_person_gvcfs = affected_person_gvcfs.datafiles,
+        unaffected_person_gvcfs = unaffected_person_gvcfs.datafiles,
+      
+        affected_person_gvcfs_index = affected_person_gvcfs.indexfiles,
+        unaffected_person_gvcfs_index = unaffected_person_gvcfs.indexfiles,
 
         pb_conda_image = pb_conda_image,
         glnexus_image = glnexus_image
