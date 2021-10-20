@@ -9,7 +9,7 @@ import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow
 workflow smrtcells_trial {
   input {
     IndexedData reference
-    CohortInfo cohort
+    CohortInfo cohort_info
     Int kmer_length
 
     String pb_conda_image
