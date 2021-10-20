@@ -18,11 +18,7 @@ workflow cohort {
 
     Array[IndexedData] affected_person_gvcfs
     Array[IndexedData] unaffected_person_gvcfs
-
-
-    Int num_samples = length(affected_person_deepvariant_phased_vcf_gz) + length(unaffected_person_deepvariant_phased_vcf_gz)
-    Boolean singleton = if num_samples == 1 then true else false 
-
+    
     String pb_conda_image
     String glnexus_image
 
@@ -40,6 +36,9 @@ workflow cohort {
     File clinvar_lookup
   }
 
+  Int num_samples = length(affected_person_deepvariant_phased_vcf_gz) + length(unaffected_person_deepvariant_phased_vcf_gz)
+  Boolean singleton = if num_samples == 1 then true else false 
+  
   call pbsv.pbsv {
     input:
       cohort_name = cohort_name,
