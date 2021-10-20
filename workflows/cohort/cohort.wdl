@@ -51,16 +51,16 @@ workflow cohort {
       indexed_data=affected_person_gvcfs
   }
 
-  Array[Files] affected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
-  Array[Files] affected_person_gvcfs_index = separate.separate_data_and_index_files.indexfiles
+  Array[File] affected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
+  Array[File] affected_person_gvcfs_index = separate.separate_data_and_index_files.indexfiles
 
   call separate.separate_data_and_index_files {
     input:
       indexed_data=unaffected_person_gvcfs
   }
 
-  Array[Files] unaffected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
-  Array[Files] unaffected_person_gvcfs_index = separate.separate_data_and_index_files.indexfiles
+  Array[File] unaffected_person_gvcfs_data = separate.separate_data_and_index_files.datafiles
+  Array[File] unaffected_person_gvcfs_index = separate.separate_data_and_index_files.indexfiles
 
   if (!singleton) {
     call glnexus.glnexus {
