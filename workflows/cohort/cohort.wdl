@@ -86,7 +86,20 @@ workflow cohort {
       slivar_input = if singleton then singleton_slivar_input else non_singleton_slivar_input,
 
       pb_conda_image = pb_conda_image
-  }
+
+      hpoannotations = hpoannotations,
+      hpoterms =  hpoterms,
+      hpodag =  hpodag,
+      gff = gff,
+      ensembl_to_hgnc= ensembl_to_hgnc,
+      js=   js,
+      lof_lookup=  lof_lookup,
+      gnomad_af=  gnomad_af,
+      hprc_af=  hprc_af,
+      allyaml= allyaml,
+      ped=  ped,
+      clinvar_lookup=   clinvar_lookup
+  } 
 
   output {
     IndexedData pbsv_vcf    = pbsv.pbsv_vcf
