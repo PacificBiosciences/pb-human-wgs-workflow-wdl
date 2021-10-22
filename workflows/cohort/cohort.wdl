@@ -18,6 +18,12 @@ workflow cohort {
 
     Array[IndexedData] affected_person_gvcfs
     Array[IndexedData] unaffected_person_gvcfs
+
+    Array[Array[Array[File]]] affected_person_svsigs
+    Array[Array[Array[File]]] unaffected_person_svsigs
+
+    Array[Array[IndexedData]] affected_person_bams
+    Array[Array[IndexedData]] unaffected_person_bams
     
     String pb_conda_image
     String glnexus_image
@@ -44,7 +50,9 @@ workflow cohort {
       cohort_name = cohort_name,
       reference = reference,
       regions = regions,
-      pb_conda_image = pb_conda_image
+      pb_conda_image = pb_conda_image,
+      affected_person_svsigs = affected_person_svsigs,
+      unaffected_person_svsigs = unaffected_person_svsigs
   }
 
   if (singleton) {
@@ -68,7 +76,8 @@ workflow cohort {
         reference = reference,
         affected_person_gvcfs = affected_person_gvcfs,
         unaffected_person_gvcfs = unaffected_person_gvcfs,
-
+        affected_person_bams = affected_person_bams,
+        unaffected_person_bams = unaffected_person_bams,
         pb_conda_image = pb_conda_image,
         glnexus_image = glnexus_image
     }
