@@ -15,5 +15,7 @@
   "trial.hpodag": "/datasetpbhumanwgs/dataset/hpo/hpoDag.txt",
   "trial.hpoannotations": "/datasetpbhumanwgs/dataset/hpo/ensembl.hpoPhenotype.tsv",
   "trial.ensembl_to_hgnc": "/datasetpbhumanwgs/dataset/hpo/ensembl.hgncSymbol.tsv",
-  "trial.hprc_af": "/datasetpbhumanwgs/dataset/hprc/hprc.deepvariant.glnexus.hg38.v1-20201012.zip"
+  "trial.hprc_af": "/datasetpbhumanwgs/dataset/hprc/hprc.deepvariant.glnexus.hg38.v1-20201012.zip",
+  "trial.ref_modimers": "/cromwell-executions/smrtcells/958d2edb-2e1d-4baa-8d51-04faf1498c1e/call-align_ubam_or_fastq/execution/rc",
+  "trial.movie_modimers": "/cromwell-executions/smrtcells/958d2edb-2e1d-4baa-8d51-04faf1498c1e/call-align_ubam_or_fastq/execution/rc"
 }
