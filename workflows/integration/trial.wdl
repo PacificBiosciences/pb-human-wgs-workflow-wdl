@@ -38,6 +38,9 @@ workflow trial {
     String deepvariant_image
     String picard_image
     String glnexus_image
+
+    File ref_modimers
+    File movie_modimers
   }
 
   call smrtcells.trial.smrtcells_trial {
@@ -62,6 +65,9 @@ workflow trial {
 
     regions = regions,
     reference = reference,
+
+    ref_modimers = ref_modimers,
+    movie_modimers = movie_modimers,
 
     tr_bed = tr_bed,
     chr_lengths = chr_lengths,
