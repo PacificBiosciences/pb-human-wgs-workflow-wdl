@@ -85,7 +85,7 @@ workflow cohort {
 
       slivar_input = if singleton then singleton_slivar_input else non_singleton_slivar_input,
 
-      pb_conda_image = pb_conda_image
+      pb_conda_image = pb_conda_image,
 
       hpoannotations = hpoannotations,
       hpoterms =  hpoterms,
