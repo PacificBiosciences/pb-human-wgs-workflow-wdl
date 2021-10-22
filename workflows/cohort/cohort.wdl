@@ -28,6 +28,8 @@ workflow cohort {
     String pb_conda_image
     String glnexus_image
 
+    File chr_lengths
+
     File hpoannotations
     File hpoterms
     File hpodag
@@ -79,7 +81,8 @@ workflow cohort {
         affected_person_bams = affected_person_bams,
         unaffected_person_bams = unaffected_person_bams,
         pb_conda_image = pb_conda_image,
-        glnexus_image = glnexus_image
+        glnexus_image = glnexus_image,
+        chr_lengths = chr_lengths
     }
 
     IndexedData non_singleton_slivar_input = glnexus.deepvariant_glnexus_phased_vcf_gz
