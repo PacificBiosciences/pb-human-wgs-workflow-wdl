@@ -13,6 +13,7 @@ workflow smrtcells_person {
     Int kmer_length
 
     String pb_conda_image
+    Boolean? run_jellyfish
   }
 
   scatter(smrtcell_info in sample.smrtcells) {
@@ -23,13 +24,14 @@ workflow smrtcells_person {
         smrtcell_info = smrtcell_info,
         kmer_length = kmer_length,
 
-        pb_conda_image = pb_conda_image
+        pb_conda_image = pb_conda_image,
+        run_jellyfish = run_jellyfish
     }
   }
 
   output {
     Array[IndexedData] bams     = smrtcells.bam
-    Array[File] jellyfish_count = smrtcells.count_jf
+    Array[File]? jellyfish_count = smrtcells.count_jf
     String sample_names  = sample.name
   }
 }

@@ -13,6 +13,7 @@ workflow smrtcells_trial {
     Int kmer_length
 
     String pb_conda_image
+    Boolean? run_jellyfish
   }
 
   scatter (sample in cohort_info.affected_persons) {
@@ -22,7 +23,8 @@ workflow smrtcells_trial {
         sample = sample,
         kmer_length = kmer_length,
 
-        pb_conda_image = pb_conda_image
+        pb_conda_image = pb_conda_image,
+        run_jellyfish = run_jellyfish
     }
   }
 
@@ -33,17 +35,18 @@ workflow smrtcells_trial {
         sample = sample,
         kmer_length = kmer_length,
 
-        pb_conda_image = pb_conda_image
+        pb_conda_image = pb_conda_image,
+        run_jellyfish = run_jellyfish
     }
   }
 
   output {
     Array[Array[IndexedData]] affected_person_bams         = if defined(smrtcells_affected_person.bams)             then smrtcells_affected_person.bams              else []
-    Array[Array[File]] affected_person_jellyfish_count     = if defined(smrtcells_affected_person.jellyfish_count)  then smrtcells_affected_person.jellyfish_count   else []
+    Array[Array[File]]? affected_person_jellyfish_count     = if defined(smrtcells_affected_person.jellyfish_count)  then smrtcells_affected_person.jellyfish_count   else []
     Array[String] affected_person_sample_names            = if defined(smrtcells_affected_person.sample_names)     then smrtcells_affected_person.sample_names      else []
 
     Array[Array[IndexedData]] unaffected_person_bams      = if defined(smrtcells_unaffected_person.bams)            then smrtcells_unaffected_person.bams            else []
-    Array[Array[File]] unaffected_person_jellyfish_count  = if defined(smrtcells_unaffected_person.jellyfish_count) then smrtcells_unaffected_person.jellyfish_count else []
+    Array[Array[File]]? unaffected_person_jellyfish_count  = if defined(smrtcells_unaffected_person.jellyfish_count) then smrtcells_unaffected_person.jellyfish_count else []
     Array[String] unaffected_person_sample_names         = if defined(smrtcells_unaffected_person.sample_names)   then smrtcells_unaffected_person.sample_names    else []
   }
 }
