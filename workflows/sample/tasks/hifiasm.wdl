@@ -51,9 +51,10 @@ task hifiasm_assemble {
     String pb_conda_image
   }
 
-#  Float multiplier = 3.25
-#  Int disk_size = ceil(multiplier * size(movie_fasta, "GB")) + 20
-  Int disk_size = 200
+  Float multiplier = 2
+  Int disk_size = ceil(multiplier * size(movie_fasta, "GB")) + 20
+#  Int disk_size = 200
+  Int memory = threads * 3              #forces at least 3GB RAM/core, even if user overwrites threads
 
   command <<<
     echo requested disk_size =  ~{disk_size}
@@ -83,7 +84,7 @@ task hifiasm_assemble {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "14 GB"
+    memory: memory + " GB"                   
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
