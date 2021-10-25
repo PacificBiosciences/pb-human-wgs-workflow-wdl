@@ -84,7 +84,7 @@ task hifiasm_assemble {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: memory + " GB"                   
+    memory: "~{memory}" + " GB"                   
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
