@@ -53,5 +53,7 @@ workflow jellyfish {
   }
 
   output {
+    File? jellyfish_output = jellyfish_merge.jellyfish_output
+    File? log = jellyfish_merge.log
   }
 }

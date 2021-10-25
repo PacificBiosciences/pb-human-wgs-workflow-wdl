@@ -41,6 +41,8 @@ workflow trial {
 
     File ref_modimers
     File movie_modimers
+
+    Boolean? run_jellyfish
   }
 
   call smrtcells.trial.smrtcells_trial {
@@ -49,7 +51,8 @@ workflow trial {
       cohort_info = cohort_info,
       kmer_length = kmer_length,
 
-      pb_conda_image = pb_conda_image
+      pb_conda_image = pb_conda_image,
+      run_jellyfish = run_jellyfish,
   }
 
   Array[String] regions = read_lines(regions_file)
@@ -74,7 +77,9 @@ workflow trial {
 
     pb_conda_image = pb_conda_image,
     deepvariant_image = deepvariant_image,
-    picard_image = picard_image
+    picard_image = picard_image,
+
+    run_jellyfish = run_jellyfish
   }
 
   call cohort.cohort {
