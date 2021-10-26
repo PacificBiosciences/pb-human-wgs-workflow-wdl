@@ -103,7 +103,7 @@ workflow sample {
   }
 
   if(run_jellyfish) {                                                       #only run jellyfish if run_jellyfish is true AND there are multiple jellyfish_input files
-    if(count(jellyfish_input) > 1) {                                        #otherwise, if there is only one jellyfish_input file, then just pass jellyfish_input to final output
+    if(length(jellyfish_input) > 1) {                                        #otherwise, if there is only one jellyfish_input file, then just pass jellyfish_input to final output
       call jellyfish.jellyfish {
         input:
           sample_name = sample_name,
