@@ -22,7 +22,7 @@ workflow smrtcells {
     Int kmer_length
 
     String pb_conda_image
-    Boolean? run_jellyfish                        # optional- default: null. ONLY if run_jellyfish=true, run jellyfish. Specify in the default_settings.json file
+    Boolean run_jellyfish                        # optional- default: null. ONLY if run_jellyfish=true, run jellyfish. Specify in the default_settings.json file
   }
   call pbmm2.align_ubam_or_fastq {
     input:

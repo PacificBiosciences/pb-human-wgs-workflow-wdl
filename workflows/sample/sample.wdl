@@ -40,7 +40,7 @@ workflow sample {
     String deepvariant_image
     String picard_image
 
-    Boolean? run_jellyfish
+    Boolean run_jellyfish
   }
 
   call pbsv.pbsv {

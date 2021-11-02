@@ -28,7 +28,7 @@ workflow sample_trial {
     String deepvariant_image
     String picard_image
 
-    Boolean? run_jellyfish
+    Boolean run_jellyfish
   }
 
   scatter (person_num in range(length(affected_person_sample))) {
