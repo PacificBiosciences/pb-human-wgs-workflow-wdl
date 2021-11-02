@@ -10,10 +10,10 @@ workflow sample_trial {
   input {
     Array[String]             affected_person_sample_names
     Array[Array[IndexedData]] affected_person_sample
-    Array[Array[File]]        affected_person_jellyfish_input
+    Array[Array[File?]]        affected_person_jellyfish_input
     Array[String]             unaffected_person_sample_names
     Array[Array[IndexedData]] unaffected_person_sample
-    Array[Array[File]]        unaffected_person_jellyfish_input
+    Array[Array[File?]]        unaffected_person_jellyfish_input
 
     Array[String] regions
     IndexedData reference

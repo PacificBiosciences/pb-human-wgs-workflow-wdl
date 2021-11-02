@@ -26,7 +26,7 @@ workflow sample {
   input {
     String sample_name
     Array[IndexedData] sample
-    Array[File] jellyfish_input
+    Array[File?] jellyfish_input
     Array[String] regions
     IndexedData reference
 
