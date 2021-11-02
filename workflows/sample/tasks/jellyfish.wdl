@@ -41,7 +41,7 @@ task jellyfish_merge {
 workflow jellyfish {
   input {
     String sample_name
-    Array[File] jellyfish_input
+    Array[File?] jellyfish_input
     String pb_conda_image
   }
 
