@@ -13,7 +13,7 @@ workflow smrtcells_person {
     Int kmer_length
 
     String pb_conda_image
-    Boolean? run_jellyfish
+    Boolean run_jellyfish
   }
 
   scatter(smrtcell_info in sample.smrtcells) {
