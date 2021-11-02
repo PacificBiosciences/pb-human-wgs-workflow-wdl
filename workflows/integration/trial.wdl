@@ -120,10 +120,10 @@ workflow trial {
 
   output {
     Array[Array[IndexedData]] affected_person_bams        = smrtcells_trial.affected_person_bams
-    Array[Array[File]] affected_person_jellyfish_count    = smrtcells_trial.affected_person_jellyfish_count
+    Array[Array[File?]] affected_person_jellyfish_count    = smrtcells_trial.affected_person_jellyfish_count
 
     Array[Array[IndexedData]] unaffected_person_bams      = smrtcells_trial.unaffected_person_bams
-    Array[Array[File]] unaffected_person_jellyfish_count  = smrtcells_trial.unaffected_person_jellyfish_count
+    Array[Array[File?]] unaffected_person_jellyfish_count  = smrtcells_trial.unaffected_person_jellyfish_count
 
     Array[IndexedData] affected_person_gvcf                        = sample_trial.affected_person_gvcf
     Array[Array[Array[File]]] affected_person_svsig_gv             = sample_trial.affected_person_svsig_gv
