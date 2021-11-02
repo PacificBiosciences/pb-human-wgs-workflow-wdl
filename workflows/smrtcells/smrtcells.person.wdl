@@ -31,8 +31,8 @@ workflow smrtcells_person {
 
   output {
     Array[IndexedData] bams     = smrtcells.bam
-    Array[File]? jellyfish_count = smrtcells.count_jf
+    Array[File?] jellyfish_count = smrtcells.count_jf
     String sample_names  = sample.name
-    Array[File]? movie_modimers = smrtcells.movie_modimers
+    Array[File?] movie_modimers = smrtcells.movie_modimers
   }
 }

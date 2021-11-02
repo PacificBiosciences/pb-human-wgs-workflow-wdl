@@ -42,7 +42,7 @@ workflow trial {
     File ref_modimers
     File movie_modimers
 
-    Boolean run_jellyfish = false
+    Boolean run_jellyfish = false                         #default is to NOT run jellyfish
   }
 
   call smrtcells.trial.smrtcells_trial {

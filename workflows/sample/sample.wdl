@@ -107,10 +107,7 @@ workflow sample {
       call jellyfish.jellyfish {
         input:
           sample_name = sample_name,
-          sample = sample,
-          reference = reference,
           jellyfish_input = jellyfish_input,
-          regions = regions,
           pb_conda_image = pb_conda_image
       }
     }
