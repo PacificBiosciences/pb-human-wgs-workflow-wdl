@@ -4,7 +4,7 @@ task jellyfish_merge {
   input {
     String log_name = "jellyfish_merge.log"
     String sample_name
-    Array[File] jellyfish_input
+    Array[File?] jellyfish_input
     String jellyfish_output_name = "~{sample_name}.jf"
     String pb_conda_image
 
