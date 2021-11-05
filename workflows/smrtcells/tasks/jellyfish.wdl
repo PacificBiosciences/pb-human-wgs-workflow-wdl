@@ -2,7 +2,7 @@ version 1.0
 
 #import "../../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 task samtools_fasta {
   input {
@@ -199,6 +199,5 @@ workflow jellyfish {
 
   output {
     File count_jf = jellyfish_count.count_jf
-    File modimers_tsv = dump_modimers.modimers_tsv
   }
 }
