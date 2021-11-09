@@ -209,7 +209,7 @@ task align_hifiasm {
     IndexedData target 
     Array[File] query
 
-    String asm_bam_name = "asm.bam"
+    String asm_bam_name = "~{sample_name}.asm.~{reference_name}.bam"
     String pb_conda_image
     Int threads = 16
   }
@@ -231,10 +231,12 @@ task align_hifiasm {
             | awk '{{ if ($1 !~ /^@/) \
                             {{ Rct=split($1,R,"."); N=R[1]; for(i=2;i<Rct;i++) {{ N=N"."R[i]; }} print $0 "\tTG:Z:" N; }} \
                             else {{ print; }} }}' \
-            | samtools sort -@ ~{samtools_threads} > ~{asm_bam_name}) > ~{log_name} 2>&1
+            | samtools sort -@ ~{samtools_threads} > ~{asm_bam_name} \
+            && samtools index -@ ~{samtools_threads} ~{asm_bam_name}) > ~{log_name} 2>&1
   >>>
   output {
     File asm_bam = "~{asm_bam_name}"
+    File asm_bai = "~{asm_bam_name}.bai"
     File log = "~{log_name}"
   }
   runtime {
