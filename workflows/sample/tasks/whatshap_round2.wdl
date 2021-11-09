@@ -176,7 +176,7 @@ task whatshap_stats {
     String sample_name
     String? reference_name
 
-    String gtf_name = "{sample_name}.~{reference_name}.deepvariant.phased.gtf"
+    String gtf_name = "~{sample_name}.~{reference_name}.deepvariant.phased.gtf"
     String tsv_name = "~{sample_name}.~{reference_name}.deepvariant.phased.tsv"
     String blocklist_name = "~{sample_name}.~{reference_name}.deepvariant.phased.blocklist"
 
