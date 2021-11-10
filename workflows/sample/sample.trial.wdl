@@ -10,10 +10,10 @@ workflow sample_trial {
   input {
     Array[String]             affected_person_sample_names
     Array[Array[IndexedData]] affected_person_sample
-    Array[Array[File]]        affected_person_jellyfish_input
+    Array[Array[File?]]        affected_person_jellyfish_input
     Array[String]             unaffected_person_sample_names
     Array[Array[IndexedData]] unaffected_person_sample
-    Array[Array[File]]        unaffected_person_jellyfish_input
+    Array[Array[File?]]        unaffected_person_jellyfish_input
 
     Array[String] regions
     IndexedData reference
@@ -27,6 +27,8 @@ workflow sample_trial {
     String pb_conda_image
     String deepvariant_image
     String picard_image
+
+    Boolean run_jellyfish
   }
 
   scatter (person_num in range(length(affected_person_sample))) {
@@ -47,7 +49,9 @@ workflow sample_trial {
 
         pb_conda_image = pb_conda_image,
         deepvariant_image = deepvariant_image,
-        picard_image = picard_image
+        picard_image = picard_image,
+
+        run_jellyfish = run_jellyfish
     }
   }
 
@@ -69,7 +73,9 @@ workflow sample_trial {
 
         pb_conda_image = pb_conda_image,
         deepvariant_image = deepvariant_image,
-        picard_image = picard_image
+        picard_image = picard_image,
+
+        run_jellyfish = run_jellyfish
     }
   }
 
@@ -77,9 +83,11 @@ workflow sample_trial {
     Array[IndexedData] affected_person_gvcf                        = if defined(sample_affected_person.gvcf)                        then sample_affected_person.gvcf else []
     Array[Array[Array[File]]] affected_person_svsig_gv             = if defined(sample_affected_person.svsig_gv)                    then sample_affected_person.svsig_gv else []
     Array[IndexedData] affected_person_deepvariant_phased_vcf_gz   = if defined(sample_affected_person.deepvariant_phased_vcf_gz)   then sample_affected_person.deepvariant_phased_vcf_gz else 0
+    Array[File?] affected_person_jellyfish_output_files            = if defined(sample_affected_person.jellyfish_output)            then sample_affected_person.jellyfish_output else []
 
     Array[IndexedData] unaffected_person_gvcf                      = if defined(sample_unaffected_person.gvcf)                      then sample_unaffected_person.gvcf else []
     Array[Array[Array[File]]] unaffected_person_svsig_gv           = if defined(sample_unaffected_person.svsig_gv)                  then sample_unaffected_person.svsig_gv else []
     Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = if defined(sample_unaffected_person.deepvariant_phased_vcf_gz) then sample_unaffected_person.deepvariant_phased_vcf_gz else 0
+    Array[File?] unaffected_person_jellyfish_output_files          = if defined(sample_unaffected_person.jellyfish_output)          then sample_unaffected_person.jellyfish_output else []
   }
 }

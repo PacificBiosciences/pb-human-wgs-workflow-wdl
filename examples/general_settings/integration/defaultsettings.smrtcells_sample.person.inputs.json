@@ -1,0 +1,5 @@
+{
+  "smrtcells_sample_person.kmer_length": 21,
+  "smrtcells_sample_person.regions_file": "/datasetpbhumandemodata/dataset/reference/regions.txt",
+  "smrtcells_sample_person.chr_lengths": "/datasetpbhumandemodata/dataset/reference/chr_lengths.tsv"
+}

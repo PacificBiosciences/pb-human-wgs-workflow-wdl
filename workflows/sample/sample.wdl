@@ -26,7 +26,7 @@ workflow sample {
   input {
     String sample_name
     Array[IndexedData] sample
-    Array[File] jellyfish_input
+    Array[File?] jellyfish_input
     Array[String] regions
     IndexedData reference
 
@@ -39,6 +39,8 @@ workflow sample {
     String pb_conda_image
     String deepvariant_image
     String picard_image
+
+    Boolean run_jellyfish
   }
 
   call pbsv.pbsv {
@@ -57,7 +59,7 @@ workflow sample {
       sample_name = sample_name,
       sample = sample,
       reference = reference,
-      
+
       deepvariant_image = deepvariant_image
   }
 
@@ -100,11 +102,15 @@ workflow sample {
       pb_conda_image = pb_conda_image
   }
 
-  call jellyfish.jellyfish {
-    input:
-      sample_name = sample_name,
-      jellyfish_input = jellyfish_input,
-      pb_conda_image = pb_conda_image
+  if(run_jellyfish) {                                                       #only run jellyfish if run_jellyfish is true AND there are multiple jellyfish_input files
+    if(length(jellyfish_input) > 1) {                                        #otherwise, if there is only one jellyfish_input file, then just pass jellyfish_input to final output
+      call jellyfish.jellyfish {
+        input:
+          sample_name = sample_name,
+          jellyfish_input = jellyfish_input,
+          pb_conda_image = pb_conda_image
+      }
+    }
   }
 
   call hifiasm.hifiasm {
@@ -117,8 +123,13 @@ workflow sample {
 
   output {
     IndexedData gvcf = deepvariant_round2.gvcf
+    IndexedData pbsv_vcf    = pbsv.pbsv_vcf
+    IndexedData pbsv_individual_vcf    = pbsv.pbsv_individual_vcf
     Array[Array[File]] svsig_gv = pbsv.svsig_gv
     IndexedData deepvariant_phased_vcf_gz = whatshap_round2.deepvariant_phased_vcf_gz
+
+    File? jellyfish_output = jellyfish.jellyfish_output
+    File? log = jellyfish.log
   }
 
 }

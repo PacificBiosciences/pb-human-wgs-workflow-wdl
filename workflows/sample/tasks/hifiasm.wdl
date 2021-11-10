@@ -51,9 +51,10 @@ task hifiasm_assemble {
     String pb_conda_image
   }
 
-#  Float multiplier = 3.25
-#  Int disk_size = ceil(multiplier * size(movie_fasta, "GB")) + 20
-  Int disk_size = 200
+  Float multiplier = 2
+  Int disk_size = ceil(multiplier * size(movie_fasta, "GB")) + 20
+#  Int disk_size = 200
+  Int memory = threads * 3              #forces at least 3GB RAM/core, even if user overwrites threads
 
   command <<<
     echo requested disk_size =  ~{disk_size}
@@ -83,7 +84,7 @@ task hifiasm_assemble {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "14 GB"
+    memory: "~{memory}" + " GB"                   
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
@@ -208,7 +209,7 @@ task align_hifiasm {
     IndexedData target 
     Array[File] query
 
-    String asm_bam_name = "asm.bam"
+    String asm_bam_name = "~{sample_name}.asm.~{reference_name}.bam"
     String pb_conda_image
     Int threads = 16
   }
@@ -230,10 +231,12 @@ task align_hifiasm {
             | awk '{{ if ($1 !~ /^@/) \
                             {{ Rct=split($1,R,"."); N=R[1]; for(i=2;i<Rct;i++) {{ N=N"."R[i]; }} print $0 "\tTG:Z:" N; }} \
                             else {{ print; }} }}' \
-            | samtools sort -@ ~{samtools_threads} > ~{asm_bam_name}) > ~{log_name} 2>&1
+            | samtools sort -@ ~{samtools_threads} > ~{asm_bam_name} \
+            && samtools index -@ ~{samtools_threads} ~{asm_bam_name}) > ~{log_name} 2>&1
   >>>
   output {
     File asm_bam = "~{asm_bam_name}"
+    File asm_bai = "~{asm_bam_name}.bai"
     File log = "~{log_name}"
   }
   runtime {

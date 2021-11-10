@@ -22,8 +22,8 @@ workflow smrtcells {
     Int kmer_length
 
     String pb_conda_image
+    Boolean run_jellyfish                        # optional- default: null. ONLY if run_jellyfish=true, run jellyfish. Specify in the default_settings.json file
   }
-
   call pbmm2.align_ubam_or_fastq {
     input:
       reference = reference,
@@ -56,16 +56,19 @@ workflow smrtcells {
       pb_conda_image = pb_conda_image
   }
 
-  call jellyfish.jellyfish {
-    input:
-      smrtcell_info = smrtcell_info,
-      kmer_length = kmer_length,
-      pb_conda_image = pb_conda_image,
+  if(run_jellyfish) {
+    call jellyfish.jellyfish {
+      input:
+        smrtcell_info = smrtcell_info,
+        kmer_length = kmer_length,
+        pb_conda_image = pb_conda_image,
+    }
   }
 
   output {
     IndexedData bam = align_ubam_or_fastq.bam
-    File count_jf   = jellyfish.count_jf
+    File? count_jf   = jellyfish.count_jf
+    File? movie_modimers = jellyfish.modimers_tsv
   }
 
 }

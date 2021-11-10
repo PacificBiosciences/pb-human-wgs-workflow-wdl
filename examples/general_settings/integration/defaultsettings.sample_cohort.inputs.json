@@ -1,0 +1,4 @@
+{
+  "sample_cohort.regions_file": "/datasetpbhumandemodata/dataset/reference/regions.txt",
+  "sample_cohort.chr_lengths": "/datasetpbhumandemodata/dataset/reference/chr_lengths.tsv"
+}

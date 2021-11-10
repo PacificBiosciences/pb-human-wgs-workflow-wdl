@@ -1,0 +1,5 @@
+{
+  "smrtcells_sample_person.pb_conda_image": "pacbio.azurecr.io/pb-human-wgs-workflow:latest",
+  "smrtcells_sample_person.deepvariant_image": "google/deepvariant:1.1.0-gpu",
+  "smrtcells_sample_person.picard_image": "broadinstitute/picard"
+}

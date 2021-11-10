@@ -1,0 +1,6 @@
+{
+  "sample_cohort.pb_conda_image": "pacbio.azurecr.io/pb-human-wgs-workflow:latest",
+  "sample_cohort.deepvariant_image": "google/deepvariant:1.1.0-gpu",
+  "sample_cohort.picard_image": "broadinstitute/picard",
+  "sample_cohort.glnexus_image": "quay.io/mlin/glnexus:v1.2.7"
+}

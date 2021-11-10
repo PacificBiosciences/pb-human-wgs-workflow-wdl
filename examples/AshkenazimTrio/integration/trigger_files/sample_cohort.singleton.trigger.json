@@ -1,0 +1,11 @@
+{
+  "WorkflowUrl": "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/integration/sample_cohort.wdl",
+  "WorkflowInputsUrls": [
+    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/examples/AshkenazimTrio/integration/inputs/sample_cohort.singleton.inputs.json",
+    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/examples/general_settings/integration/defaultsettings.sample_cohort.inputs.json",
+    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/examples/general_settings/integration/docker.sample_cohort.inputs.json",
+    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/examples/general_settings/integration/reference.sample_cohort.inputs.json"
+  ],
+  "WorkflowOptionsUrl": null,
+  "WorkflowDependenciesUrl": null
+}

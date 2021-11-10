@@ -13,7 +13,7 @@ import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workfl
 task pbsv_call {
   input {
     Int threads = 8
-    String region 
+    String region
     String extra = "--ccs -m 20 -A 3 -O 3"
     String loglevel = "INFO"
     String log_name = "pbsv_call.log"
@@ -127,7 +127,7 @@ workflow pbsv {
   }
 
   scatter(call_pbsv_vcf in pbsv_call.pbsv_vcf) {
-    call common.common {
+    call common.bgzip_vcf {
       input :
         vcf_input = call_pbsv_vcf,
         pb_conda_image = pb_conda_image
@@ -136,7 +136,7 @@ workflow pbsv {
 
   call separate_data_and_index_files.separate_data_and_index_files {
     input:
-      indexed_data_array = common.vcf_gz,
+      indexed_data_array = common.vcf_gz_output,
   }
 
   call bcftools_concat_pbsv_vcf {
@@ -150,6 +150,8 @@ workflow pbsv {
 
   output {
     Array[Array[File]] svsig_gv = pbsv_discover_by_smartcells_output.discover_svsig_gv
+    IndexedData pbsv_vcf = bcftools_concat_pbsv_vcf_bgzip.vcf_gz_output
+    IndexedData pbsv_individual_vcf = common.vcf_gz_output
   }
 
 }
