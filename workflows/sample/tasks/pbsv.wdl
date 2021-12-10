@@ -150,7 +150,7 @@ workflow pbsv {
 
   output {
     Array[Array[File]] svsig_gv = pbsv_discover_by_smartcells_output.discover_svsig_gv
-    IndexedData pbsv_vcf = bcftools_concat_pbsv_vcf.pbsv_vcf
+    File pbsv_vcf = bcftools_concat_pbsv_vcf.pbsv_vcf
     Array[IndexedData] pbsv_individual_vcf = bgzip_vcf.vcf_gz_output
   }
 
