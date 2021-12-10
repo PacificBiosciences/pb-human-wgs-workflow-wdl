@@ -136,7 +136,7 @@ workflow pbsv {
 
   call separate_data_and_index_files.separate_data_and_index_files {
     input:
-      indexed_data_array = common.vcf_gz_output,
+      indexed_data_array = bgzip_vcf.vcf_gz_output,
   }
 
   call bcftools_concat_pbsv_vcf {
@@ -150,8 +150,8 @@ workflow pbsv {
 
   output {
     Array[Array[File]] svsig_gv = pbsv_discover_by_smartcells_output.discover_svsig_gv
-    IndexedData pbsv_vcf = bcftools_concat_pbsv_vcf_bgzip.vcf_gz_output
-    IndexedData pbsv_individual_vcf = common.vcf_gz_output
+    IndexedData pbsv_vcf = bcftools_concat_pbsv_vcf.pbsv_vcf
+    IndexedData pbsv_individual_vcf = bgzip_vcf.vcf_gz_output
   }
 
 }
