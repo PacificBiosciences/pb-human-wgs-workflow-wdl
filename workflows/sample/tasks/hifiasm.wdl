@@ -205,6 +205,8 @@ task align_hifiasm {
     Int minimap2_threads = 10
     Int samtools_threads = 3
 
+    String sample_name
+    String? target_name
     String log_name = "align_hifiasm.log"
     IndexedData target
     Array[File] query
@@ -353,6 +355,8 @@ workflow hifiasm {
   call align_hifiasm {
     input:
       target = target,
+      target_name = target_name,
+      sample_name = sample_name,
       query = [
         bgzip_fasta_a_ctg.fasta_gz,
         bgzip_fasta_p_ctg.fasta_gz
