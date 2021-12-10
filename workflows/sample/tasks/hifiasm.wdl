@@ -200,6 +200,9 @@ task asm_stats {
 
 task align_hifiasm {
   input {
+    String sample_name
+    String reference_name
+    
     Int max_chunk = 200000
     String minimap2_args = "-L --secondary=no --eqx -ax asm5"
     Int minimap2_threads = 10
@@ -354,9 +357,9 @@ workflow hifiasm {
 
   call align_hifiasm {
     input:
-      target = target,
-      target_name = target_name,
       sample_name = sample_name,
+      target = target,
+      reference_name = target.name,
       query = [
         bgzip_fasta_a_ctg.fasta_gz,
         bgzip_fasta_p_ctg.fasta_gz
