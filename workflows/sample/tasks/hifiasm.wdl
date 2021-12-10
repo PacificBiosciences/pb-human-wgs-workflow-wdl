@@ -84,7 +84,7 @@ task hifiasm_assemble {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "~{memory}" + " GB"                   
+    memory: "~{memory}" + " GB"
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
@@ -206,10 +206,10 @@ task align_hifiasm {
     Int samtools_threads = 3
 
     String log_name = "align_hifiasm.log"
-    IndexedData target 
+    IndexedData target
     Array[File] query
 
-    String asm_bam_name = "~{sample_name}.asm.~{reference_name}.bam"
+    String asm_bam_name = "~{sample_name}.asm.~{target_name}.bam"
     String pb_conda_image
     Int threads = 16
   }
@@ -255,6 +255,7 @@ workflow hifiasm {
     String sample_name
     Array[IndexedData] sample
     IndexedData target
+    String? target_name
     String pb_conda_image
   }
 
