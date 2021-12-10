@@ -202,19 +202,17 @@ task align_hifiasm {
   input {
     String sample_name
     String reference_name
-    
+
     Int max_chunk = 200000
     String minimap2_args = "-L --secondary=no --eqx -ax asm5"
     Int minimap2_threads = 10
     Int samtools_threads = 3
 
-    String sample_name
-    String? target_name
     String log_name = "align_hifiasm.log"
     IndexedData target
     Array[File] query
 
-    String asm_bam_name = "~{sample_name}.asm.~{target_name}.bam"
+    String asm_bam_name = "~{sample_name}.asm.~{reference_name}.bam"
     String pb_conda_image
     Int threads = 16
   }
@@ -260,7 +258,7 @@ workflow hifiasm {
     String sample_name
     Array[IndexedData] sample
     IndexedData target
-    String? target_name
+    String reference_name
     String pb_conda_image
   }
 
@@ -359,7 +357,7 @@ workflow hifiasm {
     input:
       sample_name = sample_name,
       target = target,
-      reference_name = target.name,
+      reference_name = reference_name,
       query = [
         bgzip_fasta_a_ctg.fasta_gz,
         bgzip_fasta_p_ctg.fasta_gz
