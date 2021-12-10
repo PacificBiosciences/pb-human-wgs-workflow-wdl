@@ -9,7 +9,7 @@ import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workfl
 task reformat_ensembl_gff {
   input {
     String url
-    String log_name = "reformat_ensembl_gff.log" 
+    String log_name = "reformat_ensembl_gff.log"
 
     String ensembl_gff_name = "ensembl.GRCh38.101.reformatted.gff3.gz"
 
@@ -42,7 +42,7 @@ task reformat_ensembl_gff {
 
 task generate_lof_lookup {
   input {
-    String url 
+    String url
     String log_name = "generate_lof_lookup.log"
     String lof_lookup_name = "lof_lookup.txt"
 
@@ -270,7 +270,7 @@ task slivar_compound_hets {
     IndexedData vcf
     File ped
 
-    String deepvariant_phased_slivar_compound_hets_vcf_name = "~{cohort_name}.~{reference_name}.deepvariant.phased.slivar.compound-hets.vcf" 
+    String deepvariant_phased_slivar_compound_hets_vcf_name = "~{cohort_name}.~{reference_name}.deepvariant.phased.slivar.compound-hets.vcf"
 
     Array[String] skip_list = [
       "non_coding_transcript",
@@ -558,11 +558,11 @@ workflow slivar {
     input:
       cohort_name = cohort_name,
       reference_name = reference.name,
-      filt_vcf = slivar_small_variant_bgzip_vcf.vcf_gz_output, 
-      comphet_vcf = slivar_compound_hets_bgzip_vcf.vcf_gz_output, 
-      ped = ped, 
-      lof_lookup = generate_lof_lookup.lof_lookup, 
-      clinvar_lookup = generate_clinvar_lookup.clinvar_lookup, 
+      filt_vcf = slivar_small_variant_bgzip_vcf.vcf_gz_output,
+      comphet_vcf = slivar_compound_hets_bgzip_vcf.vcf_gz_output,
+      ped = ped,
+      lof_lookup = generate_lof_lookup.lof_lookup,
+      clinvar_lookup = generate_clinvar_lookup.clinvar_lookup,
       phrank_lookup = calculate_phrank.phrank_tsv,
 
       pb_conda_image = pb_conda_image
@@ -575,5 +575,3 @@ workflow slivar {
     File comphet_tsv = slivar_tsv.comphet_tsv
   }
 }
-
-

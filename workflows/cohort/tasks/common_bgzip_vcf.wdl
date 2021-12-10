@@ -30,8 +30,9 @@ task bgzip_vcf {
     (tabix ~{params} ~{vcf_gz_output_name}) > ~{tabix_log_name} 2>&1
   >>>
   output {
-
-    IndexedData vcf_gz_output = { "datafile": "~{vcf_gz_output_name}", "indexfile": "~{vcf_gz_output_name}.tbi" }
+    File vcf_gz_data = "~{vcf_gz_output_name}"
+    File vcf_gz_index = "~{vcf_gz_output_name}.tbi"
+    IndexedData vcf_gz_output = { "datafile": vcf_gz_data, "indexfile": vcf_gz_index }
     File bgzip_log = "~{bgzip_log_name}"
     File tabix_log_name = "~{tabix_log_name}"
   }
@@ -62,4 +63,3 @@ workflow common_bgzip_vcf {
   }
 
 }
-
