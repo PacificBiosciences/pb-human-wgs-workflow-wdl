@@ -59,7 +59,7 @@ task bcftools_concat_pbsv_vcf {
   input {
     String log_name = "bcftools_concat.pbsv.vcf.log"
     String sample_name
-    String? reference_name
+    String reference_name
     String pbsv_vcf_name = "~{sample_name}.~{reference_name}.pbsv.vcf"
     Array[File] calls
     Array[File] indices
