@@ -111,7 +111,7 @@ workflow cohort {
 
   output {
     IndexedData pbsv_vcf    = pbsv.pbsv_vcf
-    IndexedData pbsv_individual_vcf    = pbsv.pbsv_individual_vcf
+    Array[IndexedData] pbsv_individual_vcf    = pbsv.pbsv_individual_vcf
     IndexedData filt_vcf    = slivar.filt_vcf
     IndexedData comphet_vcf = slivar.filt_vcf
     File filt_tsv           = slivar.filt_tsv
