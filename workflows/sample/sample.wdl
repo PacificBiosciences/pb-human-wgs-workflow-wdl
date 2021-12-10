@@ -118,6 +118,7 @@ workflow sample {
       sample_name = sample_name,
       sample = sample,
       target = reference,
+      reference_name = reference.name,
       pb_conda_image = pb_conda_image
   }
 
