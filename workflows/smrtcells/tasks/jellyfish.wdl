@@ -199,5 +199,6 @@ workflow jellyfish {
 
   output {
     File count_jf = jellyfish_count.count_jf
+    File modimers_tsv = dump_modimers.modimers_tsv
   }
 }
