@@ -170,6 +170,6 @@ workflow pbsv {
 
   output {
     IndexedData pbsv_vcf = bcftools_concat_pbsv_vcf_bgzip.vcf_gz_output
-    IndexedData pbsv_individual_vcf = bgzip_vcf.vcf_gz_output
+    Array[IndexedData] pbsv_individual_vcf = bgzip_vcf.vcf_gz_output
   }
 }
