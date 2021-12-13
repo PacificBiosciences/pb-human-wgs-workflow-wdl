@@ -124,8 +124,8 @@ workflow sample {
 
   output {
     IndexedData gvcf = deepvariant_round2.gvcf
-    IndexedData pbsv_vcf    = pbsv.pbsv_vcf
-    IndexedData pbsv_individual_vcf    = pbsv.pbsv_individual_vcf
+    File pbsv_vcf    = pbsv.pbsv_vcf
+    Array[IndexedData] pbsv_individual_vcf    = pbsv.pbsv_individual_vcf
     Array[Array[File]] svsig_gv = pbsv.svsig_gv
     IndexedData deepvariant_phased_vcf_gz = whatshap_round2.deepvariant_phased_vcf_gz
 
