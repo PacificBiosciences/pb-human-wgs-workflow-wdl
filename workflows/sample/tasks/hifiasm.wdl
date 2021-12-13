@@ -201,7 +201,7 @@ task asm_stats {
 task align_hifiasm {
   input {
     String sample_name
-    String reference_name
+    String? reference_name
 
     Int max_chunk = 200000
     String minimap2_args = "-L --secondary=no --eqx -ax asm5"
@@ -258,7 +258,7 @@ workflow hifiasm {
     String sample_name
     Array[IndexedData] sample
     IndexedData target
-    String reference_name
+    String? reference_name
     String pb_conda_image
   }
 
