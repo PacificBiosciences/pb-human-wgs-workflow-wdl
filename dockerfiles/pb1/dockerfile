@@ -15,8 +15,8 @@ WORKDIR /opt/pb
 
 RUN conda update -n base -c defaults conda
 
-ADD "snakemake_original/scripts" /opt/pb/scripts
-ADD "snakemake_original/rules/envs" /opt/pb/envs
+ADD "pb-human-wgs-workflow-snakemake/scripts" /opt/pb/scripts
+ADD "pb-human-wgs-workflow-snakemake/rules/envs" /opt/pb/envs
 ADD "dockerfiles/pb1/create_conda_envs.sh" /opt/pb/setup/create_conda_envs.sh
 
 WORKDIR /opt/pb/setup
