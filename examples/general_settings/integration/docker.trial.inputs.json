@@ -1,6 +1,6 @@
 {
   "trial.pb_conda_image": "pacbio.azurecr.io/pb-human-wgs-workflow:latest",
-  "trial.deepvariant_image": "google/deepvariant:1.1.0-gpu",
+  "trial.deepvariant_image": "google/deepvariant:1.3.0-gpu",
   "trial.picard_image": "broadinstitute/picard",
-  "trial.glnexus_image": "quay.io/mlin/glnexus:v1.2.7"
+  "trial.glnexus_image": "quay.io/mlin/glnexus:v1.4.1"
 }

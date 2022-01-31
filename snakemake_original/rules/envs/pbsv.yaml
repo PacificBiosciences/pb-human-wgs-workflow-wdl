@@ -3,4 +3,4 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - pbsv==2.6.0
+  - pbsv==2.8.0
