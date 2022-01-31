@@ -1,4 +1,4 @@
-version 1.0
+version 1.1
 
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/pbsv.wdl" as pbsv
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/glnexus.wdl" as glnexus

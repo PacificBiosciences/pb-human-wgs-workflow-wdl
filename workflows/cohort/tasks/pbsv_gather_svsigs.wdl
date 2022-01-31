@@ -1,4 +1,4 @@
-version 1.0
+version 1.1
 
 task gather_svsigs_by_sample_and_region {
   input {

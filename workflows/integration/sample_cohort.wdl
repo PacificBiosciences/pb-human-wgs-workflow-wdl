@@ -1,4 +1,4 @@
-version 1.0
+version 1.1
 
 #import "../sample/sample.wdl"
 #import "../cohort/cohort.wdl"

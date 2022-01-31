@@ -1,4 +1,4 @@
-version 1.0
+version 1.1
 
 #import "./tasks/pbmm2.wdl" as pbmm2
 #import "./tasks/mosdepth.wdl" as mosdepth

@@ -1,4 +1,4 @@
-version 1.0
+version 1.1
 
 #import "../../common/structs.wdl"
 #import "./common.wdl" as common

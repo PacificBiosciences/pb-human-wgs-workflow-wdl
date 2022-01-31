@@ -1,4 +1,4 @@
-version 1.0
+version 1.1
 
 #import "../smrtcells/smrtcells.person.wdl"
 #import "../sample/sample.person.wdl"

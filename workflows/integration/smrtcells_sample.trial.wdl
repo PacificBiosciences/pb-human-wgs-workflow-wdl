@@ -1,4 +1,4 @@
-version 1.0
+version 1.1
 
 #import "../smrtcells/smrtcells.trial.wdl"
 #import "../sample/sample.trial.wdl"

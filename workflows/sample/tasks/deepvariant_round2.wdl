@@ -1,4 +1,4 @@
-version 1.0
+version 1.1
 
 #import "../../common/structs.wdl"
 #import "../../common/separate_data_and_index_files.wdl"

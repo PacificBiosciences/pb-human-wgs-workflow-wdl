@@ -1,4 +1,4 @@
-version 1.0
+version 1.1
 
 #import "../../common/structs.wdl"
 #import "./pbsv_discover.wdl" as pbsv_discover
