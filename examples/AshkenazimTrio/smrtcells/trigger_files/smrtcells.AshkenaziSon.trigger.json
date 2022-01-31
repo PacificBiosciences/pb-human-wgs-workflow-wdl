@@ -1,10 +1,10 @@
 {
-  "WorkflowUrl": "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl",
+  "WorkflowUrl": "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl",
   "WorkflowInputsUrls": [
-    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/examples/AshkenazimTrio/smrtcells/inputs/trial.singleton.inputs.json",
-    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/examples/general_settings/smrtcells/defaultsettings.trial.inputs.json",
-    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/examples/general_settings/smrtcells/docker.trial.inputs.json",
-    "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/examples/general_settings/smrtcells/reference.trial.inputs.json"
+    "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/examples/AshkenazimTrio/smrtcells/inputs/trial.singleton.inputs.json",
+    "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/examples/general_settings/smrtcells/defaultsettings.trial.inputs.json",
+    "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/examples/general_settings/smrtcells/docker.trial.inputs.json",
+    "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/examples/general_settings/smrtcells/reference.trial.inputs.json"
   ],
   "WorkflowOptionsUrl": null,
   "WorkflowDependenciesUrl": null
