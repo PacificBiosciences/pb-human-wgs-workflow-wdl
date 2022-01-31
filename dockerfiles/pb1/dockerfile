@@ -1,14 +1,14 @@
 # To build, run this from the root directory of the repo:
 
-# sudo docker build -t projectastro.azurecr.io/pb4 -f dockerfiles/pb1/dockerfile . --no-cache
+# sudo docker build -t projectastro.azurecr.io/pb5 -f dockerfiles/pb1/dockerfile . --no-cache
 # sudo az acr login --name projectastro
-# sudo docker push projectastro.azurecr.io/pb4
+# sudo docker push projectastro.azurecr.io/pb5
 #
 # To run locally:
 
 # sudo az acr login --name projectastro
-# sudo docker pull projectastro.azurecr.io/pb4:latest
-# sudo docker run -it projectastro.azurecr.io/pb4:latest bash
+# sudo docker pull projectastro.azurecr.io/pb5:latest
+# sudo docker run -it projectastro.azurecr.io/pb5:latest bash
 
 FROM continuumio/miniconda3
 WORKDIR /opt/pb
