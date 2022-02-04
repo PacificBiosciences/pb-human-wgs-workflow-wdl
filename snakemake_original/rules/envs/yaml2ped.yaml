@@ -1,5 +1,0 @@
-channels:
-  - anaconda
-  - conda-forge
-dependencies:
-  - pyyaml ==5.3.1
