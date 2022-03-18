@@ -15,7 +15,7 @@ task download_tg_list {
     }
 
     command <<<
-        wget -O tg_list.txt $tg_list_url
+        wget -O tg_list.txt ~{tg_list_url}
         echo "Downloading a list of loci with disease-associated repeats to use from ~{tg_list_url}. For bulk or secure workflows- please download the list of loci and save it in an accessible blob container in your Azure subscription. If your workflow fails at this step, you do not have permission to download external files to your Azure subscription. Please contact your Azure administrator to resolve this issue, or save the file to your Azure blob storage account and provide Cromwell access to it."
     >>>
 
@@ -304,12 +304,9 @@ task tandem_repeat_coverage_dropouts {
 workflow tandem_genotypes {
   
   input {
-    String sample_name
-    Array[IndexedData] sample
     File? tg_list
     String? tg_list_url # optional- we don't want user downloading every time. Check for list- and download if necessary    
     IndexedData reference
-    Array[String] regions
     String sample_name
     File score_matrix # need to get this file from PacBio
     File haplotagged_bam

@@ -43,6 +43,10 @@ workflow trial {
     File movie_modimers
 
     Boolean run_jellyfish = false                         #default is to NOT run jellyfish
+
+    File? tg_list
+    File? tg_list_url
+    File score_matrix 
   }
 
   call smrtcells.trial.smrtcells_trial {
@@ -79,7 +83,11 @@ workflow trial {
     deepvariant_image = deepvariant_image,
     picard_image = picard_image,
 
-    run_jellyfish = run_jellyfish
+    run_jellyfish = run_jellyfish,
+
+    tg_list = tg_list,
+    tg_list_url = tg_list_url,
+    score_matrix = score_matrix
   }
 
   call cohort.cohort {
@@ -132,6 +140,16 @@ workflow trial {
     Array[IndexedData] unaffected_person_gvcf                      = sample_trial.unaffected_person_gvcf
     Array[Array[Array[File]]] unaffected_person_svsig_gv           = sample_trial.unaffected_person_svsig_gv
     Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz
+
+    Array[Array[File?]] affected_person_tandem_genotypes           = sample_trial.affected_person_tandem_genotypes
+    Array[Array[File?]] affected_person_tandem_genotypes_absolute  = sample_trial.affected_person_tandem_genotypes_absolute
+    Array[Array[File?]] affected_person_tandem_genotypes_plot      = sample_trial.affected_person_tandem_genotypes_plot
+    Array[Array[File?]] affected_person_tandem_genotypes_dropouts  = sample_trial.affected_person_tandem_genotypes_dropouts
+
+    Array[Array[File?]] unaffected_person_tandem_genotypes           = sample_trial.unaffected_person_tandem_genotypes
+    Array[Array[File?]] unaffected_person_tandem_genotypes_absolute  = sample_trial.unaffected_person_tandem_genotypes_absolute
+    Array[Array[File?]] unaffected_person_tandem_genotypes_plot      = sample_trial.unaffected_person_tandem_genotypes_plot
+    Array[Array[File?]] unaffected_person_tandem_genotypes_dropouts  = sample_trial.unaffected_person_tandem_genotypes_dropouts
 
     IndexedData pbsv_vcf    = cohort.pbsv_vcf
     IndexedData filt_vcf    = cohort.filt_vcf

@@ -21,6 +21,11 @@ workflow smrtcells_sample_trial {
     String pb_conda_image
     String deepvariant_image
     String picard_image
+
+    
+    File? tg_list
+    File? tg_list_url
+    File score_matrix
   }
 
   call smrtcells.trial.smrtcells_trial {
@@ -49,7 +54,11 @@ workflow smrtcells_sample_trial {
 
     pb_conda_image = pb_conda_image,
     deepvariant_image = deepvariant_image,
-    picard_image = picard_image
+    picard_image = picard_image,
+
+    tg_list = tg_list,
+    tg_list_url = tg_list_url,
+    score_matrix = score_matrix
   }
 
   output {
@@ -62,9 +71,19 @@ workflow smrtcells_sample_trial {
     Array[IndexedData] affected_person_gvcf                        = sample_trial.affected_person_gvcf
     Array[Array[Array[File]]] affected_person_svsig_gv             = sample_trial.affected_person_svsig_gv
     Array[IndexedData] affected_person_deepvariant_phased_vcf_gz   = sample_trial.affected_person_deepvariant_phased_vcf_gz
+    Array[IndexedData] affected_person_tandem_genotypes            = sample_trial.affected_person_tandem_genotypes
+    Array[IndexedData] affected_person_tandem_genotypes_absolute   = sample_trial.affected_person_tandem_genotypes_absolute
+    Array[IndexedData] affected_person_tandem_genotypes_plot       = sample_trial.affected_person_tandem_genotypes_plot 
+    Array[IndexedData] affected_person_tandem_genotypes_dropouts   = sample_trial.affected_person_tandem_genotypes_dropouts
 
-    Array[IndexedData] unaffected_person_gvcf                      = sample_trial.unaffected_person_gvcf
-    Array[Array[Array[File]]] unaffected_person_svsig_gv           = sample_trial.unaffected_person_svsig_gv
-    Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz
+
+    Array[IndexedData] unaffected_person_gvcf                       = sample_trial.unaffected_person_gvcf
+    Array[Array[Array[File]]] unaffected_person_svsig_gv            = sample_trial.unaffected_person_svsig_gv
+    Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz  = sample_trial.unaffected_person_deepvariant_phased_vcf_gz
+    Array[IndexedData] unaffected_person_tandem_genotypes           = sample_trial.unaffected_person_tandem_genotypes
+    Array[IndexedData] unaffected_person_tandem_genotypes_absolute  = sample_trial.unaffected_person_tandem_genotypes_absolute
+    Array[IndexedData] unaffected_person_tandem_genotypes_plot      = sample_trial.unaffected_person_tandem_genotypes_plot
+    Array[IndexedData] unaffected_person_tandem_genotypes_dropouts  = sample_trial.unaffected_person_tandem_genotypes_dropouts
+
   }
 }

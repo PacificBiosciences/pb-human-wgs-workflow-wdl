@@ -20,6 +20,7 @@ import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/hifiasm.wdl" as hifiasm
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/whatshap_round1.wdl" as whatshap_round1
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/whatshap_round2.wdl" as whatshap_round2
+import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/tandem_genotypes.wdl" as tandem_genotypes
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow sample {
@@ -41,6 +42,11 @@ workflow sample {
     String picard_image
 
     Boolean run_jellyfish
+
+    File? tg_list
+    File? tg_list_url
+    File score_matrix
+
   }
 
   call pbsv.pbsv {
@@ -113,6 +119,18 @@ workflow sample {
     }
   }
 
+  call tandem_genotypes.tandem_genotypes {
+    input:
+      sample_name = sample_name,
+      reference = reference,
+      pb_conda_image = pb_conda_image,
+      tg_list = tg_list,
+      tg_list_url = tg_list_url,
+      score_matrix = score_matrix,
+      haplotagged_bam = whatshap_round2.deepvariant_haplotagged.bam,
+      haplotagged_bai = whatshap_round2.deepvariant_haplotagged.bai,
+  }
+
   call hifiasm.hifiasm {
     input:
       sample_name = sample_name,
@@ -131,6 +149,12 @@ workflow sample {
 
     File? jellyfish_output = jellyfish.jellyfish_output
     File? log = jellyfish.log
+
+    File sample_tandem_genotypes = tandem_genotypes.sample_tandem_genotypes
+    File sample_tandem_genotypes_absolute = tandem_genotypes_absolute_count.sample_tandem_genotypes_absolute
+    File sample_tandem_genotypes_plot = tandem_genotypes_plot.tandem_genotypes_plot
+    File sample_tandem_genotypes_dropouts = tandem_repeat_coverage_dropouts.tandem_genotypes_dropouts
+
   }
 
 }
