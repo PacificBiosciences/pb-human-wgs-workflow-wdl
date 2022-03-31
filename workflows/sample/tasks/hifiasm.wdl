@@ -66,17 +66,18 @@ task hifiasm_assemble {
     (hifiasm -o ~{prefix} -t ~{threads} ~{sep=" " movie_fasta}) > ~{log_name} 2>&1
   >>>
   output {
-    File a_ctg        = "~{prefix}.a_ctg.gfa"
-    File a_ctg_noseq  = "~{prefix}.a_ctg.noseq.gfa"
-    File p_ctg        = "~{prefix}.p_ctg.gfa"
-    File p_ctg_noseq  = "~{prefix}.p_ctg.noseq.gfa"
-    File p_utg        = "~{prefix}.p_utg.gfa"
-    File p_utg_noseq  = "~{prefix}.p_utg.noseq.gfa"
-    File r_utg        = "~{prefix}.r_utg.gfa"
-    File r_utg_noseq  = "~{prefix}.r_utg.noseq.gfa"
-    File ec_bin       = "~{prefix}.ec.bin"
-    File ovlp_rev_bin = "~{prefix}.ovlp.reverse.bin"
-    File ovlp_src_bin = "~{prefix}.ovlp.source.bin"
+    File hap1_p_ctg        = "~{prefix}.asm.bp.hap1.p_ctg.gfa"
+    File hap1_p_ctg_lowQ   = "~{prefix}.asm.bp.hap1.p_ctg.lowQ.bed"
+    File hap1_p_noseq      = "~{prefix}.asm.bp.hap1.p_ctg.noseq.gfa"
+    File hap2_p_ctg        = "~{prefix}.asm.bp.hap2.p_ctg.gfa"
+    File hap2_p_ctg_lowQ   = "~{prefix}.asm.bp.hap2.p_ctg.lowQ.bed"
+    File hap2_p_noseq      = "~{prefix}.asm.bp.hap2.p_ctg.noseq.gfa"
+    File p_ctg             = "~{prefix}.asm.bp.p_ctg.gfa"
+    File p_utg             = "~{prefix}.asm.bp.p_utg.gfa"
+    File r_utg             = "~{prefix}.asm.bp.r_utg.gfa"
+    File ec_bin            = "~{prefix}.asm.ec.bin"
+    File ovlp_rev_bin      = "~{prefix}.asm.ovlp.reverse.bin"
+    File ovlp_src_bin      = "~{prefix}.asm.ovlp.source.bin"
 
     File log = "~{log_name}"
   }
@@ -277,9 +278,15 @@ workflow hifiasm {
       pb_conda_image = pb_conda_image
   }
 
-  call gfa2fa as gfa2fa_a_ctg {
+  call gfa2fa as gfa2fa_hap1_p_ctg {
     input:
-      gfa = hifiasm_assemble.a_ctg,
+      gfa = hifiasm_assemble.hap1_p_ctg,
+      pb_conda_image = pb_conda_image
+  }
+
+  call gfa2fa as gfa2fa_hap2_p_ctg {
+    input:
+      gfa = hifiasm_assemble.hap2_p_ctg,
       pb_conda_image = pb_conda_image
   }
 
@@ -301,9 +308,15 @@ workflow hifiasm {
       pb_conda_image = pb_conda_image
   }
 
-  call bgzip_fasta as bgzip_fasta_a_ctg {
+  call bgzip_fasta as bgzip_fasta_hap1_p_ctg {
     input:
-      fasta = gfa2fa_a_ctg.fasta,
+      fasta = gfa2fa_hap1_p_ctg.fasta,
+      pb_conda_image = pb_conda_image
+  }
+
+  call bgzip_fasta as bgzip_fasta_hap2_p_ctg {
+    input:
+      fasta = gfa2fa_hap2_p_ctg.fasta,
       pb_conda_image = pb_conda_image
   }
 
@@ -325,9 +338,16 @@ workflow hifiasm {
       pb_conda_image = pb_conda_image
   }
 
-  call asm_stats as asm_stats_a_ctg  {
+  call asm_stats as asm_stats_hap1_p_ctg  {
     input:
-      fasta_gz = bgzip_fasta_a_ctg.fasta_gz,
+      fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
+      index = target.indexfile,
+      pb_conda_image = pb_conda_image
+  }
+
+  call asm_stats as asm_stats_hap2_p_ctg  {
+    input:
+      fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
       index = target.indexfile,
       pb_conda_image = pb_conda_image
   }
@@ -359,8 +379,8 @@ workflow hifiasm {
       target = target,
       reference_name = reference_name,
       query = [
-        bgzip_fasta_a_ctg.fasta_gz,
-        bgzip_fasta_p_ctg.fasta_gz
+        bgzip_fasta_hap1_p_ctg.fasta_gz,
+        bgzip_fasta_hap2_p_ctg.fasta_gz
       ],
       pb_conda_image = pb_conda_image
   }
