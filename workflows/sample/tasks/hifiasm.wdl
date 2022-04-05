@@ -66,18 +66,18 @@ task hifiasm_assemble {
     (hifiasm -o ~{prefix} -t ~{threads} ~{sep=" " movie_fasta}) > ~{log_name} 2>&1
   >>>
   output {
-    File hap1_p_ctg        = "~{prefix}.asm.bp.hap1.p_ctg.gfa"
-    File hap1_p_ctg_lowQ   = "~{prefix}.asm.bp.hap1.p_ctg.lowQ.bed"
-    File hap1_p_noseq      = "~{prefix}.asm.bp.hap1.p_ctg.noseq.gfa"
-    File hap2_p_ctg        = "~{prefix}.asm.bp.hap2.p_ctg.gfa"
-    File hap2_p_ctg_lowQ   = "~{prefix}.asm.bp.hap2.p_ctg.lowQ.bed"
-    File hap2_p_noseq      = "~{prefix}.asm.bp.hap2.p_ctg.noseq.gfa"
-    File p_ctg             = "~{prefix}.asm.bp.p_ctg.gfa"
-    File p_utg             = "~{prefix}.asm.bp.p_utg.gfa"
-    File r_utg             = "~{prefix}.asm.bp.r_utg.gfa"
-    File ec_bin            = "~{prefix}.asm.ec.bin"
-    File ovlp_rev_bin      = "~{prefix}.asm.ovlp.reverse.bin"
-    File ovlp_src_bin      = "~{prefix}.asm.ovlp.source.bin"
+    File hap1_p_ctg        = "~{prefix}.bp.hap1.p_ctg.gfa"
+    File hap1_p_ctg_lowQ   = "~{prefix}.bp.hap1.p_ctg.lowQ.bed"
+    File hap1_p_noseq      = "~{prefix}.bp.hap1.p_ctg.noseq.gfa"
+    File hap2_p_ctg        = "~{prefix}.bp.hap2.p_ctg.gfa"
+    File hap2_p_ctg_lowQ   = "~{prefix}.bp.hap2.p_ctg.lowQ.bed"
+    File hap2_p_noseq      = "~{prefix}.bp.hap2.p_ctg.noseq.gfa"
+    File p_ctg             = "~{prefix}.bp.p_ctg.gfa"
+    File p_utg             = "~{prefix}.bp.p_utg.gfa"
+    File r_utg             = "~{prefix}.bp.r_utg.gfa"
+    File ec_bin            = "~{prefix}.ec.bin"
+    File ovlp_rev_bin      = "~{prefix}.ovlp.reverse.bin"
+    File ovlp_src_bin      = "~{prefix}.ovlp.source.bin"
 
     File log = "~{log_name}"
   }
