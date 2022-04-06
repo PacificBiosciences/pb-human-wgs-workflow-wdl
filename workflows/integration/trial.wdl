@@ -7,6 +7,7 @@ version 1.1
 
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
+import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/sample/sample_trio.trial.wdl"
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
 import "https://raw.githubusercontent.com/ducatiMonster916/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
@@ -46,7 +47,7 @@ workflow trial {
 
     File? tg_list
     File? tg_list_url
-    File score_matrix 
+    File score_matrix
   }
 
   call smrtcells.trial.smrtcells_trial {
@@ -60,6 +61,22 @@ workflow trial {
   }
 
   Array[String] regions = read_lines(regions_file)
+
+  Boolean trio_assembly = defined(select_all(cohort_info.affected_persons.parents))
+
+  if (trio_assembly) {
+    call sample_trio.trial.sample_trio {
+      input:
+      affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
+      affected_person_sample            = smrtcells_trial.affected_person_bams,
+      affected_person_parents_names     = smrtcells_trial.affected_person_parents_names,
+      unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
+      unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
+
+      reference = reference
+    }
+  }
+
 
   call sample.trial.sample_trial {
     input:
@@ -99,8 +116,8 @@ workflow trial {
       affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
       unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
 
-      chr_lengths = chr_lengths, 
-      
+      chr_lengths = chr_lengths,
+
       hpoannotations = hpoannotations,
       hpoterms = hpoterms,
       hpodag = hpodag,

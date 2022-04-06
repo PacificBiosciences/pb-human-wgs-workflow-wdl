@@ -6,6 +6,10 @@
     "affected_persons": [
       {
         "name": "HG002_NA24385_son",
+        "parents": [
+          "HG003_NA24149_father",
+          "HG004_NA24143_mother"
+        ],
         "smrtcells": [
           {
             "name": "m64011_181218_235052",
