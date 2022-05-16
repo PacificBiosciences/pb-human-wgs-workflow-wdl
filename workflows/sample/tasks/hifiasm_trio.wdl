@@ -47,6 +47,7 @@ task hifiasm_trio_assemble {
     File ec_bin            = "~{prefix}.ec.bin"
     File ovlp_rev_bin      = "~{prefix}.ovlp.reverse.bin"
     File ovlp_src_bin      = "~{prefix}.ovlp.source.bin"
+    File key               = "~{prefix}.key.txt"
 
     File log = "~{log_name}"
   }
