@@ -38,6 +38,22 @@
     ]
   ],
 
+  "sample_trial.last_reference":[
+    [
+      {
+        "name": "hg38_last_reference",
+        "last_reference_index": "/path/to/lastal/reference.lastdb",
+        "last_reference_bck": "/path/to/lastal/reference.bck",
+        "last_reference_des": "/path/to/lastal/reference.des",
+        "last_reference_prj": "/path/to/lastal/reference.prj",
+        "last_reference_sds": "/path/to/lastal/reference.sds",
+        "last_reference_ssp": "/path/to/lastal/reference.ssp",
+        "last_refernece_suf": "/path/to/lastal/reference.suf",
+        "last_reference_tis": "/path/to/lastal/reference.tis"
+      }
+    ]
+  ],
+
   "sample_trial.unaffected_person_sample_names": [
     "HG003_NA24149_father",
     "HG004_NA24143_mother"

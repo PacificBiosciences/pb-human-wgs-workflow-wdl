@@ -43,9 +43,10 @@ workflow sample {
 
     Boolean run_jellyfish
 
-    File? tg_list
-    File? tg_list_url
+    File tg_list
+    File tg_bed
     File score_matrix
+    LastIndexedData last_reference
 
   }
 
@@ -125,8 +126,9 @@ workflow sample {
       reference = reference,
       pb_conda_image = pb_conda_image,
       tg_list = tg_list,
-      tg_list_url = tg_list_url,
       score_matrix = score_matrix,
+      tg_bed = tg_bed,
+      last_reference = last_reference,
       haplotagged_bam = whatshap_round2.deepvariant_haplotagged.bam,
       haplotagged_bai = whatshap_round2.deepvariant_haplotagged.bai,
   }

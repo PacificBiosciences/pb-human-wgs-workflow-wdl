@@ -30,9 +30,10 @@ workflow sample_trial {
 
     Boolean run_jellyfish
 
-    File? tg_list
-    File? tg_list_url
+    File tg_list
+    File tg_bed
     File score_matrix
+    LastIndexedData last_reference
   }
 
   scatter (person_num in range(length(affected_person_sample))) {
@@ -58,8 +59,9 @@ workflow sample_trial {
         run_jellyfish = run_jellyfish,
 
         tg_list = tg_list,
-        tg_list_url = tg_list_url,
-        score_matrix = score_matrix
+        tg_bed = tg_bed,
+        score_matrix = score_matrix,
+        last_reference = last_reference
     }
   }
 
@@ -86,8 +88,9 @@ workflow sample_trial {
         run_jellyfish = run_jellyfish,
 
         tg_list = tg_list,
-        tg_list_url = tg_list_url,
-        score_matrix = score_matrix
+        tg_bed = tg_bed,
+        score_matrix = score_matrix,
+        last_reference = last_reference
     }
   }
 

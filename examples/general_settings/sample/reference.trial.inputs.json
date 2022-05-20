@@ -5,6 +5,22 @@
     "datafile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta",
     "indexfile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
   },
+  
+  "sample_trial.last_reference":[
+    [
+      {
+        "name": "hg38_last_reference",
+        "last_reference_index": "/path/to/lastal/reference.lastdb",
+        "last_reference_bck": "/path/to/lastal/reference.bck",
+        "last_reference_des": "/path/to/lastal/reference.des",
+        "last_reference_prj": "/path/to/lastal/reference.prj",
+        "last_reference_sds": "/path/to/lastal/reference.sds",
+        "last_reference_ssp": "/path/to/lastal/reference.ssp",
+        "last_refernece_suf": "/path/to/lastal/reference.suf",
+        "last_reference_tis": "/path/to/lastal/reference.tis"
+      }
+    ]
+  ],
 
   "sample_trial.ref_modimers": "/cromwell-executions/smrtcells/958d2edb-2e1d-4baa-8d51-04faf1498c1e/call-align_ubam_or_fastq/execution/rc",
   "sample_trial.movie_modimers": "/cromwell-executions/smrtcells/958d2edb-2e1d-4baa-8d51-04faf1498c1e/call-align_ubam_or_fastq/execution/rc"
