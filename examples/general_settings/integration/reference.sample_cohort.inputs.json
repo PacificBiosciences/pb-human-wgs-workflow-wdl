@@ -11,6 +11,23 @@
   "sample_cohort.lof_lookup": "https://storage.googleapis.com/gnomad-public/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_gene.txt.bgz",
   "sample_cohort.gff": "ftp://ftp.ensembl.org//pub/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz",
 
+  
+  "sample_trial.last_reference":[
+    [
+      {
+        "name": "hg38_last_reference",
+        "last_reference_index": "/path/to/lastal/reference.lastdb",
+        "last_reference_bck": "/path/to/lastal/reference.bck",
+        "last_reference_des": "/path/to/lastal/reference.des",
+        "last_reference_prj": "/path/to/lastal/reference.prj",
+        "last_reference_sds": "/path/to/lastal/reference.sds",
+        "last_reference_ssp": "/path/to/lastal/reference.ssp",
+        "last_refernece_suf": "/path/to/lastal/reference.suf",
+        "last_reference_tis": "/path/to/lastal/reference.tis"
+      }
+    ]
+  ],
+
   "sample_cohort.hpoterms": "/datasetpbhumanwgs/dataset/hpo/hpoTerms.txt",
   "sample_cohort.hpodag": "/datasetpbhumanwgs/dataset/hpo/hpoDag.txt",
   "sample_cohort.hpoannotations": "/datasetpbhumanwgs/dataset/hpo/ensembl.hpoPhenotype.tsv",

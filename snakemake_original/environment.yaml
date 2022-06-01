@@ -1,8 +1,0 @@
-name: pbRUGD-workflow
-channels:
-- bioconda
-- conda-forge
-- defaults
-dependencies:
-- snakemake>=5.19
-- lockfile==0.12.2

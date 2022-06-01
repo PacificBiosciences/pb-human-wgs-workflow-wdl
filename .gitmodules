@@ -1,0 +1,3 @@
+[submodule "pb-human-wgs-workflow-snakemake"]
+	path = pb-human-wgs-workflow-snakemake
+	url = https://github.com/PacificBiosciences/pb-human-wgs-workflow-snakemake.git

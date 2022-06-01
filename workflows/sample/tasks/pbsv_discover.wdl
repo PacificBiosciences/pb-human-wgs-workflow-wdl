@@ -9,6 +9,7 @@ task pbsv_discover {
     String region
     String loglevel = "INFO"
     String log_name = "pbsv_discover.log"
+    String extra_args = "--hifi"
 
     IndexedData smrtcell
     String? reference_name
@@ -29,7 +30,7 @@ task pbsv_discover {
     conda activate pbsv
     echo "$(conda info)"
 
-    (pbsv discover \
+    (pbsv discover ~{extra_args}\
         --log-level ~{loglevel} \
         --region ~{region} \
         --tandem-repeats ~{tr_bed} \

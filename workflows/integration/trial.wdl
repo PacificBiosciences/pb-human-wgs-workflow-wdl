@@ -7,6 +7,7 @@ version 1.0
 
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/sample_trio.trial.wdl"
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
@@ -43,6 +44,10 @@ workflow trial {
     File movie_modimers
 
     Boolean run_jellyfish = false                         #default is to NOT run jellyfish
+
+    File? tg_list
+    File? tg_list_url
+    File score_matrix
   }
 
   call smrtcells.trial.smrtcells_trial {
@@ -56,6 +61,22 @@ workflow trial {
   }
 
   Array[String] regions = read_lines(regions_file)
+
+  Boolean trio_assembly = defined(select_all(cohort_info.affected_persons.parents))
+
+  if (trio_assembly) {
+    call sample_trio.trial.sample_trio {
+      input:
+      affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
+      affected_person_sample            = smrtcells_trial.affected_person_bams,
+      affected_person_parents_names     = smrtcells_trial.affected_person_parents_names,
+      unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
+      unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
+
+      reference = reference
+    }
+  }
+
 
   call sample.trial.sample_trial {
     input:
@@ -79,7 +100,11 @@ workflow trial {
     deepvariant_image = deepvariant_image,
     picard_image = picard_image,
 
-    run_jellyfish = run_jellyfish
+    run_jellyfish = run_jellyfish,
+
+    tg_list = tg_list,
+    tg_list_url = tg_list_url,
+    score_matrix = score_matrix
   }
 
   call cohort.cohort {
@@ -91,8 +116,8 @@ workflow trial {
       affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
       unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
 
-      chr_lengths = chr_lengths, 
-      
+      chr_lengths = chr_lengths,
+
       hpoannotations = hpoannotations,
       hpoterms = hpoterms,
       hpodag = hpodag,
@@ -132,6 +157,16 @@ workflow trial {
     Array[IndexedData] unaffected_person_gvcf                      = sample_trial.unaffected_person_gvcf
     Array[Array[Array[File]]] unaffected_person_svsig_gv           = sample_trial.unaffected_person_svsig_gv
     Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz
+
+    Array[Array[File?]] affected_person_tandem_genotypes           = sample_trial.affected_person_tandem_genotypes
+    Array[Array[File?]] affected_person_tandem_genotypes_absolute  = sample_trial.affected_person_tandem_genotypes_absolute
+    Array[Array[File?]] affected_person_tandem_genotypes_plot      = sample_trial.affected_person_tandem_genotypes_plot
+    Array[Array[File?]] affected_person_tandem_genotypes_dropouts  = sample_trial.affected_person_tandem_genotypes_dropouts
+
+    Array[Array[File?]] unaffected_person_tandem_genotypes           = sample_trial.unaffected_person_tandem_genotypes
+    Array[Array[File?]] unaffected_person_tandem_genotypes_absolute  = sample_trial.unaffected_person_tandem_genotypes_absolute
+    Array[Array[File?]] unaffected_person_tandem_genotypes_plot      = sample_trial.unaffected_person_tandem_genotypes_plot
+    Array[Array[File?]] unaffected_person_tandem_genotypes_dropouts  = sample_trial.unaffected_person_tandem_genotypes_dropouts
 
     IndexedData pbsv_vcf    = cohort.pbsv_vcf
     IndexedData filt_vcf    = cohort.filt_vcf
