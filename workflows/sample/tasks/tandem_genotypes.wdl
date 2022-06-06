@@ -11,21 +11,22 @@ import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workfl
 
 task last_align {
     input {
-        String sample_name
-        File last_reference_index
-        File last_reference_bck
-        File last_reference_des
-        File last_reference_prj
-        File last_reference_sds
-        File last_reference_ssp
-        File last_refernece_suf
-        File last_reference_tis
+        LastIndexedData last_reference
         File haplotagged_bam 
         File haplotagged_bai
         File tg_bed 
-        File score_matrix # need to get this file from PacBio
+        File score_matrix
+        String sample_name
         Int threads = 24
     }
+        
+    File last_reference_bck     = last_reference.last_reference_bck
+    File last_reference_des     = last_reference.last_reference_des
+    File last_reference_prj     = last_reference.last_reference_prj
+    File last_reference_sds     = last_reference.last_reference_sds
+    File last_reference_ssp     = last_reference.last_reference_ssp
+    File last_refernece_suf     = last_reference.last_refernece_suf
+    File last_reference_tis     = last_reference.last_reference_tis
 
     output {
         File tg_maf = "~{sample_name}.maf.gz"
@@ -33,8 +34,8 @@ task last_align {
 
     String extra = "-C2"
     
-    String last_reference_name = basename(~{last_index}, ".lastdb")
-    String score_matrix_name = basename(~{score_matrix}, ".par")
+    String last_reference_name = basename(last_reference_bck, ".lastdb.bck")
+    String score_matrix_name = basename(score_matrix, ".par")
     
     command <<<
         source ~/.bashrc
@@ -215,14 +216,7 @@ workflow tandem_genotypes {
   call last_align {
     input:
         sample_name = sample_name,
-        last_reference_index = last_reference.last_reference_index,
-        last_reference_bck = last_reference.last_reference_bck,
-        last_reference_des = last_reference.last_reference_des,
-        last_reference_prj = last_reference.last_reference_prj,
-        last_reference_sds = last_reference.last_reference_sds,
-        last_reference_ssp = last_reference.last_reference_ssp,
-        last_refernece_suf = last_reference.last_refernece_suf,
-        last_reference_tis = last_reference.last_reference_tis,
+        last_reference = last_reference,
         haplotagged_bam = haplotagged_bam,
         haplotagged_bai = haplotagged_bai,
         tg_bed = tg_bed,

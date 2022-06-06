@@ -8,7 +8,6 @@ struct IndexedData {
 
 struct LastIndexedData{
   String name
-  File last_reference_index
   File last_reference_bck
   File last_reference_des
   File last_reference_prj
