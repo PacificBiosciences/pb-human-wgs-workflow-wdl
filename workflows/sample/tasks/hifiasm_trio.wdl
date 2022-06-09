@@ -111,7 +111,7 @@ workflow hifiasm_trio {
     Array[Pair[String,File]] yak_count
   }
 
-  yak_count_map = as_map(yak_count)
+  Map[String, File] yak_count_map = as_map(yak_count)
 
   Int num_parents = length(parent_names)
   Boolean trio = if num_parents == 2 then true else false
