@@ -26,7 +26,7 @@ task last_align {
     File last_reference_prj     = last_reference.last_reference_prj
     File last_reference_sds     = last_reference.last_reference_sds
     File last_reference_ssp     = last_reference.last_reference_ssp
-    File last_refernece_suf     = last_reference.last_refernece_suf
+    File last_reference_suf     = last_reference.last_reference_suf
     File last_reference_tis     = last_reference.last_reference_tis
 
     output {
@@ -38,7 +38,7 @@ task last_align {
     String last_reference_name = basename(last_reference_bck, ".lastdb.bck")
     String score_matrix_name = basename(score_matrix, ".par")
 
-    Int disk_size = ceil(size(last_reference_bck, "GB") + size(haplotagged_bam, "GB") + size(tg_bed, "GB") + size(score_matrix, "GB") *2)    
+    Int disk_size = ceil(size(last_reference_bck, "GB") + size(haplotagged_bam, "GB") + size(tg_bed, "GB") + size(score_matrix, "GB") *3)    
     
     command <<<
         source ~/.bashrc
