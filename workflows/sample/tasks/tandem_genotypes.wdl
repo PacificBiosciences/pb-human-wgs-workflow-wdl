@@ -261,7 +261,7 @@ workflow tandem_genotypes {
         input:
             haplotagged_bam = haplotagged_bam,
             haplotagged_bai = haplotagged_bai,
-            tg_bed = generate_tg_bed.tg_bed,
+            tg_bed = tg_bed,
             sample_name = sample_name,
             pb_conda_image = pb_conda_image
     }
