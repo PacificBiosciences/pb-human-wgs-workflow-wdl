@@ -13,7 +13,7 @@ struct LastIndexedData{
   File last_reference_prj
   File last_reference_sds
   File last_reference_ssp
-  File last_refernece_suf
+  File last_reference_suf
   File last_reference_tis
 }
 
