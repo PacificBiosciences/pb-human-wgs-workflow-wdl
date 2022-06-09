@@ -18,6 +18,7 @@ task last_align {
         File score_matrix
         String sample_name
         Int threads = 24
+        String pb_conda_image
     }
         
     File last_reference_bck     = last_reference.last_reference_bck
@@ -64,6 +65,8 @@ task tandem_genotypes {
     input {
         File maf
         File tg_list_file
+        String sample_name
+        String pb_conda_image
     }
 
     Int disk_size = ceil (size(maf, "GB") + size(tg_list_file, "GB") * 1.5)
@@ -94,13 +97,14 @@ task tandem_genotypes {
 
 task tandem_genotypes_absolute_count {
     input {
-        File sample_tandem_genotypes                        #f"samples/{sample}/tandem-genotypes/{sample}.tandem-genotypes.txt"
+        File sample_tandem_genotypes                       
         String sample_name
+        String pb_conda_image
     }
 
     output { 
-        File sample_tandem_genotypes_absolute = ~{sample_name}.tandem-genotypes.absolute.txt                                #f"samples/{sample}/tandem-genotypes/{sample}.tandem-genotypes.absolute.txt"
-    }
+        File sample_tandem_genotypes_absolute = "~{sample_name}.tandem-genotypes.absolute.txt"           
+    }                    
 
     Int disk_size = ceil(size(sample_tandem_genotypes, "GB") * 2)
 
@@ -137,11 +141,13 @@ task tandem_genotypes_absolute_count {
 
 task tandem_genotypes_plot {
     input {
-        File sample_tandem_genotypes                                                                                      #f"samples/{sample}/tandem-genotypes/{sample}.tandem-genotypes.txt"
+        File sample_tandem_genotypes
+        String sample_name   
+        String pb_conda_image                                                                                  
     }
 
     output {
-        File tandem_genotypes_plot = ~{sample_name}.tandem-genotypes.pdf                                           #f"samples/{sample}/tandem-genotypes/{sample}.tandem-genotypes.pdf"
+        File tandem_genotypes_plot = "~{sample_name}.tandem-genotypes.pdf"                                           
     }
     
     Int top_N_plots = 100
@@ -168,10 +174,11 @@ task tandem_genotypes_plot {
 
 task tandem_repeat_coverage_dropouts {
     input {
-        File haplotagged_bam                                                                                        #f"samples/{sample}/whatshap/{sample}.{ref}.deepvariant.haplotagged.bam",
-        File haplotagged_bai                                                                                        #f"samples/{sample}/whatshap/{sample}.{ref}.deepvariant.haplotagged.bam.bai",
+        File haplotagged_bam                                                                                        
+        File haplotagged_bai                                                                                        
         File tg_bed
         String sample_name 
+        String pb_conda_image
     }
 
     output {
@@ -221,7 +228,8 @@ workflow tandem_genotypes {
         haplotagged_bai = haplotagged_bai,
         tg_bed = tg_bed,
         score_matrix = score_matrix,
-        threads = 24
+        threads = 24,
+        pb_conda_image = pb_conda_image
   }
 
     call tandem_genotypes {
@@ -229,18 +237,22 @@ workflow tandem_genotypes {
             maf = last_align.tg_maf,
             tg_list_file = tg_list,
             sample_name = sample_name,
-            score_matrix = score_matrix
+            score_matrix = score_matrix,
+            pb_conda_image = pb_conda_image
     }
 
     call tandem_genotypes_absolute_count {
         input:
             sample_tandem_genotypes = tandem_genotypes.sample_tandem_genotypes,
-            sample_name = sample_name
+            sample_name = sample_name,
+            pb_conda_image = pb_conda_image
     }
 
     call tandem_genotypes_plot {
         input:
-            sample_tandem_genotypes = tandem_genotypes_absolute_count.sample_tandem_genotypes_absolute
+            sample_tandem_genotypes = tandem_genotypes_absolute_count.sample_tandem_genotypes_absolute,
+            sample_name = sample_name,
+            pb_conda_image = pb_conda_image
     }
 
     call tandem_repeat_coverage_dropouts {
@@ -248,7 +260,8 @@ workflow tandem_genotypes {
             haplotagged_bam = haplotagged_bam,
             haplotagged_bai = haplotagged_bai,
             tg_bed = generate_tg_bed.tg_bed,
-            sample_name = sample_name
+            sample_name = sample_name,
+            pb_conda_image = pb_conda_image
     }
 
     output {
