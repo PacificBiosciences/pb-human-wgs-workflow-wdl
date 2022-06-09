@@ -216,7 +216,7 @@ workflow tandem_genotypes {
     IndexedData genome_reference
     LastIndexedData last_reference 
     String sample_name
-    File score_matrix # need to get this file from PacBio
+    File score_matrix 
     File haplotagged_bam
     File haplotagged_bai
     String pb_conda_image
@@ -239,7 +239,6 @@ workflow tandem_genotypes {
             maf = last_align.tg_maf,
             tg_list_file = tg_list,
             sample_name = sample_name,
-            score_matrix = score_matrix,
             pb_conda_image = pb_conda_image
     }
 
