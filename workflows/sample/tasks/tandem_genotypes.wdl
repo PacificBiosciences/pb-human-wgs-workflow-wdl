@@ -74,7 +74,7 @@ task call_tandem_genotypes {
     Int disk_size = ceil (size(maf, "GB") + size(tg_list_file, "GB") * 1.5)
 
     output {
-        File sample_tandem_genotypes = "~{sample_name}.tandem-genotypes.txt"
+        File sample_tg_list = "~{sample_name}.tandem-genotypes.txt"
     }
     
     command <<<
@@ -244,7 +244,7 @@ workflow tandem_genotypes {
 
     call tandem_genotypes_absolute_count {
         input:
-            sample_tandem_genotypes = call_tandem_genotypes.sample_tandem_genotypes,
+            sample_tandem_genotypes = call_tandem_genotypes.sample_tg_list,
             sample_name = sample_name,
             pb_conda_image = pb_conda_image
     }
@@ -266,7 +266,7 @@ workflow tandem_genotypes {
     }
 
     output {
-        File sample_tandem_genotypes = call_tandem_genotypes.sample_tandem_genotypes
+        File sample_tandem_genotypes = call_tandem_genotypes.sample_tg_list
         File sample_tandem_genotypes_absolute = tandem_genotypes_absolute_count.sample_tandem_genotypes_absolute
         File sample_tandem_genotypes_plot = tandem_genotypes_plot.tandem_genotypes_plot
         File sample_tandem_genotypes_dropouts = tandem_repeat_coverage_dropouts.tandem_genotypes_dropouts
