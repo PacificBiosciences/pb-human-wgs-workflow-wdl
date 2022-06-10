@@ -244,7 +244,7 @@ workflow tandem_genotypes {
 
     call tandem_genotypes_absolute_count {
         input:
-            sample_tandem_genotypes = tandem_genotypes.sample_tandem_genotypes,
+            sample_tandem_genotypes = call_tandem_genotypes.sample_tandem_genotypes,
             sample_name = sample_name,
             pb_conda_image = pb_conda_image
     }
