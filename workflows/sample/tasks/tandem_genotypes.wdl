@@ -63,7 +63,7 @@ task last_align {
     }
 }
 
-task tandem_genotypes {
+task call_tandem_genotypes {
     input {
         File maf
         File tg_list_file
@@ -234,7 +234,7 @@ workflow tandem_genotypes {
         pb_conda_image = pb_conda_image
   }
 
-    call tandem_genotypes {
+    call call_tandem_genotypes {
         input:
             maf = last_align.tg_maf,
             tg_list_file = tg_list,
@@ -266,7 +266,7 @@ workflow tandem_genotypes {
     }
 
     output {
-        File sample_tandem_genotypes = tandem_genotypes.sample_tandem_genotypes
+        File sample_tandem_genotypes = call_tandem_genotypes.sample_tandem_genotypes
         File sample_tandem_genotypes_absolute = tandem_genotypes_absolute_count.sample_tandem_genotypes_absolute
         File sample_tandem_genotypes_plot = tandem_genotypes_plot.tandem_genotypes_plot
         File sample_tandem_genotypes_dropouts = tandem_repeat_coverage_dropouts.tandem_genotypes_dropouts
