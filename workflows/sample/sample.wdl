@@ -155,7 +155,7 @@ workflow sample {
     File sample_tandem_genotypes = tandem_genotypes.sample_tandem_genotypes
     File sample_tandem_genotypes_absolute = tandem_genotypes.sample_tandem_genotypes_absolute
     File sample_tandem_genotypes_plot = tandem_genotypes.tandem_genotypes_plot
-    File sample_tandem_genotypes_dropouts = tandem_repeat.tandem_genotypes_dropouts
+    File sample_tandem_genotypes_dropouts = tandem_genotypes.sample_tandem_genotypes_dropouts
 
   }
 
