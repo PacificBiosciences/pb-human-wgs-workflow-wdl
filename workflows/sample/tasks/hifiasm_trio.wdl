@@ -69,6 +69,7 @@ task yak_trioeval {
     String log_name = "yak.fasta.trioeval.log"
     File parent1_yak
     File parent2_yak
+    String pb_conda_image
   }
 
   Float multiplier = 2
