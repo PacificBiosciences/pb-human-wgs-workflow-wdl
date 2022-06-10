@@ -84,7 +84,7 @@ task yak_trioeval {
     conda activate yak
     echo "$(conda info)"
 
-    (yak trioeval  -t {threads} -1 {parent1_yak} -2 {parent2_yak} > {yak_trioeval_txt_name} ) > {log_name} 2>&1
+    (yak trioeval  -t {threads} -1 {parent1_yak} -2 {parent2_yak} {fasta_gz}> {yak_trioeval_txt_name} ) > {log_name} 2>&1
   >>>
   output {
     File yak_trioeval_file_name  = "~{yak_trioeval_txt_name}"
@@ -197,7 +197,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_hap1_p_ctg  {
     input:
       fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
@@ -206,7 +205,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_hap2_p_ctg  {
     input:
       fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
@@ -215,7 +213,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_p_ctg  {
     input:
       fasta_gz = bgzip_fasta_p_ctg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
@@ -224,7 +221,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_p_utg  {
     input:
       fasta_gz = bgzip_fasta_p_utg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
@@ -233,7 +229,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_r_utg  {
     input:
       fasta_gz = bgzip_fasta_r_utg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
