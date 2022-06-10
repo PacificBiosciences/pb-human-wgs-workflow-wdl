@@ -99,18 +99,18 @@ workflow sample_trial {
     Array[Array[Array[File]]] affected_person_svsig_gv             = if defined(sample_affected_person.svsig_gv)                    then sample_affected_person.svsig_gv else []
     Array[IndexedData] affected_person_deepvariant_phased_vcf_gz   = if defined(sample_affected_person.deepvariant_phased_vcf_gz)   then sample_affected_person.deepvariant_phased_vcf_gz else 0
     Array[File?] affected_person_jellyfish_output_files            = if defined(sample_affected_person.jellyfish_output)            then sample_affected_person.jellyfish_output else []
-    Array[File?] affected_person_tandem_genotypes                  = if defined(sample_affected_person.tandem_genotypes)            then sample_affected_person.tandem_genotypes else []
-    Array[File?] affected_person_tandem_genotypes_absolute         = if defined(sample_affected_person.tandem_genotypes_absolute)   then sample_affected_person.tandem_genotypes_absolute else []
-    Array[File?] affected_person_tandem_genotypes_plot             = if defined(sample_affected_person.tandem_genotypes_plot)       then sample_affected_person.tandem_genotypes_plot else []
+    Array[File?] affected_person_tandem_genotypes                  = if defined(sample_affected_person.sample_tandem_genotypes)     then sample_affected_person.sample_tandem_genotypes else []
+    Array[File?] affected_person_tandem_genotypes_absolute         = if defined(sample_affected_person.sample_tandem_genotypes_absolute)   then sample_affected_person.sample_tandem_genotypes_absolute else []
+    Array[File?] affected_person_tandem_genotypes_plot             = if defined(sample_affected_person.sample_tandem_genotypes_plot)       then sample_affected_person.sample_tandem_genotypes_plot else []
     Array[File?] affected_person_tandem_genotypes_dropouts         = if defined(sample_affected_person.sample_tandem_genotypes_dropouts) then sample_affected_person.tandem_genotypes_dropouts else [] 
 
     Array[IndexedData] unaffected_person_gvcf                      = if defined(sample_unaffected_person.gvcf)                      then sample_unaffected_person.gvcf else []
     Array[Array[Array[File]]] unaffected_person_svsig_gv           = if defined(sample_unaffected_person.svsig_gv)                  then sample_unaffected_person.svsig_gv else []
     Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = if defined(sample_unaffected_person.deepvariant_phased_vcf_gz) then sample_unaffected_person.deepvariant_phased_vcf_gz else 0
     Array[File?] unaffected_person_jellyfish_output_files          = if defined(sample_unaffected_person.jellyfish_output)          then sample_unaffected_person.jellyfish_output else []
-    Array[File?] unaffected_person_tandem_genotypes                = if defined(sample_unaffected_person.tandem_genotypes)          then sample_unaffected_person.tandem_genotypes else []
-    Array[File?] unaffected_person_tandem_genotypes_absolute       = if defined(sample_unaffected_person.tandem_genotypes_absolute) then sample_unaffected_person.tandem_genotypes_absolute else []
-    Array[File?] unaffected_person_tandem_genotypes_plot           = if defined(sample_unaffected_person.tandem_genotypes_plot)     then sample_unaffected_person.tandem_genotypes_plot else []
+    Array[File?] unaffected_person_tandem_genotypes                = if defined(sample_unaffected_person.sample_tandem_genotypes)          then sample_unaffected_person.sample_tandem_genotypes else []
+    Array[File?] unaffected_person_tandem_genotypes_absolute       = if defined(sample_unaffected_person.sample_tandem_genotypes_absolute) then sample_unaffected_person.sample_tandem_genotypes_absolute else []
+    Array[File?] unaffected_person_tandem_genotypes_plot           = if defined(sample_unaffected_person.sample_tandem_genotypes_plot)     then sample_unaffected_person.sample_tandem_genotypes_plot else []
     Array[File?] unaffected_person_tandem_genotypes_dropouts       = if defined(sample_unaffected_person.sample_tandem_genotypes_dropouts) then sample_unaffected_person.tandem_genotypes_dropouts else []
   }
 }
