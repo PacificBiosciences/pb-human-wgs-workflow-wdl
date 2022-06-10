@@ -266,7 +266,7 @@ workflow tandem_genotypes {
     }
 
     output {
-        File sample_tandem_genotypes = sample_tandem_genotypes
+        File sample_tandem_genotypes = call_tandem_genotypes.sample_tandem_genotypes
         File sample_tandem_genotypes_absolute = tandem_genotypes_absolute_count.sample_tandem_genotypes_absolute
         File sample_tandem_genotypes_plot = tandem_genotypes_plot.tandem_genotypes_plot
         File sample_tandem_genotypes_dropouts = tandem_repeat_coverage_dropouts.tandem_genotypes_dropouts
