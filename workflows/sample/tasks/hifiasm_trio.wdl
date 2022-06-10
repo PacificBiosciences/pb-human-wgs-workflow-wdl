@@ -137,31 +137,31 @@ workflow hifiasm_trio {
 
   call hifiasm.gfa2fa as gfa2fa_hap1_p_ctg {
     input:
-      gfa = hifiasm_assemble.hap1_p_ctg,
+      gfa = hifiasm_trio_assemble.hap1_p_ctg,
       pb_conda_image = pb_conda_image
   }
 
   call hifiasm.gfa2fa as gfa2fa_hap2_p_ctg {
     input:
-      gfa = hifiasm_assemble.hap2_p_ctg,
+      gfa = hifiasm_trio_assemble.hap2_p_ctg,
       pb_conda_image = pb_conda_image
   }
 
   call hifiasm.gfa2fa as gfa2fa_p_ctg {
     input:
-      gfa = hifiasm_assemble.p_ctg,
+      gfa = hifiasm_trio_assemble.p_ctg,
       pb_conda_image = pb_conda_image
   }
 
   call hifiasm.gfa2fa as gfa2fa_p_utg {
     input:
-      gfa = hifiasm_assemble.p_utg,
+      gfa = hifiasm_trio_assemble.p_utg,
       pb_conda_image = pb_conda_image
   }
 
   call hifiasm.gfa2fa as gfa2fa_r_utg {
     input:
-      gfa = hifiasm_assemble.r_utg,
+      gfa = hifiasm_trio_assemble.r_utg,
       pb_conda_image = pb_conda_image
   }
 
