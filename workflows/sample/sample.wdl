@@ -123,7 +123,6 @@ workflow sample {
   call tandem_genotypes.tandem_genotypes {
     input:
       sample_name = sample_name,
-      reference = reference,
       pb_conda_image = pb_conda_image,
       tg_list = tg_list,
       score_matrix = score_matrix,
