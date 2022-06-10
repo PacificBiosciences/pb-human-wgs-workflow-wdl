@@ -76,15 +76,15 @@ task call_tandem_genotypes {
     output {
         File sample_tg_list = "~{sample_name}.tandem-genotypes.txt"
     }
-    
+
     command <<<
         source ~/.bashrc
         conda activate tandem_genotypes
         echo "$(conda info)"
         
-        echo "Generating tandem repeate from ~{tg_list_file} regions in {maf} to ~{sample_tandem_genotypes}."
+        echo "Generating tandem repeats from ~{tg_list_file} regions in {maf} to ~{sample_name}."
 
-        tandem-genotypes ~{tg_list_file} ~{maf} > ~{sample_tandem_genotypes} 2>&1
+        tandem-genotypes ~{tg_list_file} ~{maf} > ~{sample_name} 2>&1
     >>>
 
     runtime {
