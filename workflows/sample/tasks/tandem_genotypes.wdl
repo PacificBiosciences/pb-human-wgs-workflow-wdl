@@ -213,7 +213,6 @@ workflow tandem_genotypes {
   input {
     File tg_list
     File tg_bed     
-    IndexedData genome_reference
     LastIndexedData last_reference 
     String sample_name
     File score_matrix 
