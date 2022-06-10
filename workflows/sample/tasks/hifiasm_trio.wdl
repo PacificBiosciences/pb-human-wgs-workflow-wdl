@@ -86,7 +86,7 @@ task yak_trioeval {
     (yak trioeval  -t {threads} -1 {parent1_yak} -2 {parent2_yak} > {yak_trioeval_txt_name} ) > {log_name} 2>&1
   >>>
   output {
-    File yak_trioeval_txt_name  = "~{yak_trioeval_txt_name}"
+    File yak_trioeval_file_name  = "~{yak_trioeval_txt_name}"
 
     File log = "~{log_name}"
   }
