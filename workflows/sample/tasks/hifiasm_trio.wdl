@@ -111,13 +111,11 @@ workflow hifiasm_trio {
     Array[Pair[String,File]] yak_count
   }
 
-  Map[String, File] yak_count_map = as_map(yak_count)
-
   Int num_parents = length(parent_names)
   Boolean trio = if num_parents == 2 then true else false
 
-  File parent1_yak = yak_count_map["~{parent_names}[0]"]
-  File parent2_yak = yak_count_map["~{parent_names}[1]"]
+  File parent1_yak = yak_count[0]."~{parent_names[0]}"
+  File parent2_yak = yak_count[1]."~{parent_names[1]}"
 
   scatter (movie in sample) {
     call hifiasm.samtools_fasta as samtools_fasta {
