@@ -128,8 +128,8 @@ workflow sample {
       score_matrix = score_matrix,
       tg_bed = tg_bed,
       last_reference = last_reference,
-      haplotagged_bam = whatshap_round2.deepvariant_haplotagged.bam,
-      haplotagged_bai = whatshap_round2.deepvariant_haplotagged.bai,
+      haplotagged_bam = whatshap_round2.deepvariant_haplotagged.datafile,
+      haplotagged_bai = whatshap_round2.deepvariant_haplotagged.indexfile,
   }
 
   call hifiasm.hifiasm {
