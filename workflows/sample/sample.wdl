@@ -152,7 +152,7 @@ workflow sample {
     File? jellyfish_output = jellyfish.jellyfish_output
     File? log = jellyfish.log
 
-    File sample_tandem_genotypes = tandem_genotypes.sample_tandem_genotypes
+    File sample_tandem_genotypes = call_tandem_genotypes.sample_tandem_genotypes
     File sample_tandem_genotypes_absolute = tandem_genotypes.sample_tandem_genotypes_absolute
     File sample_tandem_genotypes_plot = tandem_genotypes.sample_tandem_genotypes_plot
     File sample_tandem_genotypes_dropouts = tandem_genotypes.sample_tandem_genotypes_dropouts

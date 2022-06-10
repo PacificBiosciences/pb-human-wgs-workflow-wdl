@@ -72,7 +72,7 @@ task yak_trioeval {
   }
 
   Float multiplier = 2
-  Int disk_size = ceil(multiplier * size(movie_fasta, "GB")) + 20
+  Int disk_size = ceil(multiplier * size(fasta_gz), "GB")) + 20
 #  Int disk_size = 200
   Int memory = threads * 3              #forces at least 3GB RAM/core, even if user overwrites threads
 
