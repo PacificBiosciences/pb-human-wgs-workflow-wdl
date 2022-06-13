@@ -22,7 +22,7 @@ workflow sample_trio {
     call yak.yak as yak_unaffected_person {
       input:
         sample_name = unaffected_person_sample_names[person_num],
-        movie_fasta = unaffected_person_sample[person_num],
+        sample = unaffected_person_sample[person_num],
     }
   }
 
@@ -30,7 +30,7 @@ workflow sample_trio {
     call hifiasm_trio_assemble.hifiasm_trio_assemble as hifiasm_trio_assemble {
       input:
         sample_name = affected_person_sample_names[person_num],
-        movie_fasta = affected_person_sample[person_num],
+        sample = affected_person_sample[person_num],
         parent_names = affected_person_parents_names[person_num],
         yak_count = yak_unaffected_person.yak_output,
         target = reference,

@@ -48,10 +48,12 @@ workflow yak {
     String pb_conda_image
   }
 
+  IndexedData movie_fasta
+
   scatter (movie in sample) {
     call hifiasm.samtools_fasta as samtools_fasta {
       input:
-        movie = movie,
+        movie_fasta = movie,
         pb_conda_image = pb_conda_image
     }
   }
