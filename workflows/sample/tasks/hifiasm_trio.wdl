@@ -21,6 +21,7 @@ task hifiasm_trio_assemble {
     
   }
 
+  String extra = "-c1 -d1"
 
   Float multiplier = 2
   Int disk_size = ceil(multiplier * size(movie_fasta, "GB")) + 20
@@ -34,8 +35,8 @@ task hifiasm_trio_assemble {
     conda activate hifiasm
     echo "$(conda info)"
 
-    (hifiasm -o ~{prefix} -t ~{threads} -1 {parent1_yak} -2 {parent2_yak} ~{sep=" " movie_fasta} \
-    && (echo -e "hap1\t~{params.parent1}\nhap2\t~{params.parent2}" > ~{prefix}.key.txt) > ~{log_name} 2>&1
+    (hifiasm -o ~{prefix} -t ~{threads} ~{extra} -1 {parent1_yak} -2 {parent2_yak} ~{sep=" " movie_fasta} \
+    && (echo -e "hap1\t~{parent1_yak}\nhap2\t~{parent2.yak}" > ~{prefix}.key.txt) > ~{log_name} 2>&1
   >>>
   output {
     File hap1_p_ctg        = "~{prefix}.bp.hap1.p_ctg.gfa"
