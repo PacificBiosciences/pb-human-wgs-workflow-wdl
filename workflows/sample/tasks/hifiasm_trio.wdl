@@ -12,12 +12,15 @@ task hifiasm_trio_assemble {
     String sample_name
     String prefix = "~{sample_name}.asm"
     String log_name = "hifiasm.log"
+    File parent1_yak 
+    File parent2_yak
 
     Array[File] movie_fasta
-    File parent1_yak
-    File parent2_yak
+
     String pb_conda_image
+    
   }
+
 
   Float multiplier = 2
   Int disk_size = ceil(multiplier * size(movie_fasta, "GB")) + 20
@@ -32,7 +35,7 @@ task hifiasm_trio_assemble {
     echo "$(conda info)"
 
     (hifiasm -o ~{prefix} -t ~{threads} -1 {parent1_yak} -2 {parent2_yak} ~{sep=" " movie_fasta} \
-    && (echo -e "hap1\t{params.parent1}\nhap2\t{params.parent2}" > ~{prefix}.key.txt) > ~{log_name} 2>&1
+    && (echo -e "hap1\t~{params.parent1}\nhap2\t~{params.parent2}" > ~{prefix}.key.txt) > ~{log_name} 2>&1
   >>>
   output {
     File hap1_p_ctg        = "~{prefix}.bp.hap1.p_ctg.gfa"
