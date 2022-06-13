@@ -51,7 +51,7 @@ workflow yak {
   scatter (movie in sample) {
     call hifiasm.samtools_fasta as samtools_fasta {
       input:
-        movie_fasta = movie,
+        movie = movie,
         pb_conda_image = pb_conda_image
     }
   }
