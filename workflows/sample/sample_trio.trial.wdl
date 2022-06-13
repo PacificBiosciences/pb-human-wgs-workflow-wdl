@@ -39,14 +39,5 @@ workflow sample_trio {
   }
 
   output {
-    Array[IndexedData] affected_person_gvcf                        = if defined(sample_affected_person.gvcf)                        then sample_affected_person.gvcf else []
-    Array[Array[Array[File]]] affected_person_svsig_gv             = if defined(sample_affected_person.svsig_gv)                    then sample_affected_person.svsig_gv else []
-    Array[IndexedData] affected_person_deepvariant_phased_vcf_gz   = if defined(sample_affected_person.deepvariant_phased_vcf_gz)   then sample_affected_person.deepvariant_phased_vcf_gz else 0
-    Array[File?] affected_person_jellyfish_output_files            = if defined(sample_affected_person.jellyfish_output)            then sample_affected_person.jellyfish_output else []
-
-    Array[IndexedData] unaffected_person_gvcf                      = if defined(sample_unaffected_person.gvcf)                      then sample_unaffected_person.gvcf else []
-    Array[Array[Array[File]]] unaffected_person_svsig_gv           = if defined(sample_unaffected_person.svsig_gv)                  then sample_unaffected_person.svsig_gv else []
-    Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = if defined(sample_unaffected_person.deepvariant_phased_vcf_gz) then sample_unaffected_person.deepvariant_phased_vcf_gz else 0
-    Array[File?] unaffected_person_jellyfish_output_files          = if defined(sample_unaffected_person.jellyfish_output)          then sample_unaffected_person.jellyfish_output else []
   }
 }
