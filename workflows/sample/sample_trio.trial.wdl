@@ -27,7 +27,7 @@ workflow sample_trio {
   }
 
   scatter (person_num in range(length(affected_person_sample))) {
-    call hifiasm_trio.hifiasm_trio as hifiasm_trio_assemble {
+    call hifiasm_trio_assemble.hifiasm_trio as hifiasm_trio_assemble {
       input:
         sample_name = affected_person_sample_names[person_num],
         sample = affected_person_sample[person_num],
