@@ -11,7 +11,7 @@ workflow sample_trio {
   input {
     Array[String]             affected_person_sample_names
     Array[Array[IndexedData]] affected_person_sample
-    Array[Array[String]]      affected_person_parents_names
+    Array[Array[String?]]      affected_person_parents_names
     Array[String]             unaffected_person_sample_names
     Array[Array[IndexedData]] unaffected_person_sample
     String pb_conda_image
