@@ -45,8 +45,7 @@ workflow trial {
 
     Boolean run_jellyfish = false                         #default is to NOT run jellyfish
 
-    File? tg_list
-    File? tg_list_url
+    File tg_list
     File score_matrix
   }
 
@@ -103,7 +102,6 @@ workflow trial {
     run_jellyfish = run_jellyfish,
 
     tg_list = tg_list,
-    tg_list_url = tg_list_url,
     score_matrix = score_matrix
   }
 
