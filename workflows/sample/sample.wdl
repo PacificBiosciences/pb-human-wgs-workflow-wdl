@@ -123,14 +123,13 @@ workflow sample {
   call tandem_genotypes.tandem_genotypes {
     input:
       sample_name = sample_name,
-      reference = reference,
       pb_conda_image = pb_conda_image,
       tg_list = tg_list,
       score_matrix = score_matrix,
       tg_bed = tg_bed,
       last_reference = last_reference,
-      haplotagged_bam = whatshap_round2.deepvariant_haplotagged.bam,
-      haplotagged_bai = whatshap_round2.deepvariant_haplotagged.bai,
+      haplotagged_bam = whatshap_round2.deepvariant_haplotagged.datafile,
+      haplotagged_bai = whatshap_round2.deepvariant_haplotagged.indexfile,
   }
 
   call hifiasm.hifiasm {
@@ -153,9 +152,9 @@ workflow sample {
     File? log = jellyfish.log
 
     File sample_tandem_genotypes = tandem_genotypes.sample_tandem_genotypes
-    File sample_tandem_genotypes_absolute = tandem_genotypes_absolute_count.sample_tandem_genotypes_absolute
-    File sample_tandem_genotypes_plot = tandem_genotypes_plot.tandem_genotypes_plot
-    File sample_tandem_genotypes_dropouts = tandem_repeat_coverage_dropouts.tandem_genotypes_dropouts
+    File sample_tandem_genotypes_absolute = tandem_genotypes.sample_tandem_genotypes_absolute
+    File sample_tandem_genotypes_plot = tandem_genotypes.sample_tandem_genotypes_plot
+    File sample_tandem_genotypes_dropouts = tandem_genotypes.sample_tandem_genotypes_dropouts
 
   }
 

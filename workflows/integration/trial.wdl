@@ -45,8 +45,7 @@ workflow trial {
 
     Boolean run_jellyfish = false                         #default is to NOT run jellyfish
 
-    File? tg_list
-    File? tg_list_url
+    File tg_list
     File score_matrix
   }
 
@@ -62,7 +61,7 @@ workflow trial {
 
   Array[String] regions = read_lines(regions_file)
 
-  Boolean trio_assembly = defined(select_all(cohort_info.affected_persons.parents))
+  Boolean trio_assembly = defined(cohort_info.affected_persons[0].parents)
 
   if (trio_assembly) {
     call sample_trio.trial.sample_trio {
@@ -72,7 +71,7 @@ workflow trial {
       affected_person_parents_names     = smrtcells_trial.affected_person_parents_names,
       unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
       unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
-
+      pb_conda_image = pb_conda_image,
       reference = reference
     }
   }
@@ -103,7 +102,6 @@ workflow trial {
     run_jellyfish = run_jellyfish,
 
     tg_list = tg_list,
-    tg_list_url = tg_list_url,
     score_matrix = score_matrix
   }
 
@@ -158,15 +156,15 @@ workflow trial {
     Array[Array[Array[File]]] unaffected_person_svsig_gv           = sample_trial.unaffected_person_svsig_gv
     Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz
 
-    Array[Array[File?]] affected_person_tandem_genotypes           = sample_trial.affected_person_tandem_genotypes
-    Array[Array[File?]] affected_person_tandem_genotypes_absolute  = sample_trial.affected_person_tandem_genotypes_absolute
-    Array[Array[File?]] affected_person_tandem_genotypes_plot      = sample_trial.affected_person_tandem_genotypes_plot
-    Array[Array[File?]] affected_person_tandem_genotypes_dropouts  = sample_trial.affected_person_tandem_genotypes_dropouts
+    Array[File?] affected_person_tandem_genotypes           = sample_trial.affected_person_tandem_genotypes
+    Array[File?] affected_person_tandem_genotypes_absolute  = sample_trial.affected_person_tandem_genotypes_absolute
+    Array[File?] affected_person_tandem_genotypes_plot      = sample_trial.affected_person_tandem_genotypes_plot
+    Array[File?] affected_person_tandem_genotypes_dropouts  = sample_trial.affected_person_tandem_genotypes_dropouts
 
-    Array[Array[File?]] unaffected_person_tandem_genotypes           = sample_trial.unaffected_person_tandem_genotypes
-    Array[Array[File?]] unaffected_person_tandem_genotypes_absolute  = sample_trial.unaffected_person_tandem_genotypes_absolute
-    Array[Array[File?]] unaffected_person_tandem_genotypes_plot      = sample_trial.unaffected_person_tandem_genotypes_plot
-    Array[Array[File?]] unaffected_person_tandem_genotypes_dropouts  = sample_trial.unaffected_person_tandem_genotypes_dropouts
+    Array[File?] unaffected_person_tandem_genotypes           = sample_trial.unaffected_person_tandem_genotypes
+    Array[File?] unaffected_person_tandem_genotypes_absolute  = sample_trial.unaffected_person_tandem_genotypes_absolute
+    Array[File?] unaffected_person_tandem_genotypes_plot      = sample_trial.unaffected_person_tandem_genotypes_plot
+    Array[File?] unaffected_person_tandem_genotypes_dropouts  = sample_trial.unaffected_person_tandem_genotypes_dropouts
 
     IndexedData pbsv_vcf    = cohort.pbsv_vcf
     IndexedData filt_vcf    = cohort.filt_vcf

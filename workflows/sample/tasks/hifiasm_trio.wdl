@@ -12,12 +12,16 @@ task hifiasm_trio_assemble {
     String sample_name
     String prefix = "~{sample_name}.asm"
     String log_name = "hifiasm.log"
+    File parent1_yak 
+    File parent2_yak
 
     Array[File] movie_fasta
-    File parent1_yak
-    File parent2_yak
+
     String pb_conda_image
+    
   }
+
+  String extra = "-c1 -d1"
 
   Float multiplier = 2
   Int disk_size = ceil(multiplier * size(movie_fasta, "GB")) + 20
@@ -31,8 +35,8 @@ task hifiasm_trio_assemble {
     conda activate hifiasm
     echo "$(conda info)"
 
-    (hifiasm -o ~{prefix} -t ~{threads} -1 {parent1_yak} -2 {parent2_yak} ~{sep=" " movie_fasta} \
-    && (echo -e "hap1\t{params.parent1}\nhap2\t{params.parent2}" > ~{prefix}.key.txt) > ~{log_name} 2>&1
+    (hifiasm -o ~{prefix} -t ~{threads} ~{extra} -1 {parent1_yak} -2 {parent2_yak} ~{sep=" " movie_fasta} \
+    && (echo -e "hap1\t~{parent1_yak}\nhap2\t~{parent2_yak}" > ~{prefix}.key.txt) > ~{log_name} 2>&1
   >>>
   output {
     File hap1_p_ctg        = "~{prefix}.bp.hap1.p_ctg.gfa"
@@ -69,10 +73,11 @@ task yak_trioeval {
     String log_name = "yak.fasta.trioeval.log"
     File parent1_yak
     File parent2_yak
+    String pb_conda_image
   }
 
   Float multiplier = 2
-  Int disk_size = ceil(multiplier * size(movie_fasta, "GB")) + 20
+  Int disk_size = ceil(multiplier * size(fasta_gz, "GB")) + 20
 #  Int disk_size = 200
   Int memory = threads * 3              #forces at least 3GB RAM/core, even if user overwrites threads
 
@@ -83,10 +88,10 @@ task yak_trioeval {
     conda activate yak
     echo "$(conda info)"
 
-    (yak trioeval  -t {threads} -1 {parent1_yak} -2 {parent2_yak} > {yak_trioeval_txt_name} ) > {log_name} 2>&1
+    (yak trioeval  -t {threads} -1 {parent1_yak} -2 {parent2_yak} {fasta_gz}> {yak_trioeval_txt_name} ) > {log_name} 2>&1
   >>>
   output {
-    File yak_trioeval_txt_name  = "~{yak_trioeval_txt_name}"
+    File yak_trioeval_file_name  = "~{yak_trioeval_txt_name}"
 
     File log = "~{log_name}"
   }
@@ -111,13 +116,11 @@ workflow hifiasm_trio {
     Array[Pair[String,File]] yak_count
   }
 
-  yak_count_map = as_map(yak_count)
-
   Int num_parents = length(parent_names)
   Boolean trio = if num_parents == 2 then true else false
 
-  parent1_yak = yak_count_map[parent_names[0]]
-  parent2_yak = yak_count_map[parent_names[1]]
+  File parent1_yak = yak_count[0].right
+  File parent2_yak = yak_count[1].right
 
   scatter (movie in sample) {
     call hifiasm.samtools_fasta as samtools_fasta {
@@ -138,31 +141,31 @@ workflow hifiasm_trio {
 
   call hifiasm.gfa2fa as gfa2fa_hap1_p_ctg {
     input:
-      gfa = hifiasm_assemble.hap1_p_ctg,
+      gfa = hifiasm_trio_assemble.hap1_p_ctg,
       pb_conda_image = pb_conda_image
   }
 
   call hifiasm.gfa2fa as gfa2fa_hap2_p_ctg {
     input:
-      gfa = hifiasm_assemble.hap2_p_ctg,
+      gfa = hifiasm_trio_assemble.hap2_p_ctg,
       pb_conda_image = pb_conda_image
   }
 
   call hifiasm.gfa2fa as gfa2fa_p_ctg {
     input:
-      gfa = hifiasm_assemble.p_ctg,
+      gfa = hifiasm_trio_assemble.p_ctg,
       pb_conda_image = pb_conda_image
   }
 
   call hifiasm.gfa2fa as gfa2fa_p_utg {
     input:
-      gfa = hifiasm_assemble.p_utg,
+      gfa = hifiasm_trio_assemble.p_utg,
       pb_conda_image = pb_conda_image
   }
 
   call hifiasm.gfa2fa as gfa2fa_r_utg {
     input:
-      gfa = hifiasm_assemble.r_utg,
+      gfa = hifiasm_trio_assemble.r_utg,
       pb_conda_image = pb_conda_image
   }
 
@@ -198,7 +201,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_hap1_p_ctg  {
     input:
       fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
@@ -207,7 +209,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_hap2_p_ctg  {
     input:
       fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
@@ -216,7 +217,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_p_ctg  {
     input:
       fasta_gz = bgzip_fasta_p_ctg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
@@ -225,7 +225,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_p_utg  {
     input:
       fasta_gz = bgzip_fasta_p_utg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
@@ -234,7 +233,6 @@ workflow hifiasm_trio {
   call yak_trioeval as yak_trioeval_r_utg  {
     input:
       fasta_gz = bgzip_fasta_r_utg.fasta_gz,
-      index = target.indexfile,
       parent1_yak = parent1_yak,
       parent2_yak = parent2_yak,
       pb_conda_image = pb_conda_image
