@@ -62,7 +62,7 @@ workflow trial {
 
   Array[String] regions = read_lines(regions_file)
 
-  Boolean trio_assembly = defined(cohort_info.affected_persons[0].father_id) && defined(cohort_info.affected_persons[0].mother_id)
+  Boolean trio_assembly = defined(cohort_info.affected_persons[0].parents)
 
   if (trio_assembly) {
     call sample_trio.trial.sample_trio {
