@@ -14,7 +14,7 @@ workflow sample_trio {
     Array[Array[String]]      affected_person_parents_names
     Array[String]             unaffected_person_sample_names
     Array[Array[IndexedData]] unaffected_person_sample
-
+    String pb_conda_image
     IndexedData reference
   }
 
@@ -23,6 +23,8 @@ workflow sample_trio {
       input:
         sample_name = unaffected_person_sample_names[person_num],
         sample = unaffected_person_sample[person_num],
+        pb_conda_image = pb_conda_image
+
     }
   }
 
@@ -34,7 +36,8 @@ workflow sample_trio {
         parent_names = affected_person_parents_names[person_num],
         yak_count = yak_unaffected_person.yak_output,
         target = reference,
-        reference_name = reference.name
+        reference_name = reference.name,
+        pb_conda_image = pb_conda_image
     }
   }
 
