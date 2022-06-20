@@ -15,6 +15,7 @@ task make_examples_round2 {
     IndexedData reference
     String log_name = "make_examples_round2.log"
     String deepvariant_image
+    Int pileup_image_width = 199
 
     Int threads = 64
     Int threads_m1 = threads - 1
@@ -33,6 +34,7 @@ task make_examples_round2 {
     make_examples_func="       /opt/deepvariant/bin/make_examples \
         --norealign_reads \
         --vsc_min_fraction_indels ~{vsc_min_fraction_indels} \
+        --pileup_image_width {{params.pileup_image_width}}
         --alt_aligned_pileup=diff_channels \
         --add_hp_channel \
         --sort_by_haplotypes \
