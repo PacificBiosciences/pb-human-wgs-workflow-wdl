@@ -1,3 +1,7 @@
 [submodule "pb-human-wgs-workflow-snakemake"]
 	path = pb-human-wgs-workflow-snakemake
 	url = https://github.com/PacificBiosciences/pb-human-wgs-workflow-snakemake.git
+[submodule "calN50"]
+	path = calN50
+	url = https://github.com/lh3/calN50.git
+	branch = master
