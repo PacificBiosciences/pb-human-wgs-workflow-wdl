@@ -34,7 +34,7 @@ task stats_ubam_or_fastq {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "14 GB"
+    memory: "24 GB"
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
@@ -85,7 +85,7 @@ task summary_stats {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "14 GB"
+    memory: "24 GB"
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
