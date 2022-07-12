@@ -204,7 +204,6 @@ task align_hifiasm {
     String sample_name
     String? reference_name
 
-    Int max_chunk = 200000
     String minimap2_args = "-L --secondary=no --eqx -ax asm5"
     Int minimap2_threads = 12
     Int samtools_threads = 3
