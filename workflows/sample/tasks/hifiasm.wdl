@@ -183,7 +183,7 @@ task asm_stats {
     conda activate k8
     echo "$(conda info)"
 
-    (k8 /opt/pb/scripts/calN50.js -f ~{index} ~{fasta_gz} > ~{fasta_stats_txt_name}) > ~{log_name} 2>&1
+    (k8 /opt/pb/scripts/calN50/calN50.js -f ~{index} ~{fasta_gz} > ~{fasta_stats_txt_name}) > ~{log_name} 2>&1
   >>>
   output {
     File fasta_stats_txt = "~{fasta_stats_txt_name}"
@@ -206,7 +206,7 @@ task align_hifiasm {
 
     Int max_chunk = 200000
     String minimap2_args = "-L --secondary=no --eqx -ax asm5"
-    Int minimap2_threads = 10
+    Int minimap2_threads = 12
     Int samtools_threads = 3
 
     String log_name = "align_hifiasm.log"
@@ -216,6 +216,8 @@ task align_hifiasm {
     String asm_bam_name = "~{sample_name}.asm.~{reference_name}.bam"
     String pb_conda_image
     Int threads = 16
+    String readgroup =  "@RG\\tID:~{sample_name}_hifiasm\\tSM:~{sample_name}"
+    String samtools_mem = "8G" 
   }
 
   Float multiplier = 3.25
@@ -228,15 +230,8 @@ task align_hifiasm {
     conda activate align_hifiasm
     echo "$(conda info)"
 
-    (cat ~{sep=" " query} \
-        | seqtk seq -l ~{max_chunk} - \
-        | awk '{{ if ($1 ~ />/) {{ n=$1; i=0; }} else {{ i++; print n "." i; print $0; }} }}' \
-        | minimap2 -t ~{minimap2_threads} ~{minimap2_args} ~{target.datafile} - \
-            | awk '{{ if ($1 !~ /^@/) \
-                            {{ Rct=split($1,R,"."); N=R[1]; for(i=2;i<Rct;i++) {{ N=N"."R[i]; }} print $0 "\tTG:Z:" N; }} \
-                            else {{ print; }} }}' \
-            | samtools sort -@ ~{samtools_threads} > ~{asm_bam_name} \
-            && samtools index -@ ~{samtools_threads} ~{asm_bam_name}) > ~{log_name} 2>&1
+    (minimap2 -t ~{minimap2_threads} ~{minimap2_args} -R ~{readgroup} ~{target.datafile} {query} \
+            | samtools sort -@ ~{samtools_threads} -T $TMPDIR -m ~{samtools_mem} > {asm_bam_name}) > {log} 2>&1
   >>>
   output {
     File asm_bam = "~{asm_bam_name}"
