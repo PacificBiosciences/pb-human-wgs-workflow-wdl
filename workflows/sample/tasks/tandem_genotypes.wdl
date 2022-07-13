@@ -162,7 +162,7 @@ task tandem_genotypes_plot {
         
         echo "Plotting tandem repeat count for ~{sample_tandem_genotypes} to ~{tandem_genotypes_plot}."
 
-        (tandem-genotypes-plot -n {top_N_plots} ~{sample_tandem_genotypes} ~{sample_name}.tandem-genotypes.pdf) 2>&1
+        (tandem-genotypes-plot -n ~{top_N_plots} ~{sample_tandem_genotypes} ~{sample_name}.tandem-genotypes.pdf) 2>&1
     >>>
 
     runtime {
@@ -195,7 +195,7 @@ task tandem_repeat_coverage_dropouts {
         echo "$(conda info)"
 
         echo "Identify coverage dropouts in ~{tg_bed} regions in ~{haplotagged_bam}."
-        (python3 workflow/scripts/check_tandem_repeat_coverage.py ~{tg_bed} ~{haplotagged_bam} > ~{sample_name}.tandem-genotypes.dropouts.txt) > {log} 2>&1
+        (python3 workflow/scripts/check_tandem_repeat_coverage.py ~{tg_bed} ~{haplotagged_bam} > ~{sample_name}.tandem-genotypes.dropouts.txt) > ~{log} 2>&1
     >>>
 
     runtime {

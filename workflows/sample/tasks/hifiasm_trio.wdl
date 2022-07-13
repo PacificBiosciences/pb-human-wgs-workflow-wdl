@@ -35,7 +35,7 @@ task hifiasm_trio_assemble {
     conda activate hifiasm
     echo "$(conda info)"
 
-    (hifiasm -o ~{prefix} -t ~{threads} ~{extra} -1 {parent1_yak} -2 {parent2_yak} ~{sep=" " movie_fasta} \
+    (hifiasm -o ~{prefix} -t ~{threads} ~{extra} -1 ~{parent1_yak} -2 ~{parent2_yak} ~{sep=" " movie_fasta} \
     && (echo -e "hap1\t~{parent1_yak}\nhap2\t~{parent2_yak}" > ~{prefix}.key.txt) > ~{log_name} 2>&1
   >>>
   output {
@@ -88,7 +88,7 @@ task yak_trioeval {
     conda activate yak
     echo "$(conda info)"
 
-    (yak trioeval  -t {threads} -1 {parent1_yak} -2 {parent2_yak} {fasta_gz}> {yak_trioeval_txt_name} ) > {log_name} 2>&1
+    (yak trioeval  -t ~{threads} -1 ~{parent1_yak} -2 ~{parent2_yak} ~{fasta_gz}> ~{yak_trioeval_txt_name} ) > ~{log_name} 2>&1
   >>>
   output {
     File yak_trioeval_file_name  = "~{yak_trioeval_txt_name}"

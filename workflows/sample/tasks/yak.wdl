@@ -24,7 +24,7 @@ task yak_count {
     conda activate yak
     echo "$(conda info)"
 
-    (yak count -t {threads} -o ~{sample_name} ~{sep=" " movie_fasta}) > {log_name} 2>&1
+    (yak count -t ~{threads} -o ~{sample_name}.yak ~{sep=" " movie_fasta}) > ~{log_name} 2>&1
   >>>
   output {
     File yak  = "~{sample_name}.yak"
