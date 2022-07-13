@@ -181,6 +181,7 @@ task tandem_repeat_coverage_dropouts {
         File tg_bed
         String sample_name 
         String pb_conda_image
+        String log = "~{sample_name}.tandem-genotypes.dropouts.log"
     }
 
     output {
