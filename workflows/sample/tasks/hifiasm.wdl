@@ -229,7 +229,7 @@ task align_hifiasm {
     conda activate align_hifiasm
     echo "$(conda info)"
 
-    (minimap2 -t ~{minimap2_threads} ~{minimap2_args} -R ~{readgroup} ~{target.datafile} ~{sep=" " query} \
+    (minimap2 -t ~{minimap2_threads} ~{minimap2_args} -R "~{readgroup}" ~{target.datafile} ~{sep=" " query} \
             | samtools sort -@ ~{samtools_threads} -T $PWD -m ~{samtools_mem} > ~{asm_bam_name}) > ~{log_name} 2>&1
   >>>
   output {
