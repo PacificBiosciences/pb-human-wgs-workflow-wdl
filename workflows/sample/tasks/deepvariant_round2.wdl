@@ -34,7 +34,7 @@ task make_examples_round2 {
     make_examples_func="       /opt/deepvariant/bin/make_examples \
         --norealign_reads \
         --vsc_min_fraction_indels ~{vsc_min_fraction_indels} \
-        --pileup_image_width {{params.pileup_image_width}}
+        --pileup_image_width ~{pileup_image_width} \
         --alt_aligned_pileup=diff_channels \
         --add_hp_channel \
         --sort_by_haplotypes \
