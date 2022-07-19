@@ -12,15 +12,15 @@ import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workfl
 task last_align {
     input {
         LastIndexedData last_reference
-        File haplotagged_bam 
+        File haplotagged_bam
         File haplotagged_bai
-        File tg_bed 
+        File tg_bed
         File score_matrix
         String sample_name
         Int threads = 24
         String pb_conda_image
     }
-        
+
     File last_reference_bck     = last_reference.last_reference_bck
     File last_reference_des     = last_reference.last_reference_des
     File last_reference_prj     = last_reference.last_reference_prj
@@ -34,18 +34,18 @@ task last_align {
     }
 
     String extra = "-C2"
-    
+
     String last_reference_name = basename(last_reference_bck, ".lastdb.bck")
     String score_matrix_name = basename(score_matrix, ".par")
 
-    Int disk_size = ceil(size(last_reference_bck, "GB") + size(haplotagged_bam, "GB") + size(tg_bed, "GB") + size(score_matrix, "GB") *3)    
-    
+    Int disk_size = ceil(size(last_reference_bck, "GB") + size(haplotagged_bam, "GB") + size(tg_bed, "GB") + size(score_matrix, "GB") *3)
+
     command <<<
         source ~/.bashrc
         conda activate last
         echo "$(conda info)"
-        
-        echo "Outputting ~{tg_maf}."
+
+        echo "Outputting ~{sample_name}.maf.gz."
 
        echo "Aligning ~{tg_bed} regions of ~{haplotagged_bam} to ~{last_reference_name} using lastal with ~{score_matrix_name} score matrix."
 
@@ -53,7 +53,7 @@ task last_align {
          | lastal -P20 -p ~{score_matrix} ~{extra} ~{last_reference_suf} - \
          | last-split | bgzip > ~{sample_name}.maf.gz) 2>&1
     >>>
-    
+
     runtime {
         docker: "~{pb_conda_image}"
         preemptible: true
@@ -81,7 +81,7 @@ task call_tandem_genotypes {
         source ~/.bashrc
         conda activate tandem_genotypes
         echo "$(conda info)"
-        
+
         echo "Generating tandem repeats from ~{tg_list_file} regions in {maf} to ~{sample_name}."
 
         tandem-genotypes ~{tg_list_file} ~{maf} > ~{sample_name} 2>&1
@@ -99,19 +99,19 @@ task call_tandem_genotypes {
 
 task tandem_genotypes_absolute_count {
     input {
-        File sample_tandem_genotypes                       
+        File sample_tandem_genotypes
         String sample_name
         String pb_conda_image
     }
 
-    output { 
-        File sample_tandem_genotypes_absolute = "~{sample_name}.tandem-genotypes.absolute.txt"           
-    }                    
+    output {
+        File sample_tandem_genotypes_absolute = "~{sample_name}.tandem-genotypes.absolute.txt"
+    }
 
     Int disk_size = ceil(size(sample_tandem_genotypes, "GB") * 2)
 
     command <<<
-              
+
         echo "Adjusting repeat count with reference counts for ~{sample_tandem_genotypes} to ~{sample_tandem_genotypes_absolute}."
 
         (awk -v OFS='\t' \
@@ -129,7 +129,7 @@ task tandem_genotypes_absolute_count {
                 print $1, $2, $3, $4, $5, $6, new_fwd, new_rev;
             }}' ~{sample_tandem_genotypes} > ~{sample_name}.tandem-genotypes.absolute.txt \
         ) 2>&1
-        
+
     >>>
 
     runtime {
@@ -144,14 +144,14 @@ task tandem_genotypes_absolute_count {
 task tandem_genotypes_plot {
     input {
         File sample_tandem_genotypes
-        String sample_name   
-        String pb_conda_image                                                                                  
+        String sample_name
+        String pb_conda_image
     }
 
     output {
-        File tandem_genotypes_plot = "~{sample_name}.tandem-genotypes.pdf"                                           
+        File tandem_genotypes_plot = "~{sample_name}.tandem-genotypes.pdf"
     }
-    
+
     Int top_N_plots = 100
     Int disk_size = ceil(size(sample_tandem_genotypes, "GB") * 3)
 
@@ -159,7 +159,7 @@ task tandem_genotypes_plot {
         source ~/.bashrc
         conda activate tandem_genotypes
         echo "$(conda info)"
-        
+
         echo "Plotting tandem repeat count for ~{sample_tandem_genotypes} to ~{tandem_genotypes_plot}."
 
         (tandem-genotypes-plot -n ~{top_N_plots} ~{sample_tandem_genotypes} ~{sample_name}.tandem-genotypes.pdf) 2>&1
@@ -176,10 +176,10 @@ task tandem_genotypes_plot {
 
 task tandem_repeat_coverage_dropouts {
     input {
-        File haplotagged_bam                                                                                        
-        File haplotagged_bai                                                                                        
+        File haplotagged_bam
+        File haplotagged_bai
         File tg_bed
-        String sample_name 
+        String sample_name
         String pb_conda_image
         String log = "~{sample_name}.tandem-genotypes.dropouts.log"
     }
@@ -187,7 +187,7 @@ task tandem_repeat_coverage_dropouts {
     output {
         File tandem_genotypes_dropouts = "~{sample_name}.tandem-genotypes.dropouts.txt"
     }
-    
+
     Int disk_size = ceil(size(haplotagged_bam, "GB") * 2)
 
     command <<<
@@ -210,18 +210,18 @@ task tandem_repeat_coverage_dropouts {
 }
 
 workflow tandem_genotypes {
-  
+
   input {
     File tg_list
-    File tg_bed     
-    LastIndexedData last_reference 
+    File tg_bed
+    LastIndexedData last_reference
     String sample_name
-    File score_matrix 
+    File score_matrix
     File haplotagged_bam
     File haplotagged_bai
     String pb_conda_image
   }
- 
+
   call last_align {
     input:
         sample_name = sample_name,
