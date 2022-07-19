@@ -36,7 +36,7 @@ task hifiasm_trio_assemble {
     echo "$(conda info)"
 
     (hifiasm -o ~{prefix} -t ~{threads} ~{extra} -1 ~{parent1_yak} -2 ~{parent2_yak} ~{sep=" " movie_fasta} \
-    && (echo -e "hap1\t~{parent1_yak}\nhap2\t~{parent2_yak}" > ~{prefix}.key.txt) > ~{log_name} 2>&1
+    && echo -e "hap1\t~{parent1_yak}\nhap2\t~{parent2_yak}" > ~{prefix}.key.txt) > ~{log_name} 2>&1
   >>>
   output {
     File hap1_p_ctg        = "~{prefix}.bp.hap1.p_ctg.gfa"
