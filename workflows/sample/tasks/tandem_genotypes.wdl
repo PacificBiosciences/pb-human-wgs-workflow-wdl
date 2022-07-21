@@ -79,7 +79,7 @@ task call_tandem_genotypes {
 
     command <<<
         source ~/.bashrc
-        conda activate tandem_genotypes
+        conda activate tandem-genotypes
         echo "$(conda info)"
 
         echo "Generating tandem repeats from ~{tg_list_file} regions in {maf} to ~{sample_name}."
@@ -157,7 +157,7 @@ task tandem_genotypes_plot {
 
     command <<<
         source ~/.bashrc
-        conda activate tandem_genotypes
+        conda activate tandem-genotypes
         echo "$(conda info)"
 
         echo "Plotting tandem repeat count for ~{sample_tandem_genotypes} to ~{tandem_genotypes_plot}."
@@ -192,7 +192,7 @@ task tandem_repeat_coverage_dropouts {
 
     command <<<
         source ~/.bashrc
-        conda activate tandem_genotypes
+        conda activate tandem-genotypes
         echo "$(conda info)"
 
         echo "Identify coverage dropouts in ~{tg_bed} regions in ~{haplotagged_bam}."
