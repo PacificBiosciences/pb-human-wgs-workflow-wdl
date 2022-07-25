@@ -185,6 +185,7 @@ task tandem_repeat_coverage_dropouts {
     }
 
     output {
+        File log = "~{log}"
         File tandem_genotypes_dropouts = "~{sample_name}.tandem-genotypes.dropouts.txt"
     }
 
