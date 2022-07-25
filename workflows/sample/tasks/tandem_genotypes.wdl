@@ -51,7 +51,7 @@ task last_align {
        last_reference_suf_base=$(echo "~{last_reference_suf}" | cut -f 1 -d '.')
 
         (samtools view -@3 -bL ~{tg_bed} ~{haplotagged_bam} | samtools fasta \
-         | lastal -P20 -p ~{score_matrix} ~{extra} ~{last_reference_suf_base} - \
+         | lastal -P20 -p ~{score_matrix} ~{extra} $last_reference_suf_base - \
          | last-split | bgzip > ~{sample_name}.maf.gz) 2>&1
     >>>
 
