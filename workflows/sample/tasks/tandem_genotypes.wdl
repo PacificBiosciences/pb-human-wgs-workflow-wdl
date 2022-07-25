@@ -48,9 +48,10 @@ task last_align {
         echo "Outputting ~{sample_name}.maf.gz."
 
        echo "Aligning ~{tg_bed} regions of ~{haplotagged_bam} to ~{last_reference_name} using lastal with ~{score_matrix_name} score matrix."
+       last_reference_suf_base=$(echo "~{last_reference_suf}" | cut -f 1 -d '.')
 
         (samtools view -@3 -bL ~{tg_bed} ~{haplotagged_bam} | samtools fasta \
-         | lastal -P20 -p ~{score_matrix} ~{extra} ~{last_reference_suf} - \
+         | lastal -P20 -p ~{score_matrix} ~{extra} $last_reference_suf_base - \
          | last-split | bgzip > ~{sample_name}.maf.gz) 2>&1
     >>>
 
