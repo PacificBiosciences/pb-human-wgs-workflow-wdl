@@ -182,11 +182,11 @@ task tandem_repeat_coverage_dropouts {
         File tg_bed
         String sample_name
         String pb_conda_image
-        String log = "~{sample_name}.tandem-genotypes.dropouts.log"
+        String tandem_repeat_coverage_dropouts_log = "~{sample_name}.tandem-genotypes.dropouts.log"
     }
 
     output {
-        File log = "~{log}"
+        File log = "~{tandem_repeat_coverage_dropouts_log}"
         File tandem_genotypes_dropouts = "~{sample_name}.tandem-genotypes.dropouts.txt"
     }
 
@@ -198,7 +198,7 @@ task tandem_repeat_coverage_dropouts {
         echo "$(conda info)"
 
         echo "Identify coverage dropouts in ~{tg_bed} regions in ~{haplotagged_bam}."
-        (python3 workflow/scripts/check_tandem_repeat_coverage.py ~{tg_bed} ~{haplotagged_bam} > ~{sample_name}.tandem-genotypes.dropouts.txt) > ~{log} 2>&1
+        (python3 workflow/scripts/check_tandem_repeat_coverage.py ~{tg_bed} ~{haplotagged_bam} > ~{sample_name}.tandem-genotypes.dropouts.txt) > ~{tandem_repeat_coverage_dropouts_log} 2>&1
     >>>
 
     runtime {
