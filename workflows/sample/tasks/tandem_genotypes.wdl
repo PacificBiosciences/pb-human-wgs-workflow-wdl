@@ -37,6 +37,7 @@ task last_align {
 
     String last_reference_name = basename(last_reference_bck, ".lastdb.bck")
     String score_matrix_name = basename(score_matrix, ".par")
+    String last_reference_suf_base = basename(last_reference_suf, ".".suf"")
 
     Int disk_size = ceil(size(last_reference_bck, "GB") + size(haplotagged_bam, "GB") + size(tg_bed, "GB") + size(score_matrix, "GB") *3)
 
@@ -50,7 +51,7 @@ task last_align {
        echo "Aligning ~{tg_bed} regions of ~{haplotagged_bam} to ~{last_reference_name} using lastal with ~{score_matrix_name} score matrix."
 
         (samtools view -@3 -bL ~{tg_bed} ~{haplotagged_bam} | samtools fasta \
-         | lastal -P20 -p ~{score_matrix} ~{extra} ~{last_reference_suf} - \
+         | lastal -P20 -p ~{score_matrix} ~{extra} ~{last_reference_suf_base} - \
          | last-split | bgzip > ~{sample_name}.maf.gz) 2>&1
     >>>
 
