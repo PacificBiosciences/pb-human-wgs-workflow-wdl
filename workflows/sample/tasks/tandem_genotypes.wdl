@@ -48,11 +48,12 @@ task last_align {
         echo "Outputting ~{sample_name}.maf.gz."
 
        echo "Aligning ~{tg_bed} regions of ~{haplotagged_bam} to ~{last_reference_name} using lastal with ~{score_matrix_name} score matrix."
-       last_reference_suf_base=$(echo "~{last_reference_suf}" | cut -f 1 -d '.')
+       last_reference_suf="~{last_reference_suf}"
+       last_reference_base="${last_reference_suf%.suf}"
 
-        (samtools view -@3 -bL ~{tg_bed} ~{haplotagged_bam} | samtools fasta \
-         | lastal -P20 -p ~{score_matrix} ~{extra} $last_reference_suf_base - \
-         | last-split | bgzip > ~{sample_name}.maf.gz) 2>&1
+       samtools view -@3 -bL ~{tg_bed} ~{haplotagged_bam} | samtools fasta \
+         | lastal -P20 -p ~{score_matrix} ~{extra} ${last_reference_base} - \
+         | last-split | bgzip > ~{sample_name}.maf.gz
     >>>
 
     runtime {
@@ -83,9 +84,9 @@ task call_tandem_genotypes {
         conda activate tandem-genotypes
         echo "$(conda info)"
 
-        echo "Generating tandem repeats from ~{tg_list_file} regions in {maf} to ~{sample_name}."
+        echo "Generating tandem repeats from ~{tg_list_file} regions in ~{maf} to ~{sample_name}."
 
-        tandem-genotypes ~{tg_list_file} ~{maf} > ~{sample_name} 2>&1
+        tandem-genotypes ~{tg_list_file} ~{maf} > ~{sample_name}.tandem-genotypes.txt
     >>>
 
     runtime {
@@ -115,7 +116,7 @@ task tandem_genotypes_absolute_count {
 
         echo "Adjusting repeat count with reference counts for ~{sample_tandem_genotypes} to ~{sample_tandem_genotypes_absolute}."
 
-        (awk -v OFS='\t' \
+        awk -v OFS='\t' \
             '$0 ~ /^#/ {{print $0 " modified by adding reference repeat count"}}
             $0 !~ /^#/ {{
                 ref_count=int(($3-$2)/length($4));
@@ -128,9 +129,7 @@ task tandem_genotypes_absolute_count {
                 for (i=2; i<=num_rev; i++)
                     new_rev = new_rev "," rev[i] + ref_count;
                 print $1, $2, $3, $4, $5, $6, new_fwd, new_rev;
-            }}' ~{sample_tandem_genotypes} > ~{sample_name}.tandem-genotypes.absolute.txt \
-        ) 2>&1
-
+            }}' ~{sample_tandem_genotypes} > ~{sample_name}.tandem-genotypes.absolute.txt
     >>>
 
     runtime {
@@ -163,7 +162,7 @@ task tandem_genotypes_plot {
 
         echo "Plotting tandem repeat count for ~{sample_tandem_genotypes} to ~{tandem_genotypes_plot}."
 
-        (tandem-genotypes-plot -n ~{top_N_plots} ~{sample_tandem_genotypes} ~{sample_name}.tandem-genotypes.pdf) 2>&1
+        tandem-genotypes-plot -n ~{top_N_plots} ~{sample_tandem_genotypes} ~{sample_name}.tandem-genotypes.pdf
     >>>
 
     runtime {
@@ -198,7 +197,7 @@ task tandem_repeat_coverage_dropouts {
         echo "$(conda info)"
 
         echo "Identify coverage dropouts in ~{tg_bed} regions in ~{haplotagged_bam}."
-        (python3 workflow/scripts/check_tandem_repeat_coverage.py ~{tg_bed} ~{haplotagged_bam} > ~{sample_name}.tandem-genotypes.dropouts.txt) > ~{tandem_repeat_coverage_dropouts_log} 2>&1
+        (python3 /opt/pb/scripts/check_tandem_repeat_coverage.py ~{tg_bed} ~{haplotagged_bam} > ~{sample_name}.tandem-genotypes.dropouts.txt) > ~{tandem_repeat_coverage_dropouts_log} 2>&1
     >>>
 
     runtime {
