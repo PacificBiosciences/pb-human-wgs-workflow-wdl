@@ -114,7 +114,7 @@ task tandem_genotypes_absolute_count {
 
     command <<<
 
-        echo "Adjusting repeat count with reference counts for ~{sample_tandem_genotypes} to ~{sample_tandem_genotypes_absolute}."
+        echo "Adjusting repeat count with reference counts for ~{sample_tandem_genotypes} to ~{sample_name}.tandem-genotypes.absolute.txt."
 
         awk -v OFS='\t' \
             '$0 ~ /^#/ {{print $0 " modified by adding reference repeat count"}}
