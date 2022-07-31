@@ -160,7 +160,7 @@ task tandem_genotypes_plot {
         conda activate tandem-genotypes
         echo "$(conda info)"
 
-        echo "Plotting tandem repeat count for ~{sample_tandem_genotypes} to ~{tandem_genotypes_plot}."
+        echo "Plotting tandem repeat count for ~{sample_tandem_genotypes} to ~{sample_name}.tandem-genotypes.pdf."
 
         tandem-genotypes-plot -n ~{top_N_plots} ~{sample_tandem_genotypes} ~{sample_name}.tandem-genotypes.pdf
     >>>
