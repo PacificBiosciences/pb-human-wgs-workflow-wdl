@@ -149,7 +149,7 @@ task tandem_genotypes_plot {
     }
 
     output {
-        File tandem_genotypes_plot = "~{sample_name}.tandem-genotypes.pdf"
+        File sample_tg_plot = "~{sample_name}.tandem-genotypes.pdf"
     }
 
     Int top_N_plots = 100
@@ -269,7 +269,7 @@ workflow tandem_genotypes {
     output {
         File sample_tandem_genotypes = call_tandem_genotypes.sample_tg_list
         File sample_tandem_genotypes_absolute = tandem_genotypes_absolute_count.sample_tandem_genotypes_absolute
-        File sample_tandem_genotypes_plot = tandem_genotypes_plot.tandem_genotypes_plot
+        File sample_tandem_genotypes_plot = tandem_genotypes_plot.sample_tg_plot
         File sample_tandem_genotypes_dropouts = tandem_repeat_coverage_dropouts.tandem_genotypes_dropouts
     }
 
