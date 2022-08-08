@@ -45,7 +45,6 @@ task hifiasm_trio_assemble {
     File hap2_p_ctg        = "~{prefix}.dip.hap2.p_ctg.gfa"
     File hap2_p_ctg_lowQ   = "~{prefix}.dip.hap2.p_ctg.lowQ.bed"
     File hap2_p_noseq      = "~{prefix}.dip.hap2.p_ctg.noseq.gfa"
-    File p_ctg             = "~{prefix}.dip.p_ctg.gfa"
     File p_utg             = "~{prefix}.dip.p_utg.gfa"
     File r_utg             = "~{prefix}.dip.r_utg.gfa"
     File ec_bin            = "~{prefix}.ec.bin"
