@@ -38,22 +38,6 @@
     ]
   ],
   
-  "sample_trial.last_reference":[
-    [
-      {
-        "name": "hg38_last_reference",
-       
-        "last_reference_bck": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.bck",
-        "last_reference_des": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.des",
-        "last_reference_prj": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.prj",
-        "last_reference_sds": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.sds",
-        "last_reference_ssp": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.ssp",
-        "last_reference_suf": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.suf",
-        "last_reference_tis": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.tis"
-      }
-    ]
-  ],
-
   "sample_trial.unaffected_person_sample_names": [
   ],
 
