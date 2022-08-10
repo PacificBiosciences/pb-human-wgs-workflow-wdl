@@ -162,7 +162,10 @@ task tandem_genotypes_plot {
 
         echo "Plotting tandem repeat count for ~{sample_tandem_genotypes} to ~{sample_name}.tandem-genotypes.pdf."
 
-        tandem-genotypes-plot -n ~{top_N_plots} ~{sample_tandem_genotypes} ~{sample_name}.tandem-genotypes.pdf
+        tandem-genotypes-plot -v -n ~{top_N_plots} ~{sample_tandem_genotypes} ./~{sample_name}.tandem-genotypes.pdf
+
+        # Find files, not clear why its curerntly not discoverable in the docker image but this seems to make it work
+        find / -type f
     >>>
 
     runtime {
