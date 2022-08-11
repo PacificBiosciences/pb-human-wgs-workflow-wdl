@@ -46,9 +46,9 @@ task hifiasm_trio_assemble {
     File hap2_p_ctg_lowQ   = "~{prefix}.dip.hap2.p_ctg.lowQ.bed"
     File hap2_p_noseq      = "~{prefix}.dip.hap2.p_ctg.noseq.gfa"
     File p_utg_noseq       = "~{prefix}.dip.p_utg.noseq.gfa"
-    File p_utg_lowQ        = "~{prefix}.dip.p_utg.noseq.lowQ.bed"
+    File p_utg_lowQ        = "~{prefix}.dip.p_utg.lowQ.bed"
     File r_utg_noseq       = "~{prefix}.dip.r_utg.noseq.gfa"
-    File r_utg_lowQ        = "~{prefix}.dip.r_utg.noseq.lowQ.bed"
+    File r_utg_lowQ        = "~{prefix}.dip.r_utg.lowQ.bed"
     File key               = "~{prefix}.key.txt"
 
     File log = "~{log_name}"
