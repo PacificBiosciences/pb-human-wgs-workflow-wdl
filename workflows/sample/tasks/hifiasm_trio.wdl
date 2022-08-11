@@ -150,12 +150,6 @@ workflow hifiasm_trio {
       pb_conda_image = pb_conda_image
   }
 
-  call hifiasm.gfa2fa as gfa2fa_p_ctg {
-    input:
-      gfa = hifiasm_trio_assemble.p_ctg,
-      pb_conda_image = pb_conda_image
-  }
-
   call hifiasm.gfa2fa as gfa2fa_p_utg {
     input:
       gfa = hifiasm_trio_assemble.p_utg,
