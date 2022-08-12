@@ -12,13 +12,13 @@ task hifiasm_trio_assemble {
     String sample_name
     String prefix = "~{sample_name}.asm"
     String log_name = "hifiasm.log"
-    File parent1_yak 
+    File parent1_yak
     File parent2_yak
 
     Array[File] movie_fasta
 
     String pb_conda_image
-    
+
   }
 
   String extra = "-c1 -d1"
@@ -86,10 +86,50 @@ task yak_trioeval {
     conda activate yak
     echo "$(conda info)"
 
-    (yak trioeval  -t ~{threads} -1 ~{parent1_yak} -2 ~{parent2_yak} ~{fasta_gz}> ~{yak_trioeval_txt_name} ) > ~{log_name} 2>&1
+    (yak trioeval  -t ~{threads} ~{parent1_yak} ~{parent2_yak} ~{fasta_gz}> ~{yak_trioeval_txt_name} ) > ~{log_name} 2>&1
   >>>
   output {
     File yak_trioeval_file_name  = "~{yak_trioeval_txt_name}"
+
+    File log = "~{log_name}"
+  }
+  runtime {
+    docker: "~{pb_conda_image}"
+    preemptible: true
+    maxRetries: 3
+    memory: "~{memory}" + " GB"
+    cpu: "~{threads}"
+    disk: disk_size + " GB"
+  }
+}
+
+task yak_triobin {
+  input {
+    Int threads = 16
+    File fasta_gz
+    String yak_triobin_txt_name = "~{basename(fasta_gz)}.triobin.txt"
+    String log_name = "yak.fasta.triobin.log"
+    File parent1_yak
+    File parent2_yak
+    String pb_conda_image
+  }
+
+  Float multiplier = 2
+  Int disk_size = ceil(multiplier * size(fasta_gz, "GB")) + 20
+#  Int disk_size = 200
+  Int memory = threads * 3              #forces at least 3GB RAM/core, even if user overwrites threads
+
+  command <<<
+    echo requested disk_size =  ~{disk_size}
+    echo
+    source ~/.bashrc
+    conda activate yak
+    echo "$(conda info)"
+
+    (yak triobin  -c1 -d1 -t ~{threads} ~{parent1_yak} ~{parent2_yak} ~{fasta_gz} > ~{yak_triobin_txt_name} ) > ~{log_name} 2>&1
+  >>>
+  output {
+    File yak_triobin_file_name  = "~{yak_triobin_txt_name}"
 
     File log = "~{log_name}"
   }
@@ -112,6 +152,8 @@ workflow hifiasm_trio {
     String? reference_name
     String pb_conda_image
     Array[Pair[String,File]] yak_count
+    Boolean trioeval = false
+    Boolean triobin = false
   }
 
   Int num_parents = length(parent_names)
@@ -161,20 +203,40 @@ workflow hifiasm_trio {
       pb_conda_image = pb_conda_image
   }
 
-  call yak_trioeval as yak_trioeval_hap1_p_ctg  {
-    input:
-      fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
-      parent1_yak = parent1_yak,
-      parent2_yak = parent2_yak,
-      pb_conda_image = pb_conda_image
+  if (trioeval) {
+    call yak_trioeval as yak_trioeval_hap1_p_ctg  {
+      input:
+        fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
+        parent1_yak = parent1_yak,
+        parent2_yak = parent2_yak,
+        pb_conda_image = pb_conda_image
+    }
+
+    call yak_trioeval as yak_trioeval_hap2_p_ctg  {
+      input:
+        fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
+        parent1_yak = parent1_yak,
+        parent2_yak = parent2_yak,
+        pb_conda_image = pb_conda_image
+    }
   }
 
-  call yak_trioeval as yak_trioeval_hap2_p_ctg  {
-    input:
-      fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
-      parent1_yak = parent1_yak,
-      parent2_yak = parent2_yak,
-      pb_conda_image = pb_conda_image
+  if (triobin) {
+    call yak_triobin as yak_triobin_hap1_p_ctg  {
+      input:
+        fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
+        parent1_yak = parent1_yak,
+        parent2_yak = parent2_yak,
+        pb_conda_image = pb_conda_image
+    }
+
+    call yak_triobin as yak_triobin_hap2_p_ctg  {
+      input:
+        fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
+        parent1_yak = parent1_yak,
+        parent2_yak = parent2_yak,
+        pb_conda_image = pb_conda_image
+    }
   }
 
   call hifiasm.asm_stats as asm_stats_hap1_p_ctg  {
