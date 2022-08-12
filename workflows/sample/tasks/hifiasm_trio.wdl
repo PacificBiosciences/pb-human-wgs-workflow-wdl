@@ -126,7 +126,7 @@ task yak_triobin {
     conda activate yak
     echo "$(conda info)"
 
-    (yak triobin  -c1 -d1 -t ~{threads} -1 ~{parent1_yak} -2 ~{parent2_yak} ~{fasta_gz} > ~{yak_triobin_txt_name} ) > ~{log_name} 2>&1
+    (yak triobin  -c1 -d1 -t ~{threads} ~{parent1_yak} ~{parent2_yak} ~{fasta_gz} > ~{yak_triobin_txt_name} ) > ~{log_name} 2>&1
   >>>
   output {
     File yak_triobin_file_name  = "~{yak_triobin_txt_name}"
