@@ -86,7 +86,7 @@ task yak_trioeval {
     conda activate yak
     echo "$(conda info)"
 
-    (yak trioeval  -t ~{threads} -1 ~{parent1_yak} -2 ~{parent2_yak} ~{fasta_gz}> ~{yak_trioeval_txt_name} ) > ~{log_name} 2>&1
+    (yak trioeval  -t ~{threads} ~{parent1_yak} ~{parent2_yak} ~{fasta_gz}> ~{yak_trioeval_txt_name} ) > ~{log_name} 2>&1
   >>>
   output {
     File yak_trioeval_file_name  = "~{yak_trioeval_txt_name}"
