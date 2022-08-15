@@ -45,6 +45,9 @@ workflow trial {
 
     Boolean run_jellyfish = false                         #default is to NOT run jellyfish
 
+    Boolean trioeval = false                              #default is to NOT run trioeval
+    Boolean triobin = false                              #default is to NOT run triobin
+
     File tg_list
     File score_matrix
   }
@@ -72,7 +75,10 @@ workflow trial {
       unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
       unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
       pb_conda_image = pb_conda_image,
-      reference = reference
+      reference = reference,
+      trioeval = trioeval,
+      triobin = triobin
+
     }
   }
 

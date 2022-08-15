@@ -16,6 +16,8 @@ workflow sample_trio {
     Array[Array[IndexedData]] unaffected_person_sample
     String pb_conda_image
     IndexedData reference
+    Boolean trioeval
+    Boolean triobin
   }
 
   scatter (person_num in range(length(unaffected_person_sample))) {
@@ -37,7 +39,9 @@ workflow sample_trio {
         yak_count = yak_unaffected_person.yak_output,
         target = reference,
         reference_name = reference.name,
-        pb_conda_image = pb_conda_image
+        pb_conda_image = pb_conda_image,
+        trioeval = trioeval,
+        triobin = triobin
     }
   }
 
