@@ -345,7 +345,7 @@ task calculate_phrank {
     echo requested disk_size =  ~{disk_size}
     echo
     source ~/.bashrc
-    conda activate phrank
+    conda activate pyyaml
     echo "$(conda info)"
 
     (python3 /opt/pb/scripts/calculate_phrank.py \
