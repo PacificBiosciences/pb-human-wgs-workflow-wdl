@@ -97,8 +97,7 @@ workflow sample {
       sample = sample,
       regions = regions,
       chr_lengths = chr_lengths,
-      pb_conda_image = pb_conda_image,
-      picard_image = picard_image
+      pb_conda_image = pb_conda_image
   }
 
   call mosdepth.mosdepth {
