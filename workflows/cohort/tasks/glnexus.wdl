@@ -160,12 +160,12 @@ task whatshap_phase {
     String deepvariant_glnexus_phased_vcf_gz_name = "~{cohort_name}.~{reference.name}.~{chromosome}.deepvariant.glnexus.phased.vcf.gz"
 
     String pb_conda_image
-    Int threads = 4
+    Int threads = 2
   }
 
-#  Float multiplier = 3.25
-#  Int disk_size = ceil(multiplier * (size(phaseinput_affected, "GB") + size(phaseinputindex_affected, "GB") + size(phaseinput_unaffected, "GB") + size(phaseinputindex_unaffected, "GB"))) + 20
-  Int disk_size = 500
+   Float multiplier = 3.25
+   Int disk_size = ceil(multiplier * (size(phaseinput_affected, "GB") + size(phaseinputindex_affected, "GB") + size(phaseinput_unaffected, "GB") + size(phaseinputindex_unaffected, "GB"))) + 20
+  #Int disk_size = 500
 
   command <<<
     echo requested disk_size =  ~{disk_size}
@@ -198,7 +198,7 @@ task whatshap_phase {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "50 GB"
+    memory: "16 GB"
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
@@ -291,7 +291,7 @@ task whatshap_stats {
   output {
     File log = "~{log_name}"
     File gtf = "~{gtf_name}"
-    File tsv = "~{tsv_name}" 
+    File tsv = "~{tsv_name}"
     File blocklist = "~{blocklist_name}"
   }
   runtime {
@@ -383,11 +383,11 @@ workflow glnexus {
     call whatshap_phase {
       input:
         cohort_name = cohort_name,
-        reference = reference, 
-        vcf = bgzip_vcf.vcf_gz_output[region_num], 
-        phaseinput_affected = flatten(gather_affected_person_bams_and_bais.datafiles), 
+        reference = reference,
+        vcf = bgzip_vcf.vcf_gz_output[region_num],
+        phaseinput_affected = flatten(gather_affected_person_bams_and_bais.datafiles),
         phaseinputindex_affected = flatten(gather_affected_person_bams_and_bais.indexfiles),
-        phaseinput_unaffected = flatten(gather_unaffected_person_bams_and_bais.datafiles), 
+        phaseinput_unaffected = flatten(gather_unaffected_person_bams_and_bais.datafiles),
         phaseinputindex_unaffected = flatten(gather_unaffected_person_bams_and_bais.indexfiles),
         chromosome = regions[region_num],
         pb_conda_image = pb_conda_image
