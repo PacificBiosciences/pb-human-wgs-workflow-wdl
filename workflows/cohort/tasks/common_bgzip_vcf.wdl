@@ -33,7 +33,6 @@ task bgzip_vcf {
     File vcf_gz_data = "~{vcf_gz_output_name}"
     File vcf_gz_index = "~{vcf_gz_output_name}.tbi"
     IndexedData vcf_gz_output = { "datafile": vcf_gz_data, "indexfile": vcf_gz_index }
-
     File bgzip_log = "~{bgzip_log_name}"
     File tabix_log_name = "~{tabix_log_name}"
   }
