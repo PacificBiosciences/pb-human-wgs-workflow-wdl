@@ -5,7 +5,7 @@ version 1.0
 #import "../../common/structs.wdl"
 #import "../../common/separate_data_and_index_files.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as common
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/pbsv_gather_svsigs.wdl"
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
@@ -141,7 +141,7 @@ workflow pbsv {
   }
 
   scatter(call_pbsv_vcf in pbsv_call.pbsv_vcf) {
-    call common.bgzip_vcf {
+    call bgzip_vcf.bgzip_vcf {
       input :
         vcf_input = call_pbsv_vcf,
         pb_conda_image = pb_conda_image
