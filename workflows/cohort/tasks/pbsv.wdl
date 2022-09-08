@@ -12,7 +12,7 @@ import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workfl
 
 task pbsv_call {
   input {
-    Int threads = 8
+    Int threads = 32
     String extra = "--ccs -m 20 -A 3 -O 3"
     String loglevel = "INFO"
 
@@ -28,9 +28,9 @@ task pbsv_call {
     String pb_conda_image
   }
 
-#  Float multiplier = 3.25
-#  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(cohort_affected_person_svsigs, "GB") + size(cohort_unaffected_person_svsigs, "GB"))) + 20
-  Int disk_size = 200
+  Float multiplier = 3.25
+  Int disk_size = ceil(multiplier * (size(reference.datafile, "GB") + size(reference.indexfile, "GB") + size(cohort_affected_person_svsigs, "GB") + size(cohort_unaffected_person_svsigs, "GB"))) + 20
+#  Int disk_size = 200
 
   command <<<
     echo requested disk_size =  ~{disk_size}
@@ -55,7 +55,7 @@ task pbsv_call {
     docker: "~{pb_conda_image}"
     preemptible: true
     maxRetries: 3
-    memory: "14 GB"
+    memory: "64 GB"
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
@@ -112,64 +112,31 @@ workflow pbsv {
     String pb_conda_image
   }
 
-  scatter(region_num in range(length(regions))) {
-    call pbsv_gather_svsigs.gather_svsigs_by_region as gather_affected_person_svsigs {
-      input:
-        sample_svsigs = affected_person_svsigs,
-        region_num = region_num
-    }
-  }
+  Array[File] flattened_affected_person_svsigs =   flatten(flatten(affected_person_svsigs))
+  Array[File] flattened_unaffected_person_svsigs = flatten(flatten(unaffected_person_svsigs))
 
-  scatter(region_num in range(length(regions))) {
-    call pbsv_gather_svsigs.gather_svsigs_by_region as gather_unaffected_person_svsigs {
-      input:
-        sample_svsigs = unaffected_person_svsigs,
-        region_num = region_num
+  call pbsv_call {
+    input:
+      cohort_name = cohort_name,
+      region = regions[region_num],
+      cohort_affected_person_svsigs = flattened_affected_person_svsigs,
+      cohort_unaffected_person_svsigs = flattened_unaffected_person_svsigs,
+      reference = reference,
+      pb_conda_image = pb_conda_image
     }
-  }
 
-  scatter(region_num in range(length(regions))) {
-    call pbsv_call {
-      input:
-        cohort_name = cohort_name,
-        region = regions[region_num],
-        cohort_affected_person_svsigs = if defined(gather_affected_person_svsigs.svsigs) then gather_affected_person_svsigs.svsigs[region_num] else [],
-        cohort_unaffected_person_svsigs = if defined(gather_unaffected_person_svsigs.svsigs) then gather_unaffected_person_svsigs.svsigs[region_num] else [],
-        reference = reference,
-        pb_conda_image = pb_conda_image
-    }
-  }
-
-  scatter(call_pbsv_vcf in pbsv_call.pbsv_vcf) {
-    call bgzip_vcf.bgzip_vcf {
+  call bgzip_vcf.bgzip_vcf {
       input :
-        vcf_input = call_pbsv_vcf,
+        vcf_input = pbsv_call.pbsv_vcf,
         pb_conda_image = pb_conda_image
     }
-  }
 
   call separate_data_and_index_files.separate_data_and_index_files {
     input:
       indexed_data_array = bgzip_vcf.vcf_gz_output
   }
 
-  call bcftools_concat_pbsv_vcf {
-   input:
-      cohort_name = cohort_name,
-      reference_name = reference.name,
-      calls = separate_data_and_index_files.datafiles,
-      indices = separate_data_and_index_files.indexfiles,
-      pb_conda_image = pb_conda_image
-  }
-
-  call bgzip_vcf.bgzip_vcf as bcftools_concat_pbsv_vcf_bgzip {
-    input :
-      vcf_input = bcftools_concat_pbsv_vcf.pbsv_vcf,
-      pb_conda_image = pb_conda_image
-  }
-
   output {
-    IndexedData pbsv_vcf = bcftools_concat_pbsv_vcf_bgzip.vcf_gz_output
-    Array[IndexedData] pbsv_individual_vcf = bgzip_vcf.vcf_gz_output
+    IndexedData pbsv_vcf = bgzip_vcf.vcf_gz_output
   }
 }
