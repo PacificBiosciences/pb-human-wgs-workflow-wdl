@@ -51,7 +51,6 @@ workflow cohort {
     input:
       cohort_name = cohort_name,
       reference = reference,
-      regions = regions,
       pb_conda_image = pb_conda_image,
       affected_person_svsigs = affected_person_svsigs,
       unaffected_person_svsigs = unaffected_person_svsigs
