@@ -49,5 +49,6 @@ workflow smrtcells_trial {
     Array[Array[IndexedData]] unaffected_person_bams      = if defined(smrtcells_unaffected_person.bams)            then smrtcells_unaffected_person.bams            else []
     Array[Array[File?]] unaffected_person_jellyfish_count  = if defined(smrtcells_unaffected_person.jellyfish_count) then smrtcells_unaffected_person.jellyfish_count else []
     Array[String] unaffected_person_sample_names         = if defined(smrtcells_unaffected_person.sample_names)   then smrtcells_unaffected_person.sample_names    else []
+    Array[Array[String?]] unaffected_person_parents_names            = if defined(smrtcells_unaffected_person.parents_names)     then smrtcells_unaffected_person.parents_names      else []
   }
 }
