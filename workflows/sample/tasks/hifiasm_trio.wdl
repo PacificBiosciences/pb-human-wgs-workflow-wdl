@@ -158,112 +158,122 @@ workflow hifiasm_trio {
 
   Int num_parents = length(parent_names)
   Boolean trio = if num_parents == 2 then true else false
+  if (trio) {
+    scatter (yak_sample in yak_count) {
+      if (yak_sample.left == parent_names[0]) {
+        File parent1_yak = yak_sample.right
+      }
+      if (yak_sample.left == parent_names[1]) {
+        File parent2_yak = yak_sample.right
+      }
+    }
 
-  File parent1_yak = yak_count[0].right
-  File parent2_yak = yak_count[1].right
 
-  scatter (movie in sample) {
-    call hifiasm.samtools_fasta as samtools_fasta {
+    scatter (movie in sample) {
+      call hifiasm.samtools_fasta as samtools_fasta {
+        input:
+          movie = movie,
+          pb_conda_image = pb_conda_image
+      }
+    }
+
+    call hifiasm_trio_assemble {
       input:
-        movie = movie,
+        sample_name = sample_name,
+        movie_fasta = samtools_fasta.movie_fasta,
+        parent1_yak = parent1_yak,
+        parent2_yak = parent2_yak,
         pb_conda_image = pb_conda_image
     }
-  }
 
-  call hifiasm_trio_assemble {
-    input:
-      sample_name = sample_name,
-      movie_fasta = samtools_fasta.movie_fasta,
-      parent1_yak = parent1_yak,
-      parent2_yak = parent2_yak,
-      pb_conda_image = pb_conda_image
-  }
+    call hifiasm.gfa2fa as gfa2fa_hap1_p_ctg {
+      input:
+        gfa = hifiasm_trio_assemble.hap1_p_ctg,
+        pb_conda_image = pb_conda_image
+    }
 
-  call hifiasm.gfa2fa as gfa2fa_hap1_p_ctg {
-    input:
-      gfa = hifiasm_trio_assemble.hap1_p_ctg,
-      pb_conda_image = pb_conda_image
-  }
+    call hifiasm.gfa2fa as gfa2fa_hap2_p_ctg {
+      input:
+        gfa = hifiasm_trio_assemble.hap2_p_ctg,
+        pb_conda_image = pb_conda_image
+    }
 
-  call hifiasm.gfa2fa as gfa2fa_hap2_p_ctg {
-    input:
-      gfa = hifiasm_trio_assemble.hap2_p_ctg,
-      pb_conda_image = pb_conda_image
-  }
+    call hifiasm.bgzip_fasta as bgzip_fasta_hap1_p_ctg {
+      input:
+        fasta = gfa2fa_hap1_p_ctg.fasta,
+        pb_conda_image = pb_conda_image
+    }
 
-  call hifiasm.bgzip_fasta as bgzip_fasta_hap1_p_ctg {
-    input:
-      fasta = gfa2fa_hap1_p_ctg.fasta,
-      pb_conda_image = pb_conda_image
-  }
+    call hifiasm.bgzip_fasta as bgzip_fasta_hap2_p_ctg {
+      input:
+        fasta = gfa2fa_hap2_p_ctg.fasta,
+        pb_conda_image = pb_conda_image
+    }
 
-  call hifiasm.bgzip_fasta as bgzip_fasta_hap2_p_ctg {
-    input:
-      fasta = gfa2fa_hap2_p_ctg.fasta,
-      pb_conda_image = pb_conda_image
-  }
+    if (trioeval) {
+      call yak_trioeval as yak_trioeval_hap1_p_ctg  {
+        input:
+          fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
+          parent1_yak = parent1_yak,
+          parent2_yak = parent2_yak,
+          pb_conda_image = pb_conda_image
+      }
 
-  if (trioeval) {
-    call yak_trioeval as yak_trioeval_hap1_p_ctg  {
+      call yak_trioeval as yak_trioeval_hap2_p_ctg  {
+        input:
+          fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
+          parent1_yak = parent1_yak,
+          parent2_yak = parent2_yak,
+          pb_conda_image = pb_conda_image
+      }
+    }
+
+    if (triobin) {
+      call yak_triobin as yak_triobin_hap1_p_ctg  {
+        input:
+          fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
+          parent1_yak = parent1_yak,
+          parent2_yak = parent2_yak,
+          pb_conda_image = pb_conda_image
+      }
+
+      call yak_triobin as yak_triobin_hap2_p_ctg  {
+        input:
+          fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
+          parent1_yak = parent1_yak,
+          parent2_yak = parent2_yak,
+          pb_conda_image = pb_conda_image
+      }
+    }
+
+    call hifiasm.asm_stats as asm_stats_hap1_p_ctg  {
       input:
         fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
-        parent1_yak = parent1_yak,
-        parent2_yak = parent2_yak,
+        index = target.indexfile,
         pb_conda_image = pb_conda_image
     }
 
-    call yak_trioeval as yak_trioeval_hap2_p_ctg  {
+    call hifiasm.asm_stats as asm_stats_hap2_p_ctg  {
       input:
         fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
-        parent1_yak = parent1_yak,
-        parent2_yak = parent2_yak,
+        index = target.indexfile,
         pb_conda_image = pb_conda_image
     }
-  }
 
-  if (triobin) {
-    call yak_triobin as yak_triobin_hap1_p_ctg  {
+    call hifiasm.align_hifiasm {
       input:
-        fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
-        parent1_yak = parent1_yak,
-        parent2_yak = parent2_yak,
-        pb_conda_image = pb_conda_image
-    }
-
-    call yak_triobin as yak_triobin_hap2_p_ctg  {
-      input:
-        fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
-        parent1_yak = parent1_yak,
-        parent2_yak = parent2_yak,
+        sample_name = sample_name,
+        target = target,
+        reference_name = reference_name,
+        query = [
+          bgzip_fasta_hap1_p_ctg.fasta_gz,
+          bgzip_fasta_hap2_p_ctg.fasta_gz
+        ],
         pb_conda_image = pb_conda_image
     }
   }
 
-  call hifiasm.asm_stats as asm_stats_hap1_p_ctg  {
-    input:
-      fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
-      index = target.indexfile,
-      pb_conda_image = pb_conda_image
-  }
 
-  call hifiasm.asm_stats as asm_stats_hap2_p_ctg  {
-    input:
-      fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
-      index = target.indexfile,
-      pb_conda_image = pb_conda_image
-  }
-
-  call hifiasm.align_hifiasm {
-    input:
-      sample_name = sample_name,
-      target = target,
-      reference_name = reference_name,
-      query = [
-        bgzip_fasta_hap1_p_ctg.fasta_gz,
-        bgzip_fasta_hap2_p_ctg.fasta_gz
-      ],
-      pb_conda_image = pb_conda_image
-  }
 
   output {
   }

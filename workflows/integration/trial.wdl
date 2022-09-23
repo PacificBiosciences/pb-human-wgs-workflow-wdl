@@ -64,24 +64,23 @@ workflow trial {
 
   Array[String] regions = read_lines(regions_file)
 
-  Boolean trio_assembly = defined(cohort_info.affected_persons[0].parents)
 
-  if (trio_assembly) {
-    call sample_trio.trial.sample_trio {
-      input:
-      affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
-      affected_person_sample            = smrtcells_trial.affected_person_bams,
-      affected_person_parents_names     = smrtcells_trial.affected_person_parents_names,
-      unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
-      unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
-      pb_conda_image = pb_conda_image,
-      reference = reference,
-      trioeval = trioeval,
-      triobin = triobin
 
-    }
+  call sample_trio.trial.sample_trio {
+    input:
+    affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
+    affected_person_sample            = smrtcells_trial.affected_person_bams,
+    affected_person_parents_names     = smrtcells_trial.affected_person_parents_names,
+    unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
+    unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
+    unaffected_person_parents_names     = smrtcells_trial.unaffected_person_parents_names,
+    pb_conda_image = pb_conda_image,
+    reference = reference,
+    trioeval = trioeval,
+    triobin = triobin,
+    cohort_info = cohort_info
+
   }
-
 
   call sample.trial.sample_trial {
     input:
