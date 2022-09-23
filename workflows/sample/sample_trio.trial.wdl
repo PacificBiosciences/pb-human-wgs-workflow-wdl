@@ -66,17 +66,17 @@ workflow sample_trio {
     }
   }
 
-  scatter (person_num in range(length(affected_person_sample))) {
+  scatter (person_num in range(length(unaffected_person_sample))) {
 
-    Int num_parents = length(affected_person_parents_names[person_num])
+    Int num_parents = length(unaffected_person_parents_names[person_num])
     Boolean trio_assembly = if num_parents == 2 then true else false
 
     if (trio_assembly) {
       call hifiasm_trio_assemble.hifiasm_trio as hifiasm_trio_assemble {
         input:
-          sample_name = affected_person_sample_names[person_num],
-          sample = affected_person_sample[person_num],
-          parent_names = affected_person_parents_names[person_num],
+          sample_name = unaffected_person_sample_names[person_num],
+          sample = unaffected_person_sample[person_num],
+          parent_names = unaffected_person_parents_names[person_num],
           yak_count = yak_person,
           target = reference,
           reference_name = reference.name,
