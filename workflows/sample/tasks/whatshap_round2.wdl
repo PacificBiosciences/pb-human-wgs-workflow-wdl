@@ -120,7 +120,7 @@ task whatshap_bcftools_concat_round2 {
 
     Array[File] calls
     Array[File] indices
-    
+
     String sample_name
     String? reference_name
 
@@ -283,12 +283,12 @@ task merge_haplotagged_bams {
 
   command <<<
     echo requested disk_size =  ~{disk_size}
-  echo
-  source ~/.bashrc
-  conda activate samtools
-  echo "$(conda info)"
+    echo
+    source ~/.bashrc
+    conda activate samtools
+    echo "$(conda info)"
 
-  (samtools merge ~{merged_deepvariant_haplotagged_bam_name} ~{sep=" " deepvariant_haplotagged_bams}) > ~{log_name} 2>&1
+    (samtools merge -@ ~{threads}-1 ~{merged_deepvariant_haplotagged_bam_name} ~{sep=" " deepvariant_haplotagged_bams}) > ~{log_name} 2>&1
   >>>
   output {
     File merged_deepvariant_haplotagged_bam = "~{merged_deepvariant_haplotagged_bam_name}"

@@ -161,7 +161,7 @@ task whatshap_bcftools_concat_round1 {
 
 task whatshap_haplotag_round1 {
   input {
-    String params = "--tag-supplementary --ignore-read-groups"
+    String params = "--tag-supplementary"
     String log_name = "whatshap_haplotag_round1.log"
 
     IndexedData reference
