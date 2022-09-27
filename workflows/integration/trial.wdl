@@ -74,7 +74,7 @@ workflow trial {
     affected_person_parents_names     = smrtcells_trial.affected_person_parents_names,
     unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
     unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
-    unaffected_person_parents_names     = smrtcells_trial.unaffected_person_parents_names,
+    unaffected_person_parents_names   = smrtcells_trial.unaffected_person_parents_names,
     pb_conda_image = pb_conda_image,
     reference = reference,
     trioeval = trioeval,
