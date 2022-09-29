@@ -25,30 +25,6 @@ workflow sample_trio {
 
   }
 
-
-
-  scatter (person_num in range(length(unaffected_person_sample))) {
-    call yak.yak as yak_unaffected_person {
-      input:
-        sample_name = unaffected_person_sample_names[person_num],
-        sample = unaffected_person_sample[person_num],
-        pb_conda_image = pb_conda_image
-
-    }
-  }
-
-  scatter (person_num in range(length(affected_person_sample))) {
-    call yak.yak as yak_affected_person {
-      input:
-        sample_name = affected_person_sample_names[person_num],
-        sample = affected_person_sample[person_num],
-        pb_conda_image = pb_conda_image
-
-    }
-  }
-
-  Array[Pair[String, File]] yak_person = flatten(select_all([yak_unaffected_person.yak_output, yak_affected_person.yak_output]))
-
   scatter (person_num in range(length(affected_person_sample))) {
 
     Array[String] affected = select_first([affected_person_parents_names[person_num],['None']])
@@ -57,12 +33,53 @@ workflow sample_trio {
     Boolean trio_assembly_affected = if num_parents_affected == 2 then true else false
 
     if (trio_assembly_affected) {
+
+      String parent1_af = affected[0]
+      String parent2_af = affected[1]
+
+
+      scatter (af_person_num in range(length(affected_person_sample))) {
+          if (affected_person_sample_names[af_person_num] == parent1_af) {
+            Array[IndexedData] p1_af = affected_person_sample[af_person_num]
+          }
+          if (affected_person_sample_names[af_person_num] == parent2_af) {
+            Array[IndexedData] p2_af = affected_person_sample[af_person_num]
+          }
+      }
+
+      scatter (unaf_person_num in range(length(unaffected_person_sample))) {
+        if (unaffected_person_sample_names[unaf_person_num] == parent1_af) {
+          Array[IndexedData] p1_uf = unaffected_person_sample[unaf_person_num]
+        }
+        if (unaffected_person_sample_names[unaf_person_num] == parent2_af) {
+          Array[IndexedData] p2_uf = unaffected_person_sample[unaf_person_num]
+        }
+      }
+
+      Array[IndexedData] parent1_sample_af = select_first(select_first([p1_af, p1_uf]))
+      Array[IndexedData] parent2_sample_af = select_first(select_first([p2_af, p2_uf]))
+
+      call yak.yak as yak_af_parent_1 {
+        input:
+          sample_name = parent1_af,
+          sample = parent1_sample_af,
+          pb_conda_image = pb_conda_image
+      }
+
+      call yak.yak as yak_af_parent_2 {
+        input:
+          sample_name = parent2_af,
+          sample = parent2_sample_af,
+          pb_conda_image = pb_conda_image
+      }
+
+
       call hifiasm_trio_assemble.hifiasm_trio as hifiasm_trio_assemble_affected {
         input:
           sample_name = affected_person_sample_names[person_num],
           sample = affected_person_sample[person_num],
-          parent_names = affected_person_parents_names[person_num],
-          yak_count = yak_person,
+          yak_parent_1 = yak_af_parent_1.yak_output,
+          yak_parent_2 = yak_af_parent_2.yak_output,
           target = reference,
           reference_name = reference.name,
           pb_conda_image = pb_conda_image,
@@ -72,21 +89,60 @@ workflow sample_trio {
     }
   }
 
-  scatter (person_num in range(length(unaffected_person_sample))) {
+  scatter (person_num_1 in range(length(unaffected_person_sample))) {
 
-    Array[String] unaffected = select_first([unaffected_person_sample[person_num],['None']])
-
+    Array[String] unaffected = select_first([unaffected_person_parents_names[person_num_1],['None']])
 
     Int num_parents_unaffected = length(unaffected)
     Boolean trio_assembly_unaffected = if num_parents_unaffected == 2 then true else false
 
     if (trio_assembly_unaffected) {
+
+      String parent1_uf = unaffected[0]
+      String parent2_uf = unaffected[1]
+
+
+      scatter (af_person_num_1 in range(length(affected_person_sample))) {
+          if (affected_person_sample_names[af_person_num_1] == parent1_uf) {
+            Array[IndexedData] p1_u_af = affected_person_sample[af_person_num_1]
+          }
+          if (affected_person_sample_names[af_person_num_1] == parent2_uf) {
+            Array[IndexedData] p2_u_af = affected_person_sample[af_person_num_1]
+          }
+      }
+
+      scatter (unaf_person_num_1 in range(length(unaffected_person_sample))) {
+        if (unaffected_person_sample_names[unaf_person_num_1] == parent1_uf) {
+          Array[IndexedData] p1_u_uf = unaffected_person_sample[unaf_person_num_1]
+        }
+        if (unaffected_person_sample_names[unaf_person_num_1] == parent2_uf) {
+          Array[IndexedData] p2_u_uf = unaffected_person_sample[unaf_person_num_1]
+        }
+      }
+      Array[IndexedData] parent1_sample_uf = select_first(select_first([p1_u_af, p1_u_uf]))
+      Array[IndexedData] parent2_sample_uf = select_first(select_first([p2_u_af, p2_u_uf]))
+
+      call yak.yak as yak_uf_parent_1 {
+        input:
+          sample_name = parent1_uf,
+          sample = parent1_sample_uf,
+          pb_conda_image = pb_conda_image
+      }
+
+      call yak.yak as yak_uf_parent_2 {
+        input:
+          sample_name = parent2_uf,
+          sample = parent2_sample_uf,
+          pb_conda_image = pb_conda_image
+      }
+
+
       call hifiasm_trio_assemble.hifiasm_trio as hifiasm_trio_assemble_unaffected {
         input:
-          sample_name = unaffected_person_sample_names[person_num],
-          sample = unaffected_person_sample[person_num],
-          parent_names = unaffected_person_parents_names[person_num],
-          yak_count = yak_person,
+          sample_name = unaffected_person_sample_names[person_num_1],
+          sample = unaffected_person_sample[person_num_1],
+          yak_parent_1 = yak_uf_parent_1.yak_output,
+          yak_parent_2 = yak_uf_parent_2.yak_output,
           target = reference,
           reference_name = reference.name,
           pb_conda_image = pb_conda_image,
@@ -95,6 +151,7 @@ workflow sample_trio {
       }
     }
   }
+
 
   output {
   }
