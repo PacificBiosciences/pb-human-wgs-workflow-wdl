@@ -39,7 +39,6 @@ workflow sample_cohort {
 
     String pb_conda_image
     String deepvariant_image
-    String picard_image
     String glnexus_image
   }
 
@@ -60,7 +59,6 @@ workflow sample_cohort {
 
       pb_conda_image = pb_conda_image,
       deepvariant_image = deepvariant_image,
-      picard_image = picard_image
   }
 
   call cohort.cohort {

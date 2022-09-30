@@ -39,7 +39,6 @@ workflow sample {
 
     String pb_conda_image
     String deepvariant_image
-    String picard_image
 
     Boolean run_jellyfish
 

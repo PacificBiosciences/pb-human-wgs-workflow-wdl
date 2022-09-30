@@ -20,7 +20,6 @@ workflow smrtcells_sample_trial {
 
     String pb_conda_image
     String deepvariant_image
-    String picard_image
 
     
     File? tg_list
@@ -54,7 +53,6 @@ workflow smrtcells_sample_trial {
 
     pb_conda_image = pb_conda_image,
     deepvariant_image = deepvariant_image,
-    picard_image = picard_image,
 
     tg_list = tg_list,
     tg_list_url = tg_list_url,

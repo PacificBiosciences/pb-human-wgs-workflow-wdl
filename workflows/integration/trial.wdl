@@ -38,7 +38,6 @@ workflow trial {
 
     String pb_conda_image
     String deepvariant_image
-    String picard_image
     String glnexus_image
 
     File ref_modimers
@@ -103,7 +102,6 @@ workflow trial {
 
     pb_conda_image = pb_conda_image,
     deepvariant_image = deepvariant_image,
-    picard_image = picard_image,
 
     run_jellyfish = run_jellyfish,
 
