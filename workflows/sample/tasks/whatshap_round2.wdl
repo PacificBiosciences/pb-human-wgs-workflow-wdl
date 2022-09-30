@@ -314,7 +314,6 @@ workflow whatshap_round2 {
     File chr_lengths
     Array[String] regions
     String pb_conda_image
-    String picard_image
   }
 
     scatter (region in regions) {
