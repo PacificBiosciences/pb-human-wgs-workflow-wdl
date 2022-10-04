@@ -8,7 +8,7 @@
   "trial.gnomad_af": "/datasetpbhumanwgs/dataset/gnomad/gnomad.hg38.v3.custom.zip",
   "trial.js": "https://raw.githubusercontent.com/brentp/slivar/master/js/slivar-functions.js",
   "trial.clinvar_lookup": "/datasetpbhumanwgs/dataset/clinvar/clinvar_gene_desc.txt",
-  "trial.lof_lookup": "https://storage.googleapis.com/gnomad-public/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_gene.txt.bgz",
+  "trial.lof_lookup": "/datasetpbhumanwgs/dataset/gnomad/gnomad.v2.1.1.lof_metrics.by_gene.txt.bgz",
   "trial.gff": "/datasetpbhumanwgs/dataset/ensembl/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz",
 
   

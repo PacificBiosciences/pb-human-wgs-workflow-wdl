@@ -55,7 +55,7 @@ task generate_lof_lookup {
     conda activate samtools
     echo "$(conda info)"
 
-    (wget -qO - ~{url} | zcat | cut -f 1,21,24 | tail -n+2 \
+    (zcat ~{url} | cut -f 1,21,24 | tail -n+2 \
         | awk "{{ printf(\\"%s\\tpLI=%.3g;oe_lof=%.5g\\n\\", \$1, \$2, \$3) }}" > ~{lof_lookup_name}) > ~{log_name} 2>&1
   >>>
   output {
