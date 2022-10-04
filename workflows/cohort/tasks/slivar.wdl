@@ -22,7 +22,7 @@ task reformat_ensembl_gff {
     conda activate htslib
     echo "$(conda info)"
 
-    (wget -qO - ~{url} | zcat \
+    (zcat ~{url} \
         | awk -v OFS="\t" '{{ if ($1=="##sequence-region") && ($2~/^G|K/) {{ print $0; }} else if ($0!~/G|K/) {{ print "chr" $0; }} }}' \
         | bgzip > ~{ensembl_gff_name}) > ~{log_name} 2>&1
   >>>
@@ -72,36 +72,6 @@ task generate_lof_lookup {
   }
 }
 
-task generate_clinvar_lookup {
-  input {
-    String url
-    String log_name = "generate_clinvar_lookup.log"
-    String clinvar_lookup_name = "clinvar_gene_desc.txt"
-
-    String pb_conda_image
-    Int threads = 4
-  }
-
-  command <<<
-    source ~/.bashrc
-    conda activate samtools
-    echo "$(conda info)"
-
-    (wget -qO - ~{url} | cut -f 2,5 | grep -v ^$'\t' > ~{clinvar_lookup_name}) > ~{log_name} 2>&1
-  >>>
-  output {
-    File log = "~{log_name}"
-    File clinvar_lookup = "~{clinvar_lookup_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
-    cpu: "~{threads}"
-    disk: "200 GB"
-  }
-}
 
 task bcftools_norm {
   input {
@@ -486,12 +456,6 @@ workflow slivar {
       pb_conda_image = pb_conda_image
   }
 
-  call generate_clinvar_lookup {
-    input:
-      url = clinvar_lookup,
-      pb_conda_image = pb_conda_image
-  }
-
   call bcftools_norm {
     input:
       cohort_name = cohort_name,
@@ -562,7 +526,7 @@ workflow slivar {
       comphet_vcf = slivar_compound_hets_bgzip_vcf.vcf_gz_output,
       ped = ped,
       lof_lookup = generate_lof_lookup.lof_lookup,
-      clinvar_lookup = generate_clinvar_lookup.clinvar_lookup,
+      clinvar_lookup = clinvar_lookup,
       phrank_lookup = calculate_phrank.phrank_tsv,
 
       pb_conda_image = pb_conda_image
