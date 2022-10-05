@@ -37,11 +37,13 @@ task pbsv_call {
     conda activate pbsv
     echo "$(conda info)"
 
+    cp ~{reference.datafile} reference.fasta
+
     (
       pbsv call ~{extra} \
         --log-level ~{loglevel} \
         --num-threads ~{threads} \
-        ~{reference.datafile} ~{sep=" " cohort_affected_person_svsigs}  ~{sep=" " cohort_unaffected_person_svsigs} ~{pbsv_vcf_name}
+        reference.fasta ~{sep=" " cohort_affected_person_svsigs}  ~{sep=" " cohort_unaffected_person_svsigs} ~{pbsv_vcf_name}
     ) > ~{log_name} 2>&1
 
   >>>
