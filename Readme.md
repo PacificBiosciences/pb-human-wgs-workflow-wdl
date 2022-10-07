@@ -12,6 +12,15 @@ When initially deployed, Cromwell on Azure mounts any container listed within th
 2.	Create a temporary Shared Access Signature (SAS) token, and share that SAS token with Cromwell. (Recommended for long term deployments.)
 3.	Grant the Managed Identity in your Cromwell on Azure Resource Group permission to access your private storage account. (Requires access to Azure Portal or az cli.)
 ________________________________________
+# Reference setup
+You can either download raw references and pass them to the references.wdl to generate modified reference files or download modified references files from Pacbio.
+
+1. Clinvar: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/gene_condition_source_id
+2. LOF: https://storage.googleapis.com/gnomad-public/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_gene.txt.bgz
+3. GFF: ftp://ftp.ensembl.org//pub/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz
+
+There are two additional references and resources  necessary for these workflows to run. We are working to make these folders available in a public repository, but until then please contact one of the repository contributors or, if applicable, your PacBio representative to request these materials.
+________________________________________
 # Starting a run 
 ## Quick Start Option (Recommended): Download & Edit the Trial Inputs & Trigger Files
 This method will allow you to get started quickly. We have included a demo dataset (from the Genomics Data Lake) with this workflow to demonstrate use cases.
