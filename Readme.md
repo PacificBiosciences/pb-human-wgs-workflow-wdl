@@ -50,8 +50,10 @@ This method will allow you to get started quickly. We have included a demo datas
 
 A note about specifying file paths- if you followed the directions for Initial Setup, you can simply refer to your files using the syntax /<storageAccountName>/containername. In the code snippet above, datasetgiab is the storage account name, and dataset is the container name.
 
-If you choose NOT to do this, an alternative way of specifying the path to your data is to provide the URL + SAS token to your files directly in the input JSON file. An example of this using the same data is below.
+If you choose **NOT** to do this, an alternative way of specifying the path to your data is to provide the URL + SAS token to your files directly in the input JSON file. For more information see [Create SAS tokens for your storage containers](https://learn.microsoft.com/en-us/azure/cognitive-services/translator/document-translation/create-sas-tokens?tabs=Containers). An example of this using the same data is below.
 "path": https://datasetgiab.blob.core.windows.net/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64011_181218_235052.fastq.gz?sv=2020-04-08&st=2021-06-17T16%3A35%3A11Z&se=2021-06-18T16%3A35%3A11Z&sr=b&sp=r&sig=o%2Bj2%2FfT%2Bp2nyw8yb1MSvSGnU%2BOtJTgYjo7gwdVfgTLs%3D
+
+**Note**: For file you can't provide a public URL for input files, certain functions in Cromwell will not work. 
 
 4. When you are done editing the file for your dataset, upload it to your "Inputs" container in your Cromwell on Azure setup. Copy the URL of this file.
 5. Download & open your Trigger file in your editor.
