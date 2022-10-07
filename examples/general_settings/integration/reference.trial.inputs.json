@@ -38,5 +38,4 @@
   "trial.ensembl_to_hgnc": "/datasetpbhumanwgs/dataset/hpo/ensembl.hgncSymbol.tsv",
   "trial.hprc_af": "/datasetpbhumanwgs/dataset/hprc/hprc.deepvariant.glnexus.hg38.v1-20201012.zip",
   "trial.ref_modimers": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.modimers.tsv.gz",
-  "trial.movie_modimers": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.modimers.tsv.gz"
 }

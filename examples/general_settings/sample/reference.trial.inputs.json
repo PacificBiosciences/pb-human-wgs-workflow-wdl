@@ -19,7 +19,6 @@
   },
 
   "sample_trial.ref_modimers": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.modimers.tsv.gz",
-  "sample_trial.movie_modimers": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.modimers.tsv.gz",
   "sample_trial.score_matrix": "/datasetpbhumanwgs/dataset/tandem-genotypes/score_matrix.par",
   "sample_trial.tg_bed": "/datasetpbhumanwgs/dataset/tandem-genotypes/hg38-disease-tr.slop.bed",
   "sample_trial.tg_list": "/datasetpbhumanwgs/dataset/tandem-genotypes/hg38-disease-tr.txt"
