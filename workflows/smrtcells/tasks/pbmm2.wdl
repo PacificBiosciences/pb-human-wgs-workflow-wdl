@@ -48,16 +48,10 @@ task align_ubam_or_fastq {
             ~{bam_name} \
     ) > ~{pbmm2_align_log_name} 2>&1
 
-    # Index ubams
-    conda activate samtools
-    echo "$(conda info)"
-    (samtools index -@ 3 ~{smrtcell_info.path}) > ~{ubam_index_log_name} 2>&1
-
-
   >>>
   output {
     IndexedData bam = { "name": smrtcell_info.name, "datafile": "~{bam_name}", "indexfile": "~{bam_name}.bai" }
-    IndexedData ubam = { "name": smrtcell_info.name, "datafile": "~{smrtcell_info.path}", "indexfile": "~{smrtcell_info.path}bai" }
+    IndexedData ubam = { "name": smrtcell_info.name, "datafile": "~{smrtcell_info.path}", "indexfile": "None" }
     File pbmm2_align_log = "~{pbmm2_align_log_name}"
   }
   runtime {
