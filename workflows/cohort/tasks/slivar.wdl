@@ -6,102 +6,6 @@ version 1.0
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
 
-task reformat_ensembl_gff {
-  input {
-    String url
-    String log_name = "reformat_ensembl_gff.log"
-
-    String ensembl_gff_name = "ensembl.GRCh38.101.reformatted.gff3.gz"
-
-    String pb_conda_image
-    Int threads = 4
-  }
-
-  command <<<
-    source ~/.bashrc
-    conda activate htslib
-    echo "$(conda info)"
-
-    (wget -qO - ~{url} | zcat \
-        | awk -v OFS="\t" '{{ if ($1=="##sequence-region") && ($2~/^G|K/) {{ print $0; }} else if ($0!~/G|K/) {{ print "chr" $0; }} }}' \
-        | bgzip > ~{ensembl_gff_name}) > ~{log_name} 2>&1
-  >>>
-  output {
-    File log = "~{log_name}"
-    File ensembl_gff = "~{ensembl_gff_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
-    cpu: "~{threads}"
-    disk: "200 GB"
-  }
-}
-
-task generate_lof_lookup {
-  input {
-    String url
-    String log_name = "generate_lof_lookup.log"
-    String lof_lookup_name = "lof_lookup.txt"
-
-    String pb_conda_image
-    Int threads = 4
-  }
-
-  command <<<
-    source ~/.bashrc
-    conda activate samtools
-    echo "$(conda info)"
-
-    (wget -qO - ~{url} | zcat | cut -f 1,21,24 | tail -n+2 \
-        | awk "{{ printf(\\"%s\\tpLI=%.3g;oe_lof=%.5g\\n\\", \$1, \$2, \$3) }}" > ~{lof_lookup_name}) > ~{log_name} 2>&1
-  >>>
-  output {
-    File log = "~{log_name}"
-    File lof_lookup = "~{lof_lookup_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
-    cpu: "~{threads}"
-    disk: "200 GB"
-  }
-}
-
-task generate_clinvar_lookup {
-  input {
-    String url
-    String log_name = "generate_clinvar_lookup.log"
-    String clinvar_lookup_name = "clinvar_gene_desc.txt"
-
-    String pb_conda_image
-    Int threads = 4
-  }
-
-  command <<<
-    source ~/.bashrc
-    conda activate samtools
-    echo "$(conda info)"
-
-    (wget -qO - ~{url} | cut -f 2,5 | grep -v ^$'\t' > ~{clinvar_lookup_name}) > ~{log_name} 2>&1
-  >>>
-  output {
-    File log = "~{log_name}"
-    File clinvar_lookup = "~{clinvar_lookup_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
-    cpu: "~{threads}"
-    disk: "200 GB"
-  }
-}
 
 task bcftools_norm {
   input {
@@ -474,24 +378,6 @@ workflow slivar {
     String pb_conda_image
   }
 
-  call reformat_ensembl_gff {
-    input:
-      url = gff,
-      pb_conda_image = pb_conda_image
-  }
-
-  call generate_lof_lookup {
-    input:
-      url = lof_lookup,
-      pb_conda_image = pb_conda_image
-  }
-
-  call generate_clinvar_lookup {
-    input:
-      url = clinvar_lookup,
-      pb_conda_image = pb_conda_image
-  }
-
   call bcftools_norm {
     input:
       cohort_name = cohort_name,
@@ -515,7 +401,7 @@ workflow slivar {
       gnomad_af = gnomad_af,
       hprc_af = hprc_af,
       js = js,
-      gff = reformat_ensembl_gff.ensembl_gff,
+      gff = gff,
       reference = reference,
       pb_conda_image = pb_conda_image
   }
@@ -561,8 +447,8 @@ workflow slivar {
       filt_vcf = slivar_small_variant_bgzip_vcf.vcf_gz_output,
       comphet_vcf = slivar_compound_hets_bgzip_vcf.vcf_gz_output,
       ped = ped,
-      lof_lookup = generate_lof_lookup.lof_lookup,
-      clinvar_lookup = generate_clinvar_lookup.clinvar_lookup,
+      lof_lookup = lof_lookup,
+      clinvar_lookup = clinvar_lookup,
       phrank_lookup = calculate_phrank.phrank_tsv,
 
       pb_conda_image = pb_conda_image

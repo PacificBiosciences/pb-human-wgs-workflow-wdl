@@ -2,6 +2,48 @@ version 1.0
 
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/hifiasm.wdl" as hifiasm
 
+
+task yak_parents {
+  input {
+    Array[Array[String]]      affected_person_parents_names
+    Array[Array[String]]      unaffected_person_parents_names
+    String pb_conda_image
+  }
+
+ command <<<
+    echo ${sep=',' affected_person_parents_names} > parents.txt
+    echo ${sep=',' unaffected_person_parents_names} >> parents.txt
+
+    sed 's/,\[/\n/g' parents.txt | sed -r 's/(\[|\])//g' |  sed -r 's/ //g' > parents_modified.txt
+
+    for i in $(cat parents_modified.txt )
+    do
+    IFS=',' read -r -a array <<< $i
+    len=(echo "${#array[@]}")
+    if [[ "$len" -gt 2 ]]
+    then
+    echo "${array[1]}" >> parents_list.txt
+    echo "${array[2]}" >> parents_list.txt
+    fi
+    done
+
+    sort parents_list.txt | uniq > parents_list_uniq.txt 
+
+  >>>
+
+  output {
+        Array[String] yak_parents = read_lines("parents_list_uniq.txt")
+  }
+
+  runtime {
+    docker: "~{pb_conda_image}"
+    preemptible: true
+    maxRetries: 3
+  }
+  
+}
+
+
 task yak_count {
   input {
     Int threads = 32

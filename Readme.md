@@ -12,6 +12,15 @@ When initially deployed, Cromwell on Azure mounts any container listed within th
 2.	Create a temporary Shared Access Signature (SAS) token, and share that SAS token with Cromwell. (Recommended for long term deployments.)
 3.	Grant the Managed Identity in your Cromwell on Azure Resource Group permission to access your private storage account. (Requires access to Azure Portal or az cli.)
 ________________________________________
+# Reference setup
+You can either download raw references and pass them to the references.wdl to generate modified reference files or download modified references files from Pacbio.
+
+1. Clinvar: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/gene_condition_source_id
+2. LOF: https://storage.googleapis.com/gnomad-public/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_gene.txt.bgz
+3. GFF: ftp://ftp.ensembl.org//pub/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz
+
+There are two additional references and resources  necessary for these workflows to run. We are working to make these folders available in a public repository, but until then please contact one of the repository contributors or, if applicable, your PacBio representative to request these materials.
+________________________________________
 # Starting a run 
 ## Quick Start Option (Recommended): Download & Edit the Trial Inputs & Trigger Files
 This method will allow you to get started quickly. We have included a demo dataset (from the Genomics Data Lake) with this workflow to demonstrate use cases.
@@ -41,8 +50,10 @@ This method will allow you to get started quickly. We have included a demo datas
 
 A note about specifying file paths- if you followed the directions for Initial Setup, you can simply refer to your files using the syntax /<storageAccountName>/containername. In the code snippet above, datasetgiab is the storage account name, and dataset is the container name.
 
-If you choose NOT to do this, an alternative way of specifying the path to your data is to provide the URL + SAS token to your files directly in the input JSON file. An example of this using the same data is below.
+If you choose **NOT** to do this, an alternative way of specifying the path to your data is to provide the URL + SAS token to your files directly in the input JSON file. For more information see [Create SAS tokens for your storage containers](https://learn.microsoft.com/en-us/azure/cognitive-services/translator/document-translation/create-sas-tokens?tabs=Containers). An example of this using the same data is below.
 "path": https://datasetgiab.blob.core.windows.net/dataset/data/AshkenazimTrio/HG002_NA24385_son/PacBio_SequelII_CCS_11kb/reads/m64011_181218_235052.fastq.gz?sv=2020-04-08&st=2021-06-17T16%3A35%3A11Z&se=2021-06-18T16%3A35%3A11Z&sr=b&sp=r&sig=o%2Bj2%2FfT%2Bp2nyw8yb1MSvSGnU%2BOtJTgYjo7gwdVfgTLs%3D
+
+**Note**: For file you can't provide a public URL for input files, certain functions in Cromwell will not work. 
 
 4. When you are done editing the file for your dataset, upload it to your "Inputs" container in your Cromwell on Azure setup. Copy the URL of this file.
 5. Download & open your Trigger file in your editor.

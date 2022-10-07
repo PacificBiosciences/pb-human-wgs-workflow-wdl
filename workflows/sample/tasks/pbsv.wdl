@@ -36,10 +36,14 @@ task pbsv_call {
     conda activate pbsv
     echo "$(conda info)"
 
+    datafile="$(basename -- $~{reference.datafile} )"
+
+    ln -s ~{reference.datafile} $datafile.fasta
+
     (pbsv call ~{extra} \
         --log-level ~{loglevel} \
         --num-threads ~{threads} \
-        ~{reference.datafile} ~{sep=" " svsigs} ~{pbsv_vcf_name}) > ~{log_name} 2>&1
+        $datafile.fasta ~{sep=" " svsigs} ~{pbsv_vcf_name}) > ~{log_name} 2>&1
   >>>
   output {
     File pbsv_vcf = "~{pbsv_vcf_name}"
@@ -148,9 +152,16 @@ workflow pbsv {
       pb_conda_image = pb_conda_image
   }
 
+  call common.bgzip_vcf as bcftools_concat_pbsv_vcf_bgzip {
+      input :
+        vcf_input = bcftools_concat_pbsv_vcf.pbsv_vcf,
+        pb_conda_image = pb_conda_image
+    }
+
   output {
     Array[Array[File]] svsig_gv = pbsv_discover_by_smartcells_output.discover_svsig_gv
-    File pbsv_vcf = bcftools_concat_pbsv_vcf.pbsv_vcf
+    File pbsv_vcf = bcftools_concat_pbsv_vcf_bgzip.vcf_gz_data
+    File pbsv_vcf_indexed = bcftools_concat_pbsv_vcf_bgzip.vcf_gz_index
     Array[IndexedData] pbsv_individual_vcf = bgzip_vcf.vcf_gz_output
   }
 

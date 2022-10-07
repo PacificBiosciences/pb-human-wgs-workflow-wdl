@@ -66,6 +66,7 @@ workflow smrtcells {
   }
 
   output {
+    IndexedData ubam = align_ubam_or_fastq.ubam
     IndexedData bam = align_ubam_or_fastq.bam
     File? count_jf   = jellyfish.count_jf
     File? movie_modimers = jellyfish.modimers_tsv

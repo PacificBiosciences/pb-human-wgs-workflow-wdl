@@ -30,6 +30,7 @@ workflow smrtcells_person {
   }
 
   output {
+    Array[IndexedData] ubams     = smrtcells.ubam
     Array[IndexedData] bams     = smrtcells.bam
     Array[File?] jellyfish_count = smrtcells.count_jf
     String sample_names  = sample.name
