@@ -36,12 +36,14 @@ task pbsv_call {
     conda activate pbsv
     echo "$(conda info)"
 
-    cp  ~{reference.datafile} reference.fasta
+    datafile="$(basename -- $~{reference.datafile} )"
+
+    ln -s ~{reference.datafile} $datafile.fasta
 
     (pbsv call ~{extra} \
         --log-level ~{loglevel} \
         --num-threads ~{threads} \
-        reference.fasta ~{sep=" " svsigs} ~{pbsv_vcf_name}) > ~{log_name} 2>&1
+        $datafile.fasta ~{sep=" " svsigs} ~{pbsv_vcf_name}) > ~{log_name} 2>&1
   >>>
   output {
     File pbsv_vcf = "~{pbsv_vcf_name}"
