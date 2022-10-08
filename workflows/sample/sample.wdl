@@ -5,6 +5,7 @@ version 1.0
 #import "./tasks/deepvariant_round1.wdl" as deepvariant_round1
 #import "./tasks/deepvariant_round2.wdl" as deepvariant_round2
 #import "./tasks/jellyfish.wdl" as jellyfish
+#import "./tasks/check_kmer_consistency.wdl" as check_kmer_consistency
 #import "./tasks/mosdepth.wdl" as mosdepth
 #import "./tasks/hifiasm.wdl" as hifiasm
 #import "./tasks/whatshap_round1.wdl" as whatshap_round1

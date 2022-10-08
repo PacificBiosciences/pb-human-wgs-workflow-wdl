@@ -4,7 +4,7 @@ task check_kmer_consistency {
   input {
     String sample_name
     File ref_modimers
-    File movie_modimers
+    Array[File?] movie_modimers
     String log_name = "check_kmer_consistency.log"
 
     String check_kmer_consistency_output_name = "~{sample_name}.kmerconsistency.txt"

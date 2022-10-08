@@ -71,7 +71,7 @@ workflow sample_trial {
         sample_name = unaffected_person_sample_names[person_num],
         sample = unaffected_person_sample[person_num],
         jellyfish_input = unaffected_person_jellyfish_input[person_num],
-        movie_modimers = unaffected_person_movie_modimers[person_num]
+        movie_modimers = unaffected_person_movie_modimers[person_num],
         regions = regions,
 
         reference = reference,
