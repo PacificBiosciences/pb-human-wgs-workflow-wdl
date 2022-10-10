@@ -14,9 +14,11 @@ workflow sample_trio {
   input {
     Array[String]             affected_person_sample_names
     Array[Array[IndexedData]] affected_person_sample
+    Array[Array[IndexedData]] affected_person_sample_ubam
     Array[Array[String]?]      affected_person_parents_names
     Array[String]             unaffected_person_sample_names
     Array[Array[IndexedData]] unaffected_person_sample
+    Array[Array[IndexedData]] unaffected_person_sample_ubam
     Array[Array[String]?]      unaffected_person_parents_names
     String pb_conda_image
     IndexedData reference
@@ -44,7 +46,7 @@ workflow sample_trio {
         call yak.yak as yak_af {
           input:
             sample_name = affected_person_sample_names[pa],
-            sample = affected_person_sample[pa] ,
+            sample = affected_person_sample_ubam[pa] ,
             pb_conda_image = pb_conda_image
         }
       }
@@ -60,7 +62,7 @@ workflow sample_trio {
         call yak.yak as yak_uf {
           input:
             sample_name = unaffected_person_sample_names[pu],
-            sample = unaffected_person_sample[pu] ,
+            sample = unaffected_person_sample_ubam[pu] ,
             pb_conda_image = pb_conda_image
         }
       }
@@ -110,7 +112,7 @@ workflow sample_trio {
       call hifiasm_trio_assemble.hifiasm_trio as hifiasm_trio_assemble_affected {
         input:
           sample_name = affected_person_sample_names[person_num],
-          sample = affected_person_sample[person_num],
+          sample = affected_person_sample_ubam[person_num],
           yak_parent_1 = parent1_sample_af,
           yak_parent_2 = parent2_sample_af,
           target = reference,
@@ -161,7 +163,7 @@ workflow sample_trio {
       call hifiasm_trio_assemble.hifiasm_trio as hifiasm_trio_assemble_unaffected {
         input:
           sample_name = unaffected_person_sample_names[person_num_1],
-          sample = unaffected_person_sample[person_num_1],
+          sample = unaffected_person_sample_ubam[person_num_1],
           yak_parent_1 = parent1_sample_uf,
           yak_parent_2 = parent2_sample_uf,
           target = reference,

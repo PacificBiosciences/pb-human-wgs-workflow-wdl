@@ -29,6 +29,7 @@ workflow sample {
   input {
     String sample_name
     Array[IndexedData] sample
+    Array[IndexedData] sample_ubam
     Array[File?] jellyfish_input
     Array[File?] movie_modimers
     Array[String] regions
@@ -142,7 +143,7 @@ workflow sample {
   call hifiasm.hifiasm {
     input:
       sample_name = sample_name,
-      sample = sample,
+      sample = sample_ubam,
       target = reference,
       reference_name = reference.name,
       pb_conda_image = pb_conda_image

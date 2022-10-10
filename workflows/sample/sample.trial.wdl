@@ -10,10 +10,12 @@ workflow sample_trial {
   input {
     Array[String]             affected_person_sample_names
     Array[Array[IndexedData]] affected_person_sample
+    Array[Array[IndexedData]] affected_person_sample_ubam
     Array[Array[File?]]        affected_person_jellyfish_input
     Array[Array[File?]]        affected_person_movie_modimers
     Array[String]             unaffected_person_sample_names
     Array[Array[IndexedData]] unaffected_person_sample
+    Array[Array[IndexedData]] unaffected_person_sample_ubam
     Array[Array[File?]]        unaffected_person_jellyfish_input
     Array[Array[File?]]        unaffected_person_movie_modimers
     Array[Array[File?]]        unaffected_person_movie_modimers
@@ -42,6 +44,7 @@ workflow sample_trial {
       input:
         sample_name = affected_person_sample_names[person_num],
         sample = affected_person_sample[person_num],
+        sample_ubam = affected_person_sample_ubam[person_num],
         jellyfish_input = affected_person_jellyfish_input[person_num],
         movie_modimers = affected_person_movie_modimers[person_num],
         regions = regions,
@@ -70,6 +73,7 @@ workflow sample_trial {
       input:
         sample_name = unaffected_person_sample_names[person_num],
         sample = unaffected_person_sample[person_num],
+        sample_ubam = unaffected_person_sample_ubam[person_num],
         jellyfish_input = unaffected_person_jellyfish_input[person_num],
         movie_modimers = unaffected_person_movie_modimers[person_num],
         regions = regions,

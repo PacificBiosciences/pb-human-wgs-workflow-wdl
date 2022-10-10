@@ -68,10 +68,12 @@ workflow trial {
   call sample_trio.trial.sample_trio {
     input:
       affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
-      affected_person_sample            = smrtcells_trial.affected_person_ubams,
+      affected_person_sample            = smrtcells_trial.affected_person_bams,
+      affected_person_sample_ubam       = smrtcells_trial.affected_person_ubams,
       affected_person_parents_names     = smrtcells_trial.affected_person_parents_names,
       unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
-      unaffected_person_sample          = smrtcells_trial.unaffected_person_ubams,
+      unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
+      unaffected_person_sample_ubam     = smrtcells_trial.unaffected_person_ubams,
       unaffected_person_parents_names   = smrtcells_trial.unaffected_person_parents_names,
       pb_conda_image = pb_conda_image,
       reference = reference,
@@ -84,11 +86,13 @@ workflow trial {
   call sample.trial.sample_trial {
     input:
     affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
-    affected_person_sample            = smrtcells_trial.affected_person_ubams,
+    affected_person_sample            = smrtcells_trial.affected_person_bams,
+    affected_person_sample_ubam       = smrtcells_trial.affected_person_ubams,
     affected_person_jellyfish_input   = smrtcells_trial.affected_person_jellyfish_count,
     affected_person_movie_modimers   = smrtcells_trial.affected_person_movie_modimers,
     unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
-    unaffected_person_sample          = smrtcells_trial.unaffected_person_ubams,
+    unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
+    unaffected_person_sample_ubam     = smrtcells_trial.unaffected_person_ubams,
     unaffected_person_jellyfish_input = smrtcells_trial.unaffected_person_jellyfish_count,
     unaffected_person_movie_modimers   = smrtcells_trial.unaffected_person_movie_modimers,
 
