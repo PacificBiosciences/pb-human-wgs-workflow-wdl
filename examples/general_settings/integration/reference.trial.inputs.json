@@ -4,7 +4,7 @@
     "datafile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta",
     "indexfile": "/datasettestinputs/dataset/references/hg38/v0/Homo_sapiens_assembly38.fasta.fai"
   },
-  "trial.tr_bed": "/datasetpbhumandemodata/dataset/reference/human_GRCh38_no_alt_analysis_set.trf.bed",
+  "trial.tr_bed": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.trf.bed",
   "trial.gnomad_af": "/datasetpbhumanwgs/dataset/gnomad/gnomad.hg38.v3.custom.zip",
   "trial.js": "https://raw.githubusercontent.com/brentp/slivar/master/js/slivar-functions.js",
   "trial.clinvar_lookup": "/datasetpbhumanwgs/dataset/clinvar/clinvar_gene_desc.txt",
