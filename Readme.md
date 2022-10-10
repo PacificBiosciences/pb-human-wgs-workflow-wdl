@@ -75,4 +75,5 @@ If you choose **NOT** to do this, an alternative way of specifying the path to y
 
 **Congratulations**- you've started your analysis!
 ## Option 2: Clone this repository & customize the workflow
-Cloning the repository into your own Github Account has numerous benefits- namely the ability to easily customize the workflow to your choosing, while still having version control. This does require a bit of prior experience with Github to setup- as you'll need to update the URLs in your WDLs to point to your storage location for the imported components of the workflows. The Cromwell documentation provides information about sourcing locally stored WDLs.
+Cloning the repository into your own Github Account has numerous benefits- namely the ability to easily customize the workflow to your choosing, while still having version control. This does require a bit of prior experience with Github to setup- as you'll need to update the URLs in your WDLs to point to your storage location for the imported components of the workflows. The Cromwell documentation provides information about sourcing locally stored WDLs. To change the URLs in all imports in your fork use the BASH script `rename_urls.sh`.
+
