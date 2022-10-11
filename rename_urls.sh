@@ -25,7 +25,7 @@ if [ $# -eq 1 ] && [ "$1" == "--remote" ]; then
 elif [ $# -eq 1 ] && [ "$1" == "--local" ]; then
 	echo -en "Changing all WDL Github URLs from '${remote_user}/${remote_repo}' to '${local_user}/${local_repo}'..."
 	find . -type f -name "*.wdl" -print0 | \
-		xargs -0 see -i "s/com\/${remote_user}\/${remote_repo}/com\/${local_user}\/${local_repo}/g"
+		xargs -0 sed -i "s/com\/${remote_user}\/${remote_repo}/com\/${local_user}\/${local_repo}/g"
 	echo "done!"
 
 else
