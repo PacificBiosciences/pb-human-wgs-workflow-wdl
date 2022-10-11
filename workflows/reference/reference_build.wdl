@@ -1,6 +1,10 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/reference/tasks/clinvar.wdl" as clinvar
+#import "./tasks/clinvar.wdl" as clinvar
+#import "./tasks/ensembl.wdl" as ensembl
+#import "./tasks/lof.wdl" as lof
+
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/reference/tasks/clinvar.wdl" as clinvar_lookup
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/reference/tasks/ensembl.wdl" as ensembl
 import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/reference/tasks/lof.wdl" as lof
 
@@ -10,13 +14,13 @@ workflow cohort {
         String pb_conda_image
         
         File gff
-        File lof_lookup
-        File clinvar_lookup
+        File lof
+        File clinvar
     }
 
     call clinvar.generate_clinvar_lookup {
         input:
-            url = clinvar_lookup,
+            url = clinvar,
             pb_conda_image = pb_conda_image
     }
 
@@ -28,13 +32,13 @@ workflow cohort {
 
     call lof.generate_lof_lookup {
         input:
-            url = lof_lookup,
+            url = lof,
             pb_conda_image = pb_conda_image
     }
 
     output {
-        File clinvar    = generate_clinvar_lookup.clinvar_lookup
-        File gff        = slivar.filt_vcf
-        File lof        = generate_lof_lookup.lof_lookup
+        File clinvar_lookup                = generate_clinvar_lookup.clinvar_lookup
+        File gff_reformatted               = reformat_ensembl_gff.ensembl_gff
+        File lof_lookup                    = generate_lof_lookup.lof_lookup
     }
 }

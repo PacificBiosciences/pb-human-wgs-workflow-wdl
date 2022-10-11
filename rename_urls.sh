@@ -3,7 +3,7 @@
 remote_user="PacificBiosciences"
 remote_repo="pb-human-wgs-workflow-wdl"
 
-local_user="TimD1"
+local_user=$1
 local_repo="pb-human-wgs-workflow-wdl"
 
 echo "Info:"

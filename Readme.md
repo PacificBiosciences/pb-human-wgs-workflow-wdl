@@ -12,14 +12,41 @@ When initially deployed, Cromwell on Azure mounts any container listed within th
 2.	Create a temporary Shared Access Signature (SAS) token, and share that SAS token with Cromwell. (Recommended for long term deployments.)
 3.	Grant the Managed Identity in your Cromwell on Azure Resource Group permission to access your private storage account. (Requires access to Azure Portal or az cli.)
 ________________________________________
-# Reference setup
-You can either download raw references and pass them to the references.wdl to generate modified reference files or download modified references files from Pacbio.
+# Reference and Demo Data setup
+
+You can find publicly available reference and annotation files necessary for these workflows. 
+
+References and Annotation<br/>
+[https://datasetpbhumanwgs.blob.core.windows.net/?sv=2021-06-08&ss=bfqt&srt=sco&sp=rlpitfx&se=2025-10-11T03:59:01Z&st=2022-10-10T20:24:01Z&spr=https&sig=NB%2B78ujhUPKPLuD4IBjkUHPGMtbw2euXkiYmvB73gjs%3D](https://datasetpbhumanwgs.blob.core.windows.net/?sv=2021-06-08&ss=bfqt&srt=sco&sp=rlpitfx&se=2025-10-11T03:59:01Z&st=2022-10-10T20:24:01Z&spr=https&sig=NB%2B78ujhUPKPLuD4IBjkUHPGMtbw2euXkiYmvB73gjs%3D)
+
+We have included two demo datasets with this workflow to demonstrate use cases.
+
+Genome in a Bottle<br>
+[https://datasetgiab.blob.core.windows.net/?sv=2020-04-08&st=2021-06-17T16%3A35%3A11Z&se=2021-06-18T16%3A35%3A11Z&sr=b&sp=r&sig=o%2Bj2%2FfT%2Bp2nyw8yb1MSvSGnU%2BOtJTgYjo7gwdVfgTLs%3D](https://datasetgiab.blob.core.windows.net/?sv=2020-04-08&st=2021-06-17T16%3A35%3A11Z&se=2021-06-18T16%3A35%3A11Z&sr=b&sp=r&sig=o%2Bj2%2FfT%2Bp2nyw8yb1MSvSGnU%2BOtJTgYjo7gwdVfgTLs%3D)
+sv=2020-04-08&st=2021-06-17T16%3A35%3A11Z&se=2021-06-18T16%3A35%3A11Z&sr=b&sp=r&sig=o%2Bj2%2FfT%2Bp2nyw8yb1MSvSGnU%2BOtJTgYjo7gwdVfgTLs%3D)
+
+Ashkenazi Trio<br>
+[https://datasetpbhumandemodata.blob.core.windows.net/?sv=2021-06-08&ss=bfqt&srt=sco&sp=rlpitfx&se=2025-10-11T03:59:12Z&st=2022-10-10T20:19:12Z&spr=https&sig=l8HQn6XM78YJGCyqGweSmJM4h%2BnY94iAgXMWrZuDk04%3D](https://datasetpbhumandemodata.blob.core.windows.net/?sv=2021-06-08&ss=bfqt&srt=sco&sp=rlpitfx&se=2025-10-11T03:59:12Z&st=2022-10-10T20:19:12Z&spr=https&sig=l8HQn6XM78YJGCyqGweSmJM4h%2BnY94iAgXMWrZuDk04%3D)
+sv=2020-04-08&st=2021-06-17T16%3A35%3A11Z&se=2021-06-18T16%3A35%3A11Z&sr=b&sp=r&sig=o%2Bj2%2FfT%2Bp2nyw8yb1MSvSGnU%2BOtJTgYjo7gwdVfgTLs%3D)
+
+You can use these input file URLs + SAS directly as they are publicly available or you can [mount the storage account](https://github.com/microsoft/CromwellOnAzure/blob/main/docs/troubleshooting-guide.md#use-input-data-files-from-an-existing-azure-storage-account-that-my-lab-or-team-is-currently-using) in your Cromwell on Azure instance <br/>
+
+Alternatively, you can choose to upload the data into the "dataset" container in your Cromwell on Azure storage account associated with your host VM.
+You can use [AzCopy](https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy-blobs#copy-a-container-to-another-storage-account) to transfer the required files to your own Storage account [using a shared access signature](https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview) with "Write" access.<br/>
+
+```[//]: # ([SuppressMessage\("Microsoft.Security", "CS002:SecretInNextLine", Justification="public dataset"\)]) 
+.\azcopy.exe copy 'https://datasetpbhumanwgs.blob.core.windows.net/?sv=2021-06-08&ss=bfqt&srt=sco&sp=rlpitfx&se=2025-10-11T03:59:01Z&st=2022-10-10T20:24:01Z&spr=https&sig=NB%2B78ujhUPKPLuD4IBjkUHPGMtbw2euXkiYmvB73gjs%3D' 'https://<destination-storage-account-name>.blob.core.windows.net/dataset?<WriteSAS-token>' --recursive --s2s-preserve-access-tier=false
+```
+You can also do this directly from the Azure Portal, or use other tools including [Microsoft Azure Storage Explorer](https://azure.microsoft.com/features/storage-explorer/) or [blobporter](https://github.com/Azure/blobporter). <br/>
+
+**Note**
+Some files were reformated for this pipeline. You could also generate new versions by downloading raw references and pass them to the references.wdl to generate modified reference files or download modified references files from Pacbio.
 
 1. Clinvar: ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/gene_condition_source_id
 2. LOF: https://storage.googleapis.com/gnomad-public/release/2.1.1/constraint/gnomad.v2.1.1.lof_metrics.by_gene.txt.bgz
 3. GFF: ftp://ftp.ensembl.org//pub/release-101/gff3/homo_sapiens/Homo_sapiens.GRCh38.101.gff3.gz
 
-There are two additional references and resources  necessary for these workflows to run. We are working to make these folders available in a public repository, but until then please contact one of the repository contributors or, if applicable, your PacBio representative to request these materials.
+For any further questions please contact one of the repository contributors or, if applicable, your PacBio representative to request these materials.
 ________________________________________
 # Starting a run 
 ## Quick Start Option (Recommended): Download & Edit the Trial Inputs & Trigger Files
@@ -75,4 +102,5 @@ If you choose **NOT** to do this, an alternative way of specifying the path to y
 
 **Congratulations**- you've started your analysis!
 ## Option 2: Clone this repository & customize the workflow
-Cloning the repository into your own Github Account has numerous benefits- namely the ability to easily customize the workflow to your choosing, while still having version control. This does require a bit of prior experience with Github to setup- as you'll need to update the URLs in your WDLs to point to your storage location for the imported components of the workflows. The Cromwell documentation provides information about sourcing locally stored WDLs.
+Cloning the repository into your own Github Account has numerous benefits- namely the ability to easily customize the workflow to your choosing, while still having version control. This does require a bit of prior experience with Github to setup- as you'll need to update the URLs in your WDLs to point to your storage location for the imported components of the workflows. The Cromwell documentation provides information about sourcing locally stored WDLs. To change the URLs in all imports in your fork use the BASH script `rename_urls.sh`.
+

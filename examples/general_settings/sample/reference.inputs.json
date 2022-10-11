@@ -23,5 +23,4 @@
   ],
 
   "sample.ref_modimers": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.modimers.tsv.gz",
-  "sample.movie_modimers": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.modimers.tsv.gz"
 } 
