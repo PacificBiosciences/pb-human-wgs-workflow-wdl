@@ -35,7 +35,8 @@ workflow sample_trio {
   call yak.yak_parents {
     input:
       affected_person_parents_names = affected_person_parents_names_n,
-      unaffected_person_parents_names = unaffected_person_parents_names_n
+      unaffected_person_parents_names = unaffected_person_parents_names_n,
+      pb_conda_image = pb_conda_image
   }
 
   scatter (pa in range(length(affected_person_sample))) {

@@ -19,6 +19,8 @@ You can find publicly available reference and annotation files necessary for the
 References and Annotation<br/>
 [https://datasetpbhumanwgs.blob.core.windows.net/?sv=2021-06-08&ss=bfqt&srt=sco&sp=rlpitfx&se=2025-10-11T03:59:01Z&st=2022-10-10T20:24:01Z&spr=https&sig=NB%2B78ujhUPKPLuD4IBjkUHPGMtbw2euXkiYmvB73gjs%3D](https://datasetpbhumanwgs.blob.core.windows.net/?sv=2021-06-08&ss=bfqt&srt=sco&sp=rlpitfx&se=2025-10-11T03:59:01Z&st=2022-10-10T20:24:01Z&spr=https&sig=NB%2B78ujhUPKPLuD4IBjkUHPGMtbw2euXkiYmvB73gjs%3D)
 
+List of all files with checksums are found [reference_annotation.md5](reference_annotation.md5)
+
 We have included two demo datasets with this workflow to demonstrate use cases.
 
 Genome in a Bottle<br>
