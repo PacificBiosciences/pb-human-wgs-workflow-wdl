@@ -47,7 +47,8 @@ task align_ubam_or_fastq {
     ) > ~{pbmm2_align_log_name} 2>&1
 
     # Make temp ubam index
-    touch ~{smrtcell_info.path}.bai
+    echo "empty file" > ~{smrtcell_info.path}.bai
+
 
 
   >>>
