@@ -54,7 +54,7 @@ task align_ubam_or_fastq {
   >>>
   output {
     IndexedData bam = { "name": smrtcell_info.name, "datafile": "~{bam_name}", "indexfile": "~{bam_name}.bai" }
-    IndexedData ubam = { "name": smrtcell_info.name, "datafile": "~{smrtcell_info.path}", "indexfile": ~{smrtcell_info.name}.bam.bai" }
+    IndexedData ubam = { "name": smrtcell_info.name, "datafile": "~{smrtcell_info.path}", "indexfile": "~{smrtcell_info.name}.bam.bai" }
     File pbmm2_align_log = "~{pbmm2_align_log_name}"
   }
   runtime {
