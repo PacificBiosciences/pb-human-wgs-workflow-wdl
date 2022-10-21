@@ -35,7 +35,7 @@ task bgzip_vcf {
     IndexedData vcf_gz_output = { "datafile": vcf_gz_data, "indexfile": vcf_gz_index }
 
     File bgzip_log = "~{bgzip_log_name}"
-    File tabix_log_name = "~{tabix_log_name}"
+    File tabix_log = "~{tabix_log_name}"
   }
   runtime {
     docker: "~{pb_conda_image}"
