@@ -25,7 +25,7 @@ struct SmrtcellInfo {
 
 struct SampleInfo {
   String name
-  Array[String]? parents
+  Array[String?] parents
   Array[SmrtcellInfo] smrtcells
 }
 

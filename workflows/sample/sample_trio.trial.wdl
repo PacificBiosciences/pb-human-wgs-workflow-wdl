@@ -15,11 +15,11 @@ workflow sample_trio {
     Array[String]             affected_person_sample_names
     Array[Array[IndexedData]] affected_person_sample
     Array[Array[IndexedData]] affected_person_sample_ubam
-    Array[Array[String]?]      affected_person_parents_names
+    Array[Array[String?]]      affected_person_parents_names
     Array[String]             unaffected_person_sample_names
     Array[Array[IndexedData]] unaffected_person_sample
     Array[Array[IndexedData]] unaffected_person_sample_ubam
-    Array[Array[String]?]      unaffected_person_parents_names
+    Array[Array[String?]]      unaffected_person_parents_names
     String pb_conda_image
     IndexedData reference
     Boolean trioeval
