@@ -6,11 +6,11 @@ version 1.0
 #import "../cohort/cohort.wdl"
 #import "../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/sample_trio.trial.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/sample/sample_trio.trial.wdl"
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow trial {
   input {

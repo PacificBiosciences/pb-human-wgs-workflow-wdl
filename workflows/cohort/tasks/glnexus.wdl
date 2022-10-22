@@ -4,9 +4,9 @@ version 1.0
 #import "./common_bgzip_vcf.wdl" as bgzip_vcf
 #import "../../common/separate_data_and_index_files.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
 
 task glnexus_task {
   input {
