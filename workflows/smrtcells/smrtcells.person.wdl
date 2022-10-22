@@ -35,6 +35,6 @@ workflow smrtcells_person {
     Array[File?] jellyfish_count = smrtcells.count_jf
     String sample_names  = sample.name
     Array[File?] movie_modimers = smrtcells.movie_modimers
-    Array[String]? parents_names = sample.parents
+    Array[String?] parents_names = sample.parents
   }
 }
