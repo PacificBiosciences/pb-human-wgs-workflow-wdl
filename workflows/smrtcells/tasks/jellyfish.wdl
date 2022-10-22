@@ -2,7 +2,7 @@ version 1.0
 
 #import "../../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 task samtools_fasta {
   input {
