@@ -5,10 +5,10 @@ version 1.0
 
 
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/yak.wdl" as yak
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/hifiasm_trio.wdl" as hifiasm_trio_assemble
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.wdl"
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/yak.wdl" as yak
+import "https://raw.githubusercontent.com/vsmalladi/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/hifiasm_trio.wdl" as hifiasm_trio_assemble
 
 workflow sample_trio {
   input {
@@ -29,13 +29,11 @@ workflow sample_trio {
   }
 
 
-  Array[Array[String]] affected_person_parents_names_n = select_all(select_first([affected_person_parents_names, [["None"]]]))
-  Array[Array[String]] unaffected_person_parents_names_n = select_all(select_first([unaffected_person_parents_names, [["None"]]]))
 
   call yak.yak_parents {
     input:
-      affected_person_parents_names = affected_person_parents_names_n,
-      unaffected_person_parents_names = unaffected_person_parents_names_n,
+      affected_person_parents_names = affected_person_parents_names,
+      unaffected_person_parents_names = unaffected_person_parents_names,
       pb_conda_image = pb_conda_image
   }
 
@@ -70,13 +68,13 @@ workflow sample_trio {
     }
   }
 
-  Array[Pair[String, File]] yak_af_output = select_first([yak_af.yak_output,[("None","None")]])
-  Array[Pair[String, File]] yak_uf_output = select_first([yak_uf.yak_output,[("None","None")]])
+  Array[Pair[String, File]] yak_af_output = if defined(yak_af.yak_output)  then yak_af.yak_output   else [("None", "None")]
+  Array[Pair[String, File]] yak_uf_output = if defined(yak_uf.yak_output)  then yak_af.yak_output   else [("None", "None")]
 
 
   scatter (person_num in range(length(affected_person_sample))) {
 
-    Array[String] affected = select_first([affected_person_parents_names[person_num],['None']])
+    Array[String] affected = select_all(select_first([affected_person_parents_names[person_num],['None']]))
 
     Int num_parents_affected = length(affected)
     Boolean trio_assembly_affected = if num_parents_affected == 2 then true else false
@@ -127,7 +125,7 @@ workflow sample_trio {
 
   scatter (person_num_1 in range(length(unaffected_person_sample))) {
 
-    Array[String] unaffected = select_first([unaffected_person_parents_names[person_num_1],['None']])
+    Array[String] unaffected = select_all(select_first([unaffected_person_parents_names[person_num_1],['None']]))
 
     Int num_parents_unaffected = length(unaffected)
     Boolean trio_assembly_unaffected = if num_parents_unaffected == 2 then true else false
