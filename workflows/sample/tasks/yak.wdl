@@ -5,8 +5,8 @@ import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workfl
 
 task yak_parents {
   input {
-    Array[Array[String]]      affected_person_parents_names
-    Array[Array[String]]      unaffected_person_parents_names
+    Array[Array[String?]]      affected_person_parents_names
+    Array[Array[String?]]      unaffected_person_parents_names
     String pb_conda_image
   }
 
@@ -14,7 +14,7 @@ task yak_parents {
     echo ${sep=',' affected_person_parents_names} > parents.txt
     echo ${sep=',' unaffected_person_parents_names} >> parents.txt
 
-    sed 's/,\[/\n/g' parents.txt | sed -r 's/(\[|\])//g' |  sed -r 's/ //g' > parents_modified.txt
+    sed 's/,\[/\n/g' parents.txt | sed -r 's/(\[|\])//g' | sed -r 's/ //g' > parents_modified.txt
 
     for i in $(cat parents_modified.txt )
     do
@@ -27,7 +27,7 @@ task yak_parents {
     fi
     done
 
-    sort parents_list.txt | uniq > parents_list_uniq.txt 
+    sort parents_list.txt | uniq | sed -r '/^\s*$/d' > parents_list_uniq.txt 
 
   >>>
 
