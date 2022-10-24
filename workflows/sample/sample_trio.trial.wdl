@@ -68,8 +68,8 @@ workflow sample_trio {
     }
   }
 
-  Array[Pair[String, File]] yak_af_output = if defined(yak_af.yak_output)  then yak_af.yak_output   else [("None", "None")]
-  Array[Pair[String, File]] yak_uf_output = if defined(yak_uf.yak_output)  then yak_af.yak_output   else [("None", "None")]
+  Array[Pair[String, File]] yak_af_output = if defined(flatten(yak_af.yak_output))  then yak_af.yak_output   else [("None", "None")]
+  Array[Pair[String, File]] yak_uf_output = if defined(flatten(yak_uf.yak_output))  then yak_af.yak_output   else [("None", "None")]
 
 
   scatter (person_num in range(length(affected_person_sample))) {
