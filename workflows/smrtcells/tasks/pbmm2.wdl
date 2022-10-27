@@ -2,7 +2,7 @@ version 1.0
 
 #import "../../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 task align_ubam_or_fastq {
   input {
@@ -46,15 +46,9 @@ task align_ubam_or_fastq {
             ~{bam_name} \
     ) > ~{pbmm2_align_log_name} 2>&1
 
-    # Make temp ubam index
-    echo "empty file" > ~{smrtcell_info.name}.bam.bai
-
-
-
   >>>
   output {
     IndexedData bam = { "name": smrtcell_info.name, "datafile": "~{bam_name}", "indexfile": "~{bam_name}.bai" }
-    IndexedData ubam = { "name": smrtcell_info.name, "datafile": "~{smrtcell_info.path}", "indexfile": "~{smrtcell_info.name}.bam.bai" }
     File pbmm2_align_log = "~{pbmm2_align_log_name}"
   }
   runtime {

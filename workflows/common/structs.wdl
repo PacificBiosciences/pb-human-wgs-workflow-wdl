@@ -25,11 +25,7 @@ struct SmrtcellInfo {
 
 struct SampleInfo {
   String name
-  Array[String?] parents
+  Boolean? affected
+  Array[String] parents
   Array[SmrtcellInfo] smrtcells
-}
-
-struct CohortInfo {
-  Array[SampleInfo] affected_persons
-  Array[SampleInfo] unaffected_persons
 }

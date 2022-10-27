@@ -4,9 +4,9 @@ version 1.0
 #import "./common_bgzip_vcf.wdl" as bgzip_vcf
 #import "../../common/separate_data_and_index_files.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
 
 task glnexus_task {
   input {
@@ -15,10 +15,8 @@ task glnexus_task {
     Int threads = 24
     String log_name = "glnexus_task.log"
 
-    Array[File] affected_person_gvcfs
-    Array[File] affected_person_gvcfs_index
-    Array[File] unaffected_person_gvcfs
-    Array[File] unaffected_person_gvcfs_index
+    Array[File] person_gvcfs
+    Array[File] person_gvcfs_index
 
     String bcf_name = "~{cohort_name}.~{reference_name}.deepvariant.glnexus.bcf"
     String scratch_dir = "./~{cohort_name}.~{reference_name}.GLnexus.DB"
@@ -27,7 +25,7 @@ task glnexus_task {
   }
 
   Float multiplier = 3.25
-  Int disk_size = ceil(multiplier * (size(affected_person_gvcfs, "GB") + size(affected_person_gvcfs_index, "GB") + size(unaffected_person_gvcfs, "GB") + size(unaffected_person_gvcfs_index, "GB"))) + 20
+  Int disk_size = ceil(multiplier * (size(person_gvcfs, "GB") + size(person_gvcfs_index, "GB"))) + 20
 
   command <<<
     echo requested disk_size =  ~{disk_size}
@@ -35,7 +33,7 @@ task glnexus_task {
     (
         glnexus_cli --threads ~{threads} \
             --dir ~{scratch_dir} \
-            --config DeepVariant_unfiltered ~{sep=" " affected_person_gvcfs}  ~{sep=" " unaffected_person_gvcfs} > ~{bcf_name}
+            --config DeepVariant_unfiltered ~{sep=" " person_gvcfs}  > ~{bcf_name}
      )  > ~{log_name} 2>&1
   >>>
   output {
@@ -152,10 +150,8 @@ task whatshap_phase {
 
     IndexedData reference
     IndexedData vcf
-    Array[File] phaseinput_affected
-    Array[File] phaseinputindex_affected
-    Array[File] phaseinput_unaffected
-    Array[File] phaseinputindex_unaffected
+    Array[File] phaseinput
+    Array[File] phaseinputindex
 
     String deepvariant_glnexus_phased_vcf_gz_name = "~{cohort_name}.~{reference.name}.~{chromosome}.deepvariant.glnexus.phased.vcf.gz"
 
@@ -164,7 +160,7 @@ task whatshap_phase {
   }
 
    Float multiplier = 3.25
-   Int disk_size = ceil(multiplier * (size(phaseinput_affected, "GB") + size(phaseinputindex_affected, "GB") + size(phaseinput_unaffected, "GB") + size(phaseinputindex_unaffected, "GB"))) + 20
+   Int disk_size = ceil(multiplier * (size(phaseinput, "GB") + size(phaseinputindex, "GB"))) + 20
   #Int disk_size = 500
 
   command <<<
@@ -179,7 +175,7 @@ task whatshap_phase {
         --chromosome ~{chromosome} \
         --output ~{deepvariant_glnexus_phased_vcf_gz_name} \
         --reference ~{reference.datafile} \
-        ~{vcf.datafile} ~{sep=" " phaseinput_affected} ~{sep=" " phaseinput_unaffected}
+        ~{vcf.datafile} ~{sep=" " phaseinput} 
     ) > ~{whatshap_phase_log_name} 2>&1
 
     source ~/.bashrc
@@ -307,10 +303,8 @@ task whatshap_stats {
 workflow glnexus {
   input {
     String cohort_name
-    Array[IndexedData] affected_person_gvcfs
-    Array[IndexedData] unaffected_person_gvcfs
-    Array[Array[IndexedData]] affected_person_bams
-    Array[Array[IndexedData]] unaffected_person_bams
+    Array[IndexedData] person_gvcfs
+    Array[Array[IndexedData]] person_bams
     Array[String] regions
     IndexedData reference
     File chr_lengths
@@ -319,24 +313,17 @@ workflow glnexus {
     String glnexus_image
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files as gather_affected_person_gvcfs {
+  call separate_data_and_index_files.separate_data_and_index_files as gather_person_gvcfs {
     input:
-      indexed_data_array = affected_person_gvcfs
-  }
-
-  call separate_data_and_index_files.separate_data_and_index_files as gather_unaffected_person_gvcfs {
-    input:
-      indexed_data_array = unaffected_person_gvcfs
+      indexed_data_array = person_gvcfs
   }
 
   call glnexus_task {
     input:
       cohort_name = cohort_name,
       reference_name = reference.name,
-      affected_person_gvcfs = gather_affected_person_gvcfs.datafiles,
-      affected_person_gvcfs_index = gather_affected_person_gvcfs.indexfiles,
-      unaffected_person_gvcfs = gather_unaffected_person_gvcfs.datafiles,
-      unaffected_person_gvcfs_index = gather_unaffected_person_gvcfs.indexfiles,
+      person_gvcfs = gather_person_gvcfs.datafiles,
+      person_gvcfs_index = gather_person_gvcfs.indexfiles,
       glnexus_image = glnexus_image
   }
 
@@ -365,15 +352,8 @@ workflow glnexus {
     }
   }
 
-  scatter (sample_bams in affected_person_bams) {
-    call separate_data_and_index_files.separate_data_and_index_files as gather_affected_person_bams_and_bais  {
-      input:
-        indexed_data_array = sample_bams
-    }
-  }
-
-  scatter (sample_bams in unaffected_person_bams) {
-    call separate_data_and_index_files.separate_data_and_index_files as gather_unaffected_person_bams_and_bais  {
+  scatter (sample_bams in person_bams) {
+    call separate_data_and_index_files.separate_data_and_index_files as gather_person_bams_and_bais  {
       input:
         indexed_data_array = sample_bams
     }
@@ -385,10 +365,8 @@ workflow glnexus {
         cohort_name = cohort_name,
         reference = reference,
         vcf = bgzip_vcf.vcf_gz_output[region_num],
-        phaseinput_affected = flatten(gather_affected_person_bams_and_bais.datafiles),
-        phaseinputindex_affected = flatten(gather_affected_person_bams_and_bais.indexfiles),
-        phaseinput_unaffected = flatten(gather_unaffected_person_bams_and_bais.datafiles),
-        phaseinputindex_unaffected = flatten(gather_unaffected_person_bams_and_bais.indexfiles),
+        phaseinput = flatten(gather_person_bams_and_bais.datafiles),
+        phaseinputindex = flatten(gather_person_bams_and_bais.indexfiles),
         chromosome = regions[region_num],
         pb_conda_image = pb_conda_image
     }

@@ -2,6 +2,8 @@ version 1.0
 
 import "./structs.wdl"
 
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+
 task separate_data_and_index_files_single {
   input {
     IndexedData indexed_data

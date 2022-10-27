@@ -3,8 +3,8 @@ version 1.0
 #import "./smrtcells.wdl" as smrtcells
 #import "../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.wdl" as smrtcells
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.wdl" as smrtcells
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow smrtcells_person {
   input {
@@ -30,11 +30,12 @@ workflow smrtcells_person {
   }
 
   output {
-    Array[IndexedData] ubams     = smrtcells.ubam
     Array[IndexedData] bams     = smrtcells.bam
     Array[File?] jellyfish_count = smrtcells.count_jf
     String sample_names  = sample.name
     Array[File?] movie_modimers = smrtcells.movie_modimers
-    Array[String?] parents_names = sample.parents
+    Array[String] parents_names = sample.parents
+    Pair[String, Array[File]] sample_fasta = (sample.name, smrtcells.movie_fasta)
   }
 }
+

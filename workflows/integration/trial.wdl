@@ -1,24 +1,30 @@
 version 1.0
 
 #import "../smrtcells/smrtcells.trial.wdl"
-#import "../sample/sample_trio.trial.wdl"
 #import "../sample/sample.trial.wdl"
 #import "../cohort/cohort.wdl"
 #import "../common/structs.wdl"
+#import "../hifiasm/sample_hifiasm.cohort.wdl"
+#import "../hifiasm/trio_hifiasm.cohort.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/sample_trio.trial.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/trio_hifiasm.cohort.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/sample_hifiasm.cohort.wdl"
 
 workflow trial {
   input {
     String cohort_name
     IndexedData reference
+
     File regions_file
-    CohortInfo cohort_info
+
+    Array[SampleInfo] cohort_info
     Int kmer_length
+
+    Array[String] parents_list
 
     File tr_bed
     File chr_lengths
@@ -41,143 +47,134 @@ workflow trial {
     String glnexus_image
 
     File ref_modimers
-
+    
     Boolean run_jellyfish = false                         #default is to NOT run jellyfish
 
     Boolean trioeval = false                              #default is to NOT run trioeval
     Boolean triobin = false                              #default is to NOT run triobin
 
     File tg_list
+    File tg_bed
     File score_matrix
+    LastIndexedData last_reference
+
   }
 
-  call smrtcells.trial.smrtcells_trial {
+  Array[String] regions = read_lines(regions_file)
+
+  #call smrtcells/smrtcells.trial.wdl
+  call smrtcells.trial.smrtcells_cohort {
     input:
       reference = reference,
       cohort_info = cohort_info,
       kmer_length = kmer_length,
 
       pb_conda_image = pb_conda_image,
-      run_jellyfish = run_jellyfish,
+      run_jellyfish = run_jellyfish
   }
 
-  Array[String] regions = read_lines(regions_file)
 
-
-
-  call sample_trio.trial.sample_trio {
-    input:
-      affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
-      affected_person_sample            = smrtcells_trial.affected_person_bams,
-      affected_person_sample_ubam       = smrtcells_trial.affected_person_ubams,
-      affected_person_parents_names     = smrtcells_trial.affected_person_parents_names,
-      unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
-      unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
-      unaffected_person_sample_ubam     = smrtcells_trial.unaffected_person_ubams,
-      unaffected_person_parents_names   = smrtcells_trial.unaffected_person_parents_names,
-      pb_conda_image = pb_conda_image,
-      reference = reference,
-      trioeval = trioeval,
-      triobin = triobin,
-      cohort_info = cohort_info
-
+  #run sample-level hifiasm -- call hifiasm/sample_hifiasm.cohort.wdl for all samples
+  call sample_hifiasm.cohort.sample_hifiasm_cohort {
+     input:
+       fasta_info = smrtcells_cohort.fasta_info,
+       reference = reference,
+       pb_conda_image = pb_conda_image
   }
 
-  call sample.trial.sample_trial {
+  #call sample/sample.trial.wdl for all samples defined in this family
+  call sample.trial.sample_family {
     input:
-    affected_person_sample_names      = smrtcells_trial.affected_person_sample_names,
-    affected_person_sample            = smrtcells_trial.affected_person_bams,
-    affected_person_sample_ubam       = smrtcells_trial.affected_person_ubams,
-    affected_person_jellyfish_input   = smrtcells_trial.affected_person_jellyfish_count,
-    affected_person_movie_modimers   = smrtcells_trial.affected_person_movie_modimers,
-    unaffected_person_sample_names    = smrtcells_trial.unaffected_person_sample_names,
-    unaffected_person_sample          = smrtcells_trial.unaffected_person_bams,
-    unaffected_person_sample_ubam     = smrtcells_trial.unaffected_person_ubams,
-    unaffected_person_jellyfish_input = smrtcells_trial.unaffected_person_jellyfish_count,
-    unaffected_person_movie_modimers   = smrtcells_trial.unaffected_person_movie_modimers,
+      person_sample_names      = smrtcells_cohort.person_sample_names,
+      person_sample            = smrtcells_cohort.person_bams,
+      person_jellyfish_input   = smrtcells_cohort.person_jellyfish_count,
 
-    regions = regions,
-    reference = reference,
-
-    ref_modimers = ref_modimers,
-
-    tr_bed = tr_bed,
-    chr_lengths = chr_lengths,
-
-    pb_conda_image = pb_conda_image,
-    deepvariant_image = deepvariant_image,
-
-    run_jellyfish = run_jellyfish,
-
-    tg_list = tg_list,
-    score_matrix = score_matrix
-  }
-
-  call cohort.cohort {
-    input:
-      cohort_name = cohort_name,
       regions = regions,
       reference = reference,
 
-      affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
-      unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
+      ref_modimers = ref_modimers,
+      person_movie_modimers = smrtcells_cohort.person_movie_modimers,
 
+      tr_bed = tr_bed,
       chr_lengths = chr_lengths,
 
-      hpoannotations = hpoannotations,
-      hpoterms = hpoterms,
-      hpodag = hpodag,
-      gff = gff,
-      ensembl_to_hgnc = ensembl_to_hgnc,
-      js = js,
-      lof_lookup = lof_lookup,
-      clinvar_lookup = clinvar_lookup,
-      gnomad_af = gnomad_af,
-      hprc_af = hprc_af,
-      allyaml = allyaml,
-      ped = ped,
-
-      affected_person_svsigs = sample_trial.affected_person_svsig_gv,
-      unaffected_person_svsigs = sample_trial.unaffected_person_svsig_gv,
-
-      affected_person_bams = smrtcells_trial.affected_person_bams,
-      unaffected_person_bams = smrtcells_trial.unaffected_person_bams,
-      affected_person_gvcfs = sample_trial.affected_person_gvcf,
-      unaffected_person_gvcfs = sample_trial.unaffected_person_gvcf,
-
       pb_conda_image = pb_conda_image,
-      glnexus_image = glnexus_image
+      deepvariant_image = deepvariant_image,
+
+      run_jellyfish = run_jellyfish,
+
+      tg_list = tg_list,
+      tg_bed = tg_bed,
+      score_matrix = score_matrix,
+      last_reference = last_reference
   }
+  
+  Int num_samples = length(smrtcells_cohort.person_sample_names)
+  Boolean cohort_run = if num_samples > 1 then true else false
+  
+  if (cohort_run) {
+    call cohort.cohort {
+      input:
+        cohort_name = cohort_name,
+        regions = regions,
+        reference = reference,
 
+        person_deepvariant_phased_vcf_gz = sample_family.person_deepvariant_phased_vcf_gz,
+
+        chr_lengths = chr_lengths,
+
+        hpoannotations = hpoannotations,
+        hpoterms = hpoterms,
+        hpodag = hpodag,
+        gff = gff,
+        ensembl_to_hgnc = ensembl_to_hgnc,
+        js = js,
+        lof_lookup = lof_lookup,
+        clinvar_lookup = clinvar_lookup,
+        gnomad_af = gnomad_af,
+        hprc_af = hprc_af,
+        allyaml = allyaml,
+        ped = ped,
+
+        person_svsigs = sample_family.person_svsig_gv,
+
+        person_bams = smrtcells_cohort.person_bams,
+        person_gvcfs = sample_family.person_gvcf,
+
+        pb_conda_image = pb_conda_image,
+        glnexus_image = glnexus_image
+    }
+  }
+  
+  Int num_parents_list = length(parents_list)
+  Boolean trio_yak = if num_parents_list == 2 then true else false
+
+  #Run trio-level hifiasm -- call hifiasm/trio_hifiasm.cohort.wdl only if both parents exist
+  if (trio_yak){
+    call trio_hifiasm.cohort.trio_hifiasm_cohort {
+      input:
+       fasta_info = smrtcells_cohort.fasta_info,
+       person_parents_names = smrtcells_cohort.person_parents_names,
+       parents_list = parents_list,
+       pb_conda_image = pb_conda_image,
+       reference = reference,
+       trioeval = trioeval,
+       triobin = triobin
+    }
+  }
+  
   output {
-    Array[Array[IndexedData]] affected_person_bams        = smrtcells_trial.affected_person_bams
-    Array[Array[File?]] affected_person_jellyfish_count    = smrtcells_trial.affected_person_jellyfish_count
+    Array[Array[IndexedData]] person_bams        = smrtcells_cohort.person_bams
+    Array[Array[File?]] person_jellyfish_count    = smrtcells_cohort.person_jellyfish_count
 
-    Array[Array[IndexedData]] unaffected_person_bams      = smrtcells_trial.unaffected_person_bams
-    Array[Array[File?]] unaffected_person_jellyfish_count  = smrtcells_trial.unaffected_person_jellyfish_count
+    Array[IndexedData] person_gvcf                        = sample_family.person_gvcf
+    Array[Array[Array[File]]] person_svsig_gv             = sample_family.person_svsig_gv
+    Array[IndexedData] person_deepvariant_phased_vcf_gz   = sample_family.person_deepvariant_phased_vcf_gz
 
-    Array[IndexedData] affected_person_gvcf                        = sample_trial.affected_person_gvcf
-    Array[Array[Array[File]]] affected_person_svsig_gv             = sample_trial.affected_person_svsig_gv
-    Array[IndexedData] affected_person_deepvariant_phased_vcf_gz   = sample_trial.affected_person_deepvariant_phased_vcf_gz
+    Array[File?] person_tandem_genotypes           = sample_family.person_tandem_genotypes
+    Array[File?] person_tandem_genotypes_absolute  = sample_family.person_tandem_genotypes_absolute
+    Array[File?] person_tandem_genotypes_plot      = sample_family.person_tandem_genotypes_plot
+    Array[File?] person_tandem_genotypes_dropouts  = sample_family.person_tandem_genotypes_dropouts
 
-    Array[IndexedData] unaffected_person_gvcf                      = sample_trial.unaffected_person_gvcf
-    Array[Array[Array[File]]] unaffected_person_svsig_gv           = sample_trial.unaffected_person_svsig_gv
-    Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz
-
-    Array[File?] affected_person_tandem_genotypes           = sample_trial.affected_person_tandem_genotypes
-    Array[File?] affected_person_tandem_genotypes_absolute  = sample_trial.affected_person_tandem_genotypes_absolute
-    Array[File?] affected_person_tandem_genotypes_plot      = sample_trial.affected_person_tandem_genotypes_plot
-    Array[File?] affected_person_tandem_genotypes_dropouts  = sample_trial.affected_person_tandem_genotypes_dropouts
-
-    Array[File?] unaffected_person_tandem_genotypes           = sample_trial.unaffected_person_tandem_genotypes
-    Array[File?] unaffected_person_tandem_genotypes_absolute  = sample_trial.unaffected_person_tandem_genotypes_absolute
-    Array[File?] unaffected_person_tandem_genotypes_plot      = sample_trial.unaffected_person_tandem_genotypes_plot
-    Array[File?] unaffected_person_tandem_genotypes_dropouts  = sample_trial.unaffected_person_tandem_genotypes_dropouts
-
-    IndexedData pbsv_vcf    = cohort.pbsv_vcf
-    IndexedData filt_vcf    = cohort.filt_vcf
-    IndexedData comphet_vcf = cohort.comphet_vcf
-    File filt_tsv           = cohort.filt_tsv
-    File comphet_tsv        = cohort.comphet_tsv
   }
 }

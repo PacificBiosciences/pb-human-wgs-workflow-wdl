@@ -1,24 +1,22 @@
 version 1.0
 
-#import "../sample/sample.wdl"
+#import "../sample/sample.family.wdl"
 #import "../cohort/cohort.wdl"
 #import "../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow sample_cohort {
   input {
-    Array[String]             affected_person_sample_names
-    Array[Array[IndexedData]] affected_person_sample
-    Array[Array[File]]        affected_person_jellyfish_input
-    Array[String]             unaffected_person_sample_names
-    Array[Array[IndexedData]] unaffected_person_sample
-    Array[Array[File]]        unaffected_person_jellyfish_input
+    Array[String]             person_sample_names
+    Array[Array[IndexedData]] person_sample
+    Array[Array[File]]        person_jellyfish_input
 
     String cohort_name
-    File regions_file
+
+    Array[String] regions
     IndexedData reference
 
     File tr_bed
@@ -42,16 +40,13 @@ workflow sample_cohort {
     String glnexus_image
   }
 
-  call sample.trial.sample_trial {
+  call sample.trial.sample_family {
     input:
-      affected_person_sample_names = affected_person_sample_names,
-      affected_person_sample = affected_person_sample,
-      affected_person_jellyfish_input = affected_person_jellyfish_input,
-      unaffected_person_sample_names = unaffected_person_sample_names,
-      unaffected_person_sample = unaffected_person_sample,
-      unaffected_person_jellyfish_input = unaffected_person_jellyfish_input,
+      person_sample_names = person_sample_names,
+      person_sample = person_sample,
+      person_jellyfish_input = person_jellyfish_input,
 
-      regions_file = regions_file,
+      regions = regions
       reference = reference,
 
       tr_bed = tr_bed,
@@ -64,13 +59,13 @@ workflow sample_cohort {
   call cohort.cohort {
     input:
       cohort_name = cohort_name,
-      regions_file = regions_file,
+      #regions_file = regions_file,
+      regions = regions
       reference = reference,
-      chr_lengths = chr_lengths, 
+      chr_lengths = chr_lengths,
 
-      affected_person_deepvariant_phased_vcf_gz = sample_trial.affected_person_deepvariant_phased_vcf_gz,
-      unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz,
-      
+      person_deepvariant_phased_vcf_gz = sample_family.person_deepvariant_phased_vcf_gz,
+
       hpoannotations = hpoannotations,
       hpoterms = hpoterms,
       hpodag = hpodag,
@@ -84,26 +79,19 @@ workflow sample_cohort {
       allyaml = allyaml,
       ped = ped,
 
-      affected_person_svsigs = sample_trial.affected_person_svsig_gv,
-      unaffected_person_svsigs = sample_trial.unaffected_person_svsig_gv,
+      person_svsigs = sample_family.person_svsig_gv,
 
-      affected_person_bams = affected_person_sample,
-      unaffected_person_bams = unaffected_person_sample,
-      affected_person_gvcfs = sample_trial.affected_person_gvcf,
-      unaffected_person_gvcfs = sample_trial.unaffected_person_gvcf,
+      person_bams  = person_sample,
+      person_gvcfs = sample_family.person_gvcf,
 
       pb_conda_image = pb_conda_image,
       glnexus_image = glnexus_image
   }
 
   output {
-    Array[IndexedData] affected_person_gvcf                        = sample_trial.affected_person_gvcf
-    Array[Array[Array[File]]] affected_person_svsig_gv             = sample_trial.affected_person_svsig_gv
-    Array[IndexedData] affected_person_deepvariant_phased_vcf_gz   = sample_trial.affected_person_deepvariant_phased_vcf_gz
-
-    Array[IndexedData] unaffected_person_gvcf                      = sample_trial.unaffected_person_gvcf
-    Array[Array[Array[File]]] unaffected_person_svsig_gv           = sample_trial.unaffected_person_svsig_gv
-    Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz = sample_trial.unaffected_person_deepvariant_phased_vcf_gz
+    Array[IndexedData] person_gvcf                        = sample_family.person_gvcf
+    Array[Array[Array[File]]] person_svsig_gv             = sample_family.person_svsig_gv
+    Array[IndexedData] person_deepvariant_phased_vcf_gz   = sample_family.person_deepvariant_phased_vcf_gz
 
     IndexedData pbsv_vcf    = cohort.pbsv_vcf
     IndexedData filt_vcf    = cohort.filt_vcf

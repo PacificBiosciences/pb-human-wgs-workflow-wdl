@@ -1,12 +1,12 @@
 version 1.0
 
 #import "../smrtcells/smrtcells.person.wdl"
-#import "../sample/sample.person.wdl"
+#import "../sample/sample.wdl"
 #import "../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.person.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.person.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.wdl"
+import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow smrtcells_sample_person {
   input {
@@ -22,6 +22,8 @@ workflow smrtcells_sample_person {
     String deepvariant_image
   }
 
+  Array[String] regions = read_lines(regions_file)
+
   call smrtcells.person.smrtcells_person  {
     input :
         reference = reference,
@@ -36,7 +38,7 @@ workflow smrtcells_sample_person {
       sample_name = sample_info.name,
       sample = smrtcells_person.bams,
       jellyfish_input = smrtcells_person.jellyfish_count,
-      regions_file = regions_file,
+      regions = regions,
       reference = reference,
 
       tr_bed = tr_bed,
