@@ -109,42 +109,41 @@ workflow trial {
       last_reference = last_reference
   }
   
-  Int num_samples = length(smrtcells_cohort.person_sample_names)
-  Boolean cohort_run = if num_samples > 1 then true else false
+  #Int num_samples = length(smrtcells_cohort.person_sample_names)
+  #Boolean cohort_run = if num_samples > 1 then true else false
   
-  if (cohort_run) {
-    call cohort.cohort {
-      input:
-        cohort_name = cohort_name,
-        regions = regions,
-        reference = reference,
+  call cohort.cohort {
+    input:
+      cohort_name = cohort_name,
+      regions = regions,
+      reference = reference,
 
-        person_deepvariant_phased_vcf_gz = sample_family.person_deepvariant_phased_vcf_gz,
+      person_deepvariant_phased_vcf_gz = sample_family.person_deepvariant_phased_vcf_gz,
 
-        chr_lengths = chr_lengths,
+      chr_lengths = chr_lengths,
 
-        hpoannotations = hpoannotations,
-        hpoterms = hpoterms,
-        hpodag = hpodag,
-        gff = gff,
-        ensembl_to_hgnc = ensembl_to_hgnc,
-        js = js,
-        lof_lookup = lof_lookup,
-        clinvar_lookup = clinvar_lookup,
-        gnomad_af = gnomad_af,
-        hprc_af = hprc_af,
-        allyaml = allyaml,
-        ped = ped,
+      hpoannotations = hpoannotations,
+      hpoterms = hpoterms,
+      hpodag = hpodag,
+      gff = gff,
+      ensembl_to_hgnc = ensembl_to_hgnc,
+      js = js,
+      lof_lookup = lof_lookup,
+      clinvar_lookup = clinvar_lookup,
+      gnomad_af = gnomad_af,
+      hprc_af = hprc_af,
+      allyaml = allyaml,
+      ped = ped,
 
-        person_svsigs = sample_family.person_svsig_gv,
+      person_svsigs = sample_family.person_svsig_gv,
 
-        person_bams = smrtcells_cohort.person_bams,
-        person_gvcfs = sample_family.person_gvcf,
+      person_bams = smrtcells_cohort.person_bams,
+      person_gvcfs = sample_family.person_gvcf,
 
-        pb_conda_image = pb_conda_image,
-        glnexus_image = glnexus_image
-    }
+      pb_conda_image = pb_conda_image,
+      glnexus_image = glnexus_image
   }
+ 
   
   Int num_parents_list = length(parents_list)
   Boolean trio_yak = if num_parents_list == 2 then true else false
