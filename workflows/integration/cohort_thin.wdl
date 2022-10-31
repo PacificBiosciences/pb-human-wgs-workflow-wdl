@@ -8,6 +8,11 @@ version 1.0
 import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
 
+struct SvsigInfo {
+  String name
+  String path
+  Array[String] movie
+}
 
 workflow cohort_thin {
   input {
@@ -33,13 +38,23 @@ workflow cohort_thin {
     String glnexus_image
 
     Array[IndexedData] person_deepvariant_phased_vcf_gz
-    Array[Array[Array[File]]] person_svsigs
+    Array[SvsigInfo] svsig_info
     Array[IndexedData] person_gvcfs
     Array[Array[IndexedData]] person_bams
     
   }
 
   Array[String] regions = read_lines(regions_file)
+
+  scatter (sample in svsig_info) {
+    scatter (region in regions){
+      scatter (movie in sample.movie) {
+        String svsigs = "~{sample.path}/~{movie}.hg38.~{region}.svsig.gz"
+      }
+    }
+  }
+
+  Array[Array[Array[File]]] person_svsigs = svsigs
 
   call cohort.cohort {
     input:
