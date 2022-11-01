@@ -8,12 +8,6 @@ version 1.0
 import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
 
-struct PacBioInfo {
-  String name
-  String path
-  Array[String] movie
-}
-
 workflow cohort_thin {
   input {
     String cohort_name

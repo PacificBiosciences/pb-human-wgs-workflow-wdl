@@ -29,3 +29,9 @@ struct SampleInfo {
   Array[String] parents
   Array[SmrtcellInfo] smrtcells
 }
+
+struct PacBioInfo {
+  String name
+  String path
+  Array[String] movie
+}
