@@ -8,7 +8,7 @@ version 1.0
 import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
 
-struct SvsigInfo {
+struct PacBioInfo {
   String name
   String path
   Array[String] movie
@@ -37,23 +37,37 @@ workflow cohort_thin {
     String pb_conda_image
     String glnexus_image
 
-    Array[IndexedData] person_deepvariant_phased_vcf_gz
-    Array[SvsigInfo] svsig_info
-    Array[IndexedData] person_gvcfs
-    Array[Array[IndexedData]] person_bams
-    
+    Array[PacBioInfo] data_info
   }
 
   Array[String] regions = read_lines(regions_file)
 
-  scatter (sample in svsig_info) {
+  String phase_tag = "hg38.deepvariant.phased.vcf.gz"
+  scatter (sample in data_info) {
+    IndexedData phased_vcf = {"datafile":"~{sample.path}/~{sample.name}.~{phase_tag}", "indexfile":"~{sample.path}/~{sample.name}.~{phase_tag}.tbi"}
+  }
+  Array[IndexedData] person_deepvariant_phased_vcf_gz = phased_vcf
+
+  String gvcf_tag = "hg38.deepvariant.g.vcf.gz"
+  scatter (sample in data_info) {
+    IndexedData gvcf = {"datafile":"~{sample.path}/~{sample.name}.~{gvcf_tag}", "indexfile":"~{sample.path}/~{sample.name}.~{gvcf_tag}.tbi"}
+  }
+  Array[IndexedData] person_gvcfs = gvcf
+
+  scatter (sample in data_info) {
+    scatter (movie in sample.movie) {
+      IndexedData bam = {"datafile":"~{sample.path}/~{movie}.hg38.bam", "indexfile":"~{sample.path}/~{movie}.hg38.bam.bai"}
+    }
+  }
+  Array[Array[IndexedData]] person_bams = bam
+
+  scatter (sample in data_info) {
     scatter (region in regions){
       scatter (movie in sample.movie) {
-        String svsigs = "~{sample.path}/~{movie}.hg38.~{region}.svsig.gz"
+        String svsigs = "~{sample.path}/svsigs/~{movie}.hg38.~{region}.svsig.gz"
       }
     }
   }
-
   Array[Array[Array[File]]] person_svsigs = svsigs
 
   call cohort.cohort {
