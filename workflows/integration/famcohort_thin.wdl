@@ -51,7 +51,7 @@ workflow famcohort_thin
   scatter (sample in data_info) {
     String sample_names = sample.name
     scatter (movie in sample.movie) {
-      IndexedData bam = {"datafile":"~{sample.path}/~{movie}.hg38.bam", "indexfile":"~{sample.path}/~{movie}.hg38.bam.bai"}
+      IndexedData bam = {"name":"~{movie}","datafile":"~{sample.path}/~{movie}.hg38.bam", "indexfile":"~{sample.path}/~{movie}.hg38.bam.bai"}
     }
   }
   Array[Array[IndexedData]] person_bams = bam

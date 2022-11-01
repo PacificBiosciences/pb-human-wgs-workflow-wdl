@@ -38,19 +38,19 @@ workflow cohort_thin {
 
   String phase_tag = "hg38.deepvariant.phased.vcf.gz"
   scatter (sample in data_info) {
-    IndexedData phased_vcf = {"datafile":"~{sample.path}/~{sample.name}.~{phase_tag}", "indexfile":"~{sample.path}/~{sample.name}.~{phase_tag}.tbi"}
+    IndexedData phased_vcf = {"name":"~{sample.name}","datafile":"~{sample.path}/~{sample.name}.~{phase_tag}", "indexfile":"~{sample.path}/~{sample.name}.~{phase_tag}.tbi"}
   }
   Array[IndexedData] person_deepvariant_phased_vcf_gz = phased_vcf
 
   String gvcf_tag = "hg38.deepvariant.g.vcf.gz"
   scatter (sample in data_info) {
-    IndexedData gvcf = {"datafile":"~{sample.path}/~{sample.name}.~{gvcf_tag}", "indexfile":"~{sample.path}/~{sample.name}.~{gvcf_tag}.tbi"}
+    IndexedData gvcf = {"name":"~{sample.name}","datafile":"~{sample.path}/~{sample.name}.~{gvcf_tag}", "indexfile":"~{sample.path}/~{sample.name}.~{gvcf_tag}.tbi"}
   }
   Array[IndexedData] person_gvcfs = gvcf
 
   scatter (sample in data_info) {
     scatter (movie in sample.movie) {
-      IndexedData bam = {"datafile":"~{sample.path}/~{movie}.hg38.bam", "indexfile":"~{sample.path}/~{movie}.hg38.bam.bai"}
+      IndexedData bam = {"name":"~{movie}","datafile":"~{sample.path}/~{movie}.hg38.bam", "indexfile":"~{sample.path}/~{movie}.hg38.bam.bai"}
     }
   }
   Array[Array[IndexedData]] person_bams = bam
