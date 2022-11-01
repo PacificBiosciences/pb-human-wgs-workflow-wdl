@@ -11,6 +11,7 @@ import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/mai
 workflow famcohort_thin
 {
   input {
+    String cohort_name
     Array[PacBioInfo] data_info
 
     File regions_file
@@ -36,6 +37,7 @@ workflow famcohort_thin
 
     String pb_conda_image
     String deepvariant_image
+    String glnexus_image
 
     File tr_bed
     File tg_list
@@ -85,7 +87,6 @@ workflow famcohort_thin
 
       pb_conda_image = pb_conda_image,
       deepvariant_image = deepvariant_image,
-      glnexus_image = glnexus_image,
 
       tr_bed = tr_bed,
       tg_list = tg_list,
