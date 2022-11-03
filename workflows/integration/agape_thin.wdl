@@ -74,9 +74,9 @@ workflow agape {
 
   Array[String] regions = read_lines(regions_file)
 
-  scatter (s in pacbio_info) {
+  scatter (samp in pacbio_info) {
     scatter (movie in s.movies) {
-      SmrtcellInfo smrtcell = {"name": "~{s.name}","path": "~{s.path}/~{movie}.~{s.postfix}","isUbam": s.isUbam}
+      SmrtcellInfo smrtcell = {"name": "~{samp.name}","path": "~{samp.path}/~{movie}.~{samp.postfix}","isUbam": true}
     }
   }
   Array[Array[SmrtcellInfo]] smrtcells = smrtcell
