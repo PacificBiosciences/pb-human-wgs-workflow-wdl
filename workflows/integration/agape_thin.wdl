@@ -76,7 +76,7 @@ workflow agape {
 
   scatter (s in pacbio_info) {
     scatter (movie in s.movies) {
-      SmrtcellInfo smrtcell = {"name": "~{s.name}","path": "~{s.path}/~{movie}.~{s.postfix}","isUbam": ~{s.isUbam}}
+      SmrtcellInfo smrtcell = {"name": "~{s.name}","path": "~{s.path}/~{movie}.~{s.postfix}","isUbam": s.isUbam}
     }
   }
   Array[Array[SmrtcellInfo]] smrtcells = smrtcell
