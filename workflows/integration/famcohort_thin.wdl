@@ -1,5 +1,6 @@
 version 1.0
 
+# Using struct PacBioInfo to simplify input data for process.smrtcells' output
 #import "../sample/sample.trial.wdl"
 #import "../cohort/cohort.wdl"
 #import "../common/structs.wdl"
