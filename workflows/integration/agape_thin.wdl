@@ -79,8 +79,12 @@ workflow agape {
     scatter (movie in s.movies) {
       SmrtcellInfo smrtcell = {"name":"~{s.name}","path":"~{s.path}/~{movie}.~{s.postfix}","isUbam":s.isUbam}
     }
-    Array[SmrtcellInfo] smrtcells = smrtcell
-    SampleInfo sample_info = {"name":"~{s.name}","affected":s.affected,"parents":s.parents,"smrtcells":smrtcells}
+  }
+  Array[Array[SmrtcellInfo]] smrtcells = smrtcell
+
+  Int num_samples = length(pacbio_info)
+  scatter (n in range(num_samples)) {
+    SampleInfo sample_info = {"name":"~{pacbio_info[n].name}","affected":pacbio_info[n].affected,"parents":pacbio_info[n].parents,"smrtcells":smrtcells[n]}
   }
   Array[SampleInfo] cohort_info = sample_info
 
