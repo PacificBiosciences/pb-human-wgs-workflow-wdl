@@ -61,10 +61,9 @@ workflow agape {
 
     File ref_modimers
     
-    Boolean run_jellyfish = false                         #default is to NOT run jellyfish
-
-    Boolean trioeval = false                              #default is to NOT run trioeval
-    Boolean triobin = true                              #default is to NOT run triobin
+    Boolean run_jellyfish = false   #default is to NOT run jellyfish
+    Boolean trioeval = false        #default is to NOT run trioeval
+    Boolean triobin = true          #default is to run triobin
 
     File tg_list
     File tg_bed
@@ -77,14 +76,14 @@ workflow agape {
 
   scatter (s in pacbio_info) {
     scatter (movie in s.movies) {
-      SmrtcellInfo smrtcell = {"name":"~{s.name}","path":"~{s.path}/~{movie}.~{s.postfix}","isUbam":s.isUbam}
+      SmrtcellInfo smrtcell = {"name": "~{s.name}","path": "~{s.path}/~{movie}.~{s.postfix}","isUbam": ~{s.isUbam}}
     }
   }
   Array[Array[SmrtcellInfo]] smrtcells = smrtcell
 
   Int num_samples = length(pacbio_info)
   scatter (n in range(num_samples)) {
-    SampleInfo sample_info = {"name":"~{pacbio_info[n].name}","affected":pacbio_info[n].affected,"parents":pacbio_info[n].parents,"smrtcells":smrtcells[n]}
+    SampleInfo sample_info = {"name": "~{pacbio_info[n].name}","affected": pacbio_info[n].affected,"parents": pacbio_info[n].parents,"smrtcells": smrtcells[n]}
   }
   Array[SampleInfo] cohort_info = sample_info
 
