@@ -20,9 +20,7 @@ import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/mai
 struct PacBioSampInfo {
   String name
   Array[String] parents
-  Boolean affected
-  Boolean isUbam
-  String postfix
+  Boolean? affected
   String path
   Array[String] movies
 }
@@ -35,6 +33,8 @@ workflow agape {
     File regions_file
 
     Array[PacBioSampInfo] pacbio_info
+    Boolean ubam_bool
+    String ubam_postfix
     Int kmer_length
 
     Array[String] parents_list
@@ -76,14 +76,14 @@ workflow agape {
 
   scatter (samp in pacbio_info) {
     scatter (movie in samp.movies) {
-      SmrtcellInfo smrtcell = {"name": "~{samp.name}","path": "~{samp.path}/~{movie}.~{samp.postfix}","isUbam": true}
+      SmrtcellInfo smrtcell = {"name":"~{movie}","path":"~{samp.path}/~{movie}.~{ubam_postfix}","isUbam":ubam_bool}
     }
   }
   Array[Array[SmrtcellInfo]] smrtcells = smrtcell
 
   Int num_samples = length(pacbio_info)
   scatter (n in range(num_samples)) {
-    SampleInfo sample_info = {"name": "~{pacbio_info[n].name}","affected": pacbio_info[n].affected,"parents": pacbio_info[n].parents,"smrtcells": smrtcells[n]}
+    SampleInfo sample_info = {"name":"~{pacbio_info[n].name}","affected":pacbio_info[n].affected,"parents":pacbio_info[n].parents,"smrtcells":smrtcells[n]}
   }
   Array[SampleInfo] cohort_info = sample_info
 
