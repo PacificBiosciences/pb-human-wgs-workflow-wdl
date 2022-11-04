@@ -20,7 +20,7 @@ struct LastIndexedData{
 struct SmrtcellInfo {
   String name
   File path
-  Boolean isUbam
+  Boolean? isUbam
 }
 
 struct SampleInfo {
