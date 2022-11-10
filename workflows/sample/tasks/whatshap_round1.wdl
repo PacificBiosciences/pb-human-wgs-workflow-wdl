@@ -1,14 +1,14 @@
 version 1.0
 
-#import "../../common/structs.wdl"
-#import "./common.wdl" as common
-#import "./samtools_index_bam.wdl" as samtools_common
-#import "../../common/separate_data_and_index_files.wdl"
+import "../../common/structs.wdl"
+import "./common.wdl" as common
+import "./samtools_index_bam.wdl" as samtools_common
+import "../../common/separate_data_and_index_files.wdl"
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/common.wdl" as common
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/samtools_index_bam.wdl" as samtools_common
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/common.wdl" as common
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/samtools_index_bam.wdl" as samtools_common
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
 
 task split_deepvariant_vcf_round1 {
   input {

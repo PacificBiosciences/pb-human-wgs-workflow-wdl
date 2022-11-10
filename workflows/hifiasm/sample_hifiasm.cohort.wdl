@@ -1,11 +1,11 @@
 version 1.0
 
-#import "../common/structs.wdl"
-#import "./tasks/hifiasm.wdl"
+import "../common/structs.wdl"
+import "./tasks/hifiasm.wdl" as hifiasm
 
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/tasks/hifiasm.wdl" as hifiasm
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/tasks/hifiasm.wdl" as hifiasm
 
 workflow sample_hifiasm_cohort {
   input {

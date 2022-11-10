@@ -1,12 +1,12 @@
 version 1.0
 
-#import "../../common/structs.wdl"
-#import "./common_bgzip_vcf.wdl" as bgzip_vcf
-#import "../../common/separate_data_and_index_files.wdl"
+import "../../common/structs.wdl"
+import "./common_bgzip_vcf.wdl" as bgzip_vcf
+import "../../common/separate_data_and_index_files.wdl"
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
 
 task glnexus_task {
   input {

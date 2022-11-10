@@ -1,13 +1,13 @@
 version 1.0
 
 # Using struct PacBioInfo to simplify input data from process.[smrtcells|samples] output
-#
 #to run cohort.wdl standalone
-#import "../common/structs.wdl"
-#import "../cohort/cohort.wdl"
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
+import "../common/structs.wdl"
+import "../cohort/cohort.wdl"
+
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
 
 workflow cohort_thin {
   input {

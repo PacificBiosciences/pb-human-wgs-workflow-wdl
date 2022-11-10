@@ -1,20 +1,20 @@
 version 1.0
 
-#import "./tasks/pbmm2.wdl" as pbmm2
-#import "./tasks/mosdepth.wdl" as mosdepth
-#import "./tasks/stats.wdl" as stats
-#import "./tasks/coverage_qc.wdl" as coverage_qc
-#import "./tasks/jellyfish.wdl" as jellyfish
-#import "../common/structs.wdl"
-#import "../common/fasta.conversion.wdl"
+import "./tasks/pbmm2.wdl" as pbmm2
+import "./tasks/mosdepth.wdl" as mosdepth
+import "./tasks/stats.wdl" as stats
+import "./tasks/coverage_qc.wdl" as coverage_qc
+import "./tasks/jellyfish.wdl" as jellyfish
+import "../common/structs.wdl"
+import "./tasks/fasta_conversion.wdl" as fasta_conversion
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/pbmm2.wdl" as pbmm2
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/mosdepth.wdl" as mosdepth
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/stats.wdl" as stats
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/coverage_qc.wdl" as coverage_qc
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/jellyfish.wdl" as jellyfish
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/fasta_conversion.wdl" as fasta_conversion
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/pbmm2.wdl" as pbmm2
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/mosdepth.wdl" as mosdepth
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/stats.wdl" as stats
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/coverage_qc.wdl" as coverage_qc
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/jellyfish.wdl" as jellyfish
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/tasks/fasta_conversion.wdl" as fasta_conversion
 
 workflow smrtcells {
   input {

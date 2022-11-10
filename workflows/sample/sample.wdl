@@ -1,26 +1,28 @@
 version 1.0
 
-#import "./tasks/common.wdl" as common
-#import "./tasks/pbsv.wdl" as pbsv
-#import "./tasks/deepvariant_round1.wdl" as deepvariant_round1
-#import "./tasks/deepvariant_round2.wdl" as deepvariant_round2
-#import "./tasks/jellyfish.wdl" as jellyfish
-#import "./tasks/mosdepth.wdl" as mosdepth
-#import "./tasks/whatshap_round1.wdl" as whatshap_round1
-#import "./tasks/whatshap_round2.wdl" as whatshap_round2
-#import "../common/structs.wdl"
+import "./tasks/common.wdl" as common
+import "./tasks/pbsv.wdl" as pbsv
+import "./tasks/deepvariant_round1.wdl" as deepvariant_round1
+import "./tasks/deepvariant_round2.wdl" as deepvariant_round2
+import "./tasks/jellyfish.wdl" as jellyfish
+import "./tasks/check_kmer_consistency.wdl" as check_kmer_consistency
+import "./tasks/mosdepth.wdl" as mosdepth
+import "./tasks/whatshap_round1.wdl" as whatshap_round1
+import "./tasks/whatshap_round2.wdl" as whatshap_round2
+import "./tasks/tandem_genotypes.wdl" as tandem_genotypes
+import "../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/common.wdl" as common
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/pbsv.wdl" as pbsv
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/deepvariant_round1.wdl" as deepvariant_round1
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/deepvariant_round2.wdl" as deepvariant_round2
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/jellyfish.wdl" as jellyfish
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/check_kmer_consistency.wdl" as check_kmer_consistency
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/mosdepth.wdl" as mosdepth
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/whatshap_round1.wdl" as whatshap_round1
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/whatshap_round2.wdl" as whatshap_round2
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/tandem_genotypes.wdl" as tandem_genotypes
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/common.wdl" as common
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/pbsv.wdl" as pbsv
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/deepvariant_round1.wdl" as deepvariant_round1
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/deepvariant_round2.wdl" as deepvariant_round2
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/jellyfish.wdl" as jellyfish
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/check_kmer_consistency.wdl" as check_kmer_consistency
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/mosdepth.wdl" as mosdepth
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/whatshap_round1.wdl" as whatshap_round1
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/whatshap_round2.wdl" as whatshap_round2
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/tandem_genotypes.wdl" as tandem_genotypes
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow sample {
   input {

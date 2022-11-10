@@ -1,10 +1,10 @@
 version 1.0
 
-#import "./smrtcells.person.wdl" as smrtcells_person
-#import "../common/structs.wdl"
+import "./smrtcells.person.wdl" as smrtcells_person
+import "../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.person.wdl" as smrtcells_person
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.person.wdl" as smrtcells_person
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow smrtcells_cohort {
   input {

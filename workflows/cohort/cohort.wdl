@@ -1,15 +1,15 @@
 version 1.0
 
-#import "./tasks/pbsv.wdl"
-#import "./tasks/glnexus.wdl"
-#import "./tasks/slivar.wdl"
-#import "../common/structs.wdl"
+import "./tasks/pbsv.wdl" as pbsv
+import "./tasks/glnexus.wdl" as glnexus
+import "./tasks/slivar.wdl" as slivar
+import "../common/structs.wdl"
 
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/pbsv.wdl" as pbsv
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/glnexus.wdl" as glnexus
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/slivar.wdl" as slivar
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/pbsv.wdl" as pbsv
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/glnexus.wdl" as glnexus
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/slivar.wdl" as slivar
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow cohort {
   input {

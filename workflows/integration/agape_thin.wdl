@@ -1,29 +1,21 @@
 version 1.0
 
-#main workflow: agape_thin.wdl -- simplify the input-data for PacBio-samples
+#main workflow: agape_thin.wdl -- furthur simplify the input-data for PacBio-samples and use: Array{PacBioSampInfo}
 
-#import "../smrtcells/smrtcells.trial.wdl"
-#import "../sample/sample.trial.wdl"
-#import "../cohort/cohort.wdl"
-#import "../common/structs.wdl"
-#import "../hifiasm/sample_hifiasm.cohort.wdl"
-#import "../hifiasm/trio_hifiasm.cohort.wdl"
+import "../smrtcells/smrtcells.trial.wdl"
+import "../sample/sample.trial.wdl"
+import "../cohort/cohort.wdl"
+import "../common/structs.wdl"
+import "../hifiasm/sample_hifiasm.cohort.wdl"
+import "../hifiasm/trio_hifiasm.cohort.wdl"
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/trio_hifiasm.cohort.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/sample_hifiasm.cohort.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/trio_hifiasm.cohort.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/sample_hifiasm.cohort.wdl"
 
-#THIS DATA STRUCTURE USED TO SIMPLIFY WDL-INPUT FOR PACBIO-SAMPLES
-struct PacBioSampInfo {
-  String name
-  Array[String] parents
-  Boolean? affected
-  String path
-  Array[String] movies
-}
 
 workflow agape {
   input {

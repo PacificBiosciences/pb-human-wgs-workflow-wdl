@@ -1,18 +1,20 @@
 version 1.0
 
-#import "../smrtcells/smrtcells.trial.wdl"
-#import "../sample/sample.trial.wdl"
-#import "../cohort/cohort.wdl"
-#import "../common/structs.wdl"
-#import "../hifiasm/sample_hifiasm.cohort.wdl"
-#import "../hifiasm/trio_hifiasm.cohort.wdl"
+#the main workflow entry to use the data structure in fully expansion: Array[SampleInfo]
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/trio_hifiasm.cohort.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/sample_hifiasm.cohort.wdl"
+import "../smrtcells/smrtcells.trial.wdl"
+import "../sample/sample.trial.wdl"
+import "../cohort/cohort.wdl"
+import "../common/structs.wdl"
+import "../hifiasm/sample_hifiasm.cohort.wdl"
+import "../hifiasm/trio_hifiasm.cohort.wdl"
+
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/trio_hifiasm.cohort.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/sample_hifiasm.cohort.wdl"
 
 workflow trial {
   input {

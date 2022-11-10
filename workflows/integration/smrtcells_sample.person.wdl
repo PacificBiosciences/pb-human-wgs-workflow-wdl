@@ -1,18 +1,20 @@
 version 1.0
 
-#import "../smrtcells/smrtcells.person.wdl"
-#import "../sample/sample.wdl"
-#import "../common/structs.wdl"
+# to processes of smrtcells and sample only
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.person.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "../smrtcells/smrtcells.person.wdl"
+import "../sample/sample.wdl"
+import "../common/structs.wdl"
+
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.person.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow smrtcells_sample_person {
   input {
     IndexedData reference
     File regions_file
-    SampleInfo sample_info
+    SampleInfo sample
     Int kmer_length
 
     File tr_bed
@@ -24,10 +26,10 @@ workflow smrtcells_sample_person {
 
   Array[String] regions = read_lines(regions_file)
 
-  call smrtcells.person.smrtcells_person  {
+  call smrtcells.person.smrtcells_person {
     input :
         reference = reference,
-        sample_info = sample_info,
+        sample = sample,
         kmer_length = kmer_length,
 
         pb_conda_image = pb_conda_image
@@ -35,7 +37,7 @@ workflow smrtcells_sample_person {
 
   call sample.sample {
     input:
-      sample_name = sample_info.name,
+      sample_name = sample.name,
       sample = smrtcells_person.bams,
       jellyfish_input = smrtcells_person.jellyfish_count,
       regions = regions,
@@ -49,11 +51,5 @@ workflow smrtcells_sample_person {
   }
 
   output {
-    Array[IndexedData] bams     = smrtcells_person.bams
-    Array[File] jellyfish_count = smrtcells_person.jellyfish_count
-
-    IndexedData gvcf = sample.gvcf
-    Array[Array[File]] svsig_gv = sample.svsig_gv
-    IndexedData deepvariant_phased_vcf_gz = sample.deepvariant_phased_vcf_gz
   }
 }

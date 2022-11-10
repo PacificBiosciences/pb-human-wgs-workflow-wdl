@@ -1,12 +1,12 @@
 version 1.0
 
-#import "../common/structs.wdl"
-#import "./tasks/yak.wdl"
-#import "./tasks/hifiasm_trio.wdl"
+import "../common/structs.wdl"
+import "./tasks/yak.wdl" as yak
+import "./tasks/hifiasm_trio.wdl" as hifiasm_trio_assemble
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/tasks/yak.wdl" as yak
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/tasks/hifiasm_trio.wdl" as hifiasm_trio_assemble
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/tasks/yak.wdl" as yak
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/tasks/hifiasm_trio.wdl" as hifiasm_trio_assemble
 
 workflow trio_hifiasm_cohort {
   input {

@@ -1,8 +1,8 @@
 version 1.0
 
-#import "../../common/structs.wdl"
+import "../../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 task pbsv_discover {
   input {

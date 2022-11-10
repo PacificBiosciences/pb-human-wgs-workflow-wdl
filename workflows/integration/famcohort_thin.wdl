@@ -1,13 +1,15 @@
 version 1.0
 
-# Using struct PacBioInfo to simplify input data for process.smrtcells' output
-#import "../sample/sample.trial.wdl"
-#import "../cohort/cohort.wdl"
-#import "../common/structs.wdl"
+# Using struct PacBioInfo to simplify input data to run processes of smrtcells, sample and cohort, 
+# but skip running hifiasm
 
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
-import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
+import "../sample/sample.trial.wdl"
+import "../cohort/cohort.wdl"
+import "../common/structs.wdl"
+
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
+#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
 
 workflow famcohort_thin
 {

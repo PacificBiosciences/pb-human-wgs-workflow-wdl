@@ -35,3 +35,11 @@ struct PacBioInfo {
   String path
   Array[String] movie
 }
+
+struct PacBioSampInfo {
+  String name
+  Array[String] parents
+  Boolean? affected
+  String path
+  Array[String] movies
+}
