@@ -1,7 +1,7 @@
 version 1.0
 
 # This WDL-code of pacbio-pipeline has been largely rewritten and redesigned from Venkat's mostly on the top-level by Charlie Bi at CMH 2022
-# For a redesigned outline of workflow control and dependency, see the flowchart in /workflows: pacbio wdl-workflow design on Azure/Cromwell 
+# For a redesigned outline of workflow control and dependency, see the flowchart in repo rootdir: pacbio-wdl-workflow design on Azure/Cromwell 
 #
 # This is huge amount of restructured pipeline with thousands of additions/deletions involved in 45+ WDL-files, here is a summary of major changes:
 # (1) to simplify Venkat's code by replacing all affected/unaffected lines based on a unified data structure: Array[SampleInfo] 
