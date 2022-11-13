@@ -1,7 +1,7 @@
 version 1.0
 
-# Using struct PacBioInfo to simplify input data from process.[smrtcells|samples] output
-#to run cohort.wdl standalone
+# Using struct PacBioInfo to simplify input data from previous [smrtcells|samples] output
+# cohort_thin.wdl is to run cohort.wdl standalone using new data structure, coded by Charlie Bi
 
 import "../common/structs.wdl"
 import "../cohort/cohort.wdl"

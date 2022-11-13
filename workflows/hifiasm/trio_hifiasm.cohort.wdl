@@ -1,12 +1,14 @@
 version 1.0
 
+# This is a new workflow with new algorithm to independently run yak together with trio-level hifiasm, coded by Charlie Bi
+# A new algrothm using new data input (parents_list) together with fasta_info is implemented to make yak computation easy
+# This workflow is dependent on the output/fasta_info from running smrtcells
+#
+# This new workflow is to replace Venkat's sample_trio.trial.wdl oringally resided in /sample
+
 import "../common/structs.wdl"
 import "./tasks/yak.wdl" as yak
 import "./tasks/hifiasm_trio.wdl" as hifiasm_trio_assemble
-
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/tasks/yak.wdl" as yak
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/tasks/hifiasm_trio.wdl" as hifiasm_trio_assemble
 
 workflow trio_hifiasm_cohort {
   input {

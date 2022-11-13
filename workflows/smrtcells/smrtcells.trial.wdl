@@ -1,10 +1,11 @@
 version 1.0
 
+# A simplified data structure, Array[SampleInfo], is used here, and unffacted/affected lines are all removed by Charlie Bi
+# Whenever affected/unaffected appears, it is removed and rewritten with one line of new code
+
 import "./smrtcells.person.wdl" as smrtcells_person
 import "../common/structs.wdl"
 
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.person.wdl" as smrtcells_person
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 workflow smrtcells_cohort {
   input {

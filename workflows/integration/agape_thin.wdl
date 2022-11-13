@@ -1,6 +1,9 @@
 version 1.0
 
-#main workflow: agape_thin.wdl -- furthur simplify the input-data for PacBio-samples and use: Array{PacBioSampInfo}
+# The agape_thin.wdl is to run smrtcells first, followed by samples/hifiasm/cohort in parallel using new structs, designed by Charlie Bi
+# This new workflow is to simplify input-wdl.json, an easy version of trial.wdl
+#
+# This entry workflow calls a set of sub-workflows using new structs defined in common/struct.wdl
 
 import "../smrtcells/smrtcells.trial.wdl"
 import "../sample/sample.trial.wdl"
@@ -8,14 +11,6 @@ import "../cohort/cohort.wdl"
 import "../common/structs.wdl"
 import "../hifiasm/sample_hifiasm.cohort.wdl"
 import "../hifiasm/trio_hifiasm.cohort.wdl"
-
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/trio_hifiasm.cohort.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/sample_hifiasm.cohort.wdl"
-
 
 workflow agape {
   input {
@@ -68,14 +63,23 @@ workflow agape {
 
   scatter (samp in pacbio_info) {
     scatter (movie in samp.movies) {
-       SmrtcellInfo smrtcell = object { name: "~{movie}", path: "~{samp.path}/~{movie}.~{ubam_postfix}", isUbam: ubam_bool }
+       SmrtcellInfo smrtcell = object { 
+	  name: "~{movie}", 
+	  path: "~{samp.path}/~{movie}.~{ubam_postfix}", 
+	  isUbam: ubam_bool 
+       }
     }
   }
   Array[Array[SmrtcellInfo]] smrtcells = smrtcell
 
   Int num_samples = length(pacbio_info)
   scatter (n in range(num_samples)) {
-    SampleInfo sample_info = object { name: "~{pacbio_info[n].name}", affected: pacbio_info[n].affected, parents: pacbio_info[n].parents, smrtcells: smrtcells[n] }
+    SampleInfo sample_info = object { 
+	  name: "~{pacbio_info[n].name}", 
+	  affected: pacbio_info[n].affected, 
+	  parents: pacbio_info[n].parents, 
+	  smrtcells: smrtcells[n] 
+	}
   }
   Array[SampleInfo] cohort_info = sample_info
 

@@ -1,5 +1,7 @@
 version 1.0
 
+#This new workflow is used to run yak_triobin and yak_trioeval for memory size testing, coded by Charlie Bi
+
 task yak_trioeval {
   input {
     Int threads = 16

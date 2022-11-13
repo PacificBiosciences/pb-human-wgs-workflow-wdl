@@ -1,6 +1,20 @@
 version 1.0
 
-#the main workflow entry to use the data structure in fully expansion: Array[SampleInfo]
+# This WDL-code of pacbio-pipeline has been largely rewritten and redesigned from Venkat's mostly on the top-level by Charlie Bi at CMH 2022
+# For a redesigned outline of workflow control and dependency, see the flowchart in /integration: pacbio wdl-workflow design on Azure/Cromwell 
+#
+# This is huge amount of restructured pipeline with thousands of additions/deletions involved in 45+ WDL-files, here is a summary of major changes:
+# (1) to simplify Venkat's code by replacing all affected/unaffected lines based on a unified data structure: Array[SampleInfo] 
+# (2) a set to new workflows (*_thin.wdl) are designed to furthur streamline the wdl-input.json in /integration
+# (3) to write an independent new workflow in fasta_conversion.wdl and run it once for all within smrtcells, and its output (fasta_info)
+#     will be called by the downstream tasks, i.e. jellyfish, sample-level and trio-level hifiasm-runs
+# (4) to reschedule two hifiasm workflows (sample/trio-levels) as independent unit and run them in entry workflow 
+#     in order to save running time and large disk space
+# (5) a new algorithm is designed together with parents_list data to easily run yak together with trio-level hifiasm in /hifiasm
+ 
+# A general code replacement rule from Venkat's: 
+#   Whenever affected/unaffected appear, they are removed and rewritten with one line of simplified code
+# This entry workflow calls a set of sub-workflows using data structures defined in common/struct.wdl
 
 import "../smrtcells/smrtcells.trial.wdl"
 import "../sample/sample.trial.wdl"
@@ -8,13 +22,6 @@ import "../cohort/cohort.wdl"
 import "../common/structs.wdl"
 import "../hifiasm/sample_hifiasm.cohort.wdl"
 import "../hifiasm/trio_hifiasm.cohort.wdl"
-
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.trial.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/trio_hifiasm.cohort.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/sample_hifiasm.cohort.wdl"
 
 workflow trial {
   input {

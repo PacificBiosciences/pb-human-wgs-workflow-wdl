@@ -1,15 +1,12 @@
 version 1.0
 
-# Using struct PacBioInfo to simplify input data to run processes of smrtcells, sample and cohort, 
-# but skip running hifiasm
+# famcohort_thin.wdl is to run sample.wdl/cohort.wdl using new data structure -- PacBioInfo, designed by Charlie Bi
+# The struct PacBioInfo is to simplify wdl-input.json and use smrtcells' output to drive the workflows of sample.trial and cohort.cohort, 
+# but this workflow is to skip running hifiasm (sample/trio-levels)
 
 import "../sample/sample.trial.wdl"
 import "../cohort/cohort.wdl"
 import "../common/structs.wdl"
-
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/sample/sample.trial.wdl"
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/cohort/cohort.wdl"
 
 workflow famcohort_thin
 {

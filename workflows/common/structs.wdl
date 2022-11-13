@@ -1,5 +1,7 @@
 version 1.0
 
+# modified struct SampleInfo, new structs (PacBioInfo/PacBioSampInfo) added by Charlie Bi
+
 struct IndexedData {
   String? name
   File datafile

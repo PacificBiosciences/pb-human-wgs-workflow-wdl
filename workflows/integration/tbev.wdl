@@ -1,10 +1,8 @@
 version 1.0
 
-#tbev.wdl: to run a test of triobin and/or trioeval to evaulate the memory size needed 
+#tbev.wdl: to run triobin/trioeval and test memory size, coded by Charlie Bi
 
 import "../hifiasm/triobev.wdl"
-
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/hifiasm/triobev.wdl"
 
 struct YakInfo {
   String name

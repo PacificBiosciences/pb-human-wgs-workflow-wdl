@@ -1,8 +1,9 @@
 version 1.0
 
+# This is a new workflow, orginally located wthinin other workflow
+
 import "../../common/structs.wdl"
 
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 task samtools_fasta {
   input {

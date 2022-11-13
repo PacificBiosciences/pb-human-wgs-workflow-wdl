@@ -4,9 +4,6 @@ import "./tasks/clinvar.wdl" as clinvar
 import "./tasks/ensembl.wdl" as ensembl
 import "./tasks/lof.wdl" as lof
 
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/reference/tasks/clinvar.wdl" as clinvar_lookup
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/reference/tasks/ensembl.wdl" as ensembl
-#import "https://raw.githubusercontent.com/cbi-star/pb-human-wgs-workflow-wdl/main/workflows/reference/tasks/lof.wdl" as lof
 
 workflow cohort {
     input {
