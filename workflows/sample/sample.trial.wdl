@@ -3,7 +3,7 @@ version 1.0
 # All unffacted/affected lines are removed, and replaced with unified arguments by Charlie Bi
 # Whenever affected/unaffected appears, it is removed and rewritten with one line of new code
 
-import "./sample.wdl"
+import "sample.wdl"
 import "../common/structs.wdl"
 
 

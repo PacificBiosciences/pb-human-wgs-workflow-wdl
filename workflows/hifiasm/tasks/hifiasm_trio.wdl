@@ -1,7 +1,7 @@
 version 1.0
 
 import "../../common/structs.wdl"
-import "./hifiasm.wdl" as hifiasm
+import "hifiasm.wdl" as hifiasm
 
 
 task hifiasm_trio_assemble {

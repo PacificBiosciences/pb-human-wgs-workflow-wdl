@@ -1,8 +1,8 @@
 version 1.0
 
-import "./tasks/clinvar.wdl" as clinvar
-import "./tasks/ensembl.wdl" as ensembl
-import "./tasks/lof.wdl" as lof
+import "tasks/clinvar.wdl" as clinvar
+import "tasks/ensembl.wdl" as ensembl
+import "tasks/lof.wdl" as lof
 
 
 workflow cohort {

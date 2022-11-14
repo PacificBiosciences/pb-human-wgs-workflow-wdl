@@ -1,7 +1,7 @@
 version 1.0
 
 import "../../common/structs.wdl"
-import "./common_bgzip_vcf.wdl" as bgzip_vcf
+import "common_bgzip_vcf.wdl" as bgzip_vcf
 
 
 task bcftools_norm {

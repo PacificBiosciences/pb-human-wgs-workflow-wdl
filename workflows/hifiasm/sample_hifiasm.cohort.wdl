@@ -4,7 +4,7 @@ version 1.0
 #This workflow depends on the output/fasta_info from upstream running smrtcells
 
 import "../common/structs.wdl"
-import "./tasks/hifiasm.wdl" as hifiasm
+import "tasks/hifiasm.wdl" as hifiasm
 
 
 workflow sample_hifiasm_cohort {

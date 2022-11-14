@@ -1,8 +1,8 @@
 version 1.0
 
 import "../../common/structs.wdl"
-import "./pbsv_discover.wdl" as pbsv_discover
-import "./common.wdl" as common
+import "pbsv_discover.wdl" as pbsv_discover
+import "common.wdl" as common
 import "../../common/separate_data_and_index_files.wdl"
 
 

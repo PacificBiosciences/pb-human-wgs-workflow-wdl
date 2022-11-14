@@ -2,9 +2,9 @@ version 1.0
 
 # to simplify Venkat's code by replacing affected/unaffected with unified data structure by Charlie Bi
 
-import "./tasks/pbsv.wdl" as pbsv
-import "./tasks/glnexus.wdl" as glnexus
-import "./tasks/slivar.wdl" as slivar
+import "tasks/pbsv.wdl" as pbsv
+import "tasks/glnexus.wdl" as glnexus
+import "tasks/slivar.wdl" as slivar
 import "../common/structs.wdl"
 
 

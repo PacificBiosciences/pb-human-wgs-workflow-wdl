@@ -1,7 +1,7 @@
 version 1.0
 
 import "../../common/structs.wdl"
-import "./common.wdl" as common
+import "common.wdl" as common
 import "../../common/separate_data_and_index_files.wdl"
 
 

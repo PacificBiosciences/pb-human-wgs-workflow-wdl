@@ -1,6 +1,6 @@
 version 1.0
 
-import "./common_bgzip_vcf.wdl" as bgzip_vcf
+import "common_bgzip_vcf.wdl" as bgzip_vcf
 import "../../common/structs.wdl"
 
 

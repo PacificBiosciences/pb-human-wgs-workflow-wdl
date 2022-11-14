@@ -1,8 +1,8 @@
 version 1.0
 
 import "../../common/structs.wdl"
-import "./common.wdl" as common
-import "./samtools_index_bam.wdl" as samtools_common
+import "common.wdl" as common
+import "samtools_index_bam.wdl" as samtools_common
 import "../../common/separate_data_and_index_files.wdl"
 
 

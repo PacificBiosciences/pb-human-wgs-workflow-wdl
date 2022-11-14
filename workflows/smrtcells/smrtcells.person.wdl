@@ -5,7 +5,7 @@ version 1.0
 #
 # fasta_conversion's ourtput is returned here
 
-import "./smrtcells.wdl" as smrtcells
+import "smrtcells.wdl" as smrtcells
 import "../common/structs.wdl"
 
 

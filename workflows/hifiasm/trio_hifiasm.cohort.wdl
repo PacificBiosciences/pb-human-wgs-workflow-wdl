@@ -7,8 +7,8 @@ version 1.0
 # This new workflow is to replace Venkat's sample_trio.trial.wdl oringally resided in /sample
 
 import "../common/structs.wdl"
-import "./tasks/yak.wdl" as yak
-import "./tasks/hifiasm_trio.wdl" as hifiasm_trio_assemble
+import "tasks/yak.wdl" as yak
+import "tasks/hifiasm_trio.wdl" as hifiasm_trio_assemble
 
 workflow trio_hifiasm_cohort {
   input {

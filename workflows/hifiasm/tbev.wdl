@@ -2,7 +2,7 @@ version 1.0
 
 #tbev.wdl: to run triobin/trioeval and test memory size, coded by Charlie Bi
 
-import "./triobev.wdl"
+import "triobev.wdl"
 
 struct YakInfo {
   String name
