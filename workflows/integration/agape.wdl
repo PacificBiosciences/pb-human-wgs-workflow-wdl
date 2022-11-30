@@ -23,7 +23,7 @@ import "../common/structs.wdl"
 import "../hifiasm/sample_hifiasm.cohort.wdl"
 import "../hifiasm/trio_hifiasm.cohort.wdl"
 
-workflow trial {
+workflow agape {
   input {
     String cohort_name
     IndexedData reference
