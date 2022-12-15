@@ -1,9 +1,9 @@
 {
-  "sample_trial.affected_person_sample_names": [
+  "sample_agape.person_sample_names": [
     "HG002_NA24385_son"
   ],
 
-  "sample_trial.affected_person_sample": [
+  "sample_agape.person_sample_1": [
     [
       {
         "name": "m64011_181218_235052",
@@ -38,13 +38,7 @@
     ]
   ],
   
-  "sample_trial.unaffected_person_sample_names": [
-  ],
-
-  "sample_trial.unaffected_person_sample": [
-  ],
-
-  "sample_trial.affected_person_jellyfish_input": [
+  "sample_agape.person_jellyfish_input": [
     [
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181218_235052.count.jf",
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181227_224151.count.jf",
@@ -55,7 +49,7 @@
     ]
   ],
 
-  "sample_trial.unaffected_person_jellyfish_input": [
+  "sample_agape.unaffected_person_jellyfish_input": [
   ],
-  "sample_trial.run_jellyfish": false
+  "sample_agape.run_jellyfish": false
 }

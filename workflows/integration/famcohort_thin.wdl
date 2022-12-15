@@ -4,7 +4,7 @@ version 1.0
 # The struct PacBioInfo is to simplify wdl-input.json and use smrtcells' output to drive the workflows of sample.trial and cohort.cohort, 
 # but this workflow is to skip running hifiasm (sample/trio-levels)
 
-import "../sample/sample.trial.wdl"
+import "../sample/sample.agape.wdl"
 import "../cohort/cohort.wdl"
 import "../common/structs.wdl"
 
@@ -69,8 +69,8 @@ workflow famcohort_thin
   Array[Array[File?]] person_movie_modimers = modimers
 
 
-  #call sample/sample.trial.wdl for all samples defined in this family
-  call sample.trial.sample_family {
+  #call sample/sample.agape.wdl for all samples defined in this family
+  call sample.agape.sample_family {
     input:
       person_sample_names      = person_sample_names,
       person_sample            = person_bams,

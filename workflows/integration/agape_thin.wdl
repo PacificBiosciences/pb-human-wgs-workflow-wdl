@@ -5,8 +5,8 @@ version 1.0
 #
 # This entry workflow calls a set of sub-workflows using new structs defined in common/struct.wdl
 
-import "../smrtcells/smrtcells.trial.wdl"
-import "../sample/sample.trial.wdl"
+import "../smrtcells/smrtcells.agape.wdl"
+import "../sample/sample.agape.wdl"
 import "../cohort/cohort.wdl"
 import "../common/structs.wdl"
 import "../hifiasm/sample_hifiasm.cohort.wdl"
@@ -83,8 +83,8 @@ workflow agape {
   }
   Array[SampleInfo] cohort_info = sample_info
 
-  #call smrtcells/smrtcells.trial.wdl
-  call smrtcells.trial.smrtcells_cohort {
+  #call smrtcells/smrtcells.agape.wdl
+  call smrtcells.agape.smrtcells_cohort {
     input:
       reference = reference,
       cohort_info = cohort_info,
@@ -103,8 +103,8 @@ workflow agape {
        pb_conda_image = pb_conda_image
   }
 
-  #call sample/sample.trial.wdl for all samples defined in this family
-  call sample.trial.sample_family {
+  #call sample/sample.agape.wdl for all samples defined in this family
+  call sample.agape.sample_family {
     input:
       person_sample_names      = smrtcells_cohort.person_sample_names,
       person_sample            = smrtcells_cohort.person_bams,

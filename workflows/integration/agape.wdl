@@ -1,29 +1,16 @@
 version 1.0
-
-# This WDL-code of pacbio-pipeline has been largely rewritten and redesigned from Venkat's mostly on the top-level by Charlie Bi at CMH 2022
-# For a redesigned outline of workflow control and dependency, see the flowchart in repo rootdir: pacbio-wdl-workflow design on Azure/Cromwell 
-#
-# This is huge amount of restructured pipeline with thousands of additions/deletions involved in 45+ WDL-files, here is a summary of major changes:
-# (1) to simplify Venkat's code by replacing all affected/unaffected lines based on a unified data structure: Array[SampleInfo] 
-# (2) a set to new workflows (*_thin.wdl) are designed to furthur streamline the wdl-input.json in /integration
-# (3) to write an independent new workflow in fasta_conversion.wdl and run it once for all within smrtcells, and its output (fasta_info)
-#     will be called by the downstream tasks, i.e. jellyfish, sample-level and trio-level hifiasm-runs
-# (4) to reschedule two hifiasm workflows (sample/trio-levels) as independent unit and run them in entry workflow 
-#     in order to save running time and large disk space
-# (5) a new algorithm is designed together with parents_list data to easily run yak together with trio-level hifiasm in /hifiasm
  
-# A general code replacement rule from Venkat's: 
-#   Whenever affected/unaffected appear, they are removed and rewritten with one line of simplified code
-# This entry workflow calls a set of sub-workflows using data structures defined in common/struct.wdl
+# agape.wdl renamed from trial.wdl due to reimplemented code and consistent with agape_thin.wdl
+# This WDL-code of agape-pipeline has been largely redesigned from Microsoft/PacBio Teams mostly on the top-level by Charlie Bi at CMH 2022
 
-import "../smrtcells/smrtcells.trial.wdl"
-import "../sample/sample.trial.wdl"
+import "../smrtcells/smrtcells.agape.wdl"
+import "../sample/sample.agape.wdl"
 import "../cohort/cohort.wdl"
 import "../common/structs.wdl"
 import "../hifiasm/sample_hifiasm.cohort.wdl"
 import "../hifiasm/trio_hifiasm.cohort.wdl"
 
-workflow trial {
+workflow agape {
   input {
     String cohort_name
     IndexedData reference
@@ -71,8 +58,8 @@ workflow trial {
 
   Array[String] regions = read_lines(regions_file)
 
-  #call smrtcells/smrtcells.trial.wdl
-  call smrtcells.trial.smrtcells_cohort {
+  #call smrtcells/smrtcells.agape.wdl
+  call smrtcells.agape.smrtcells_cohort {
     input:
       reference = reference,
       cohort_info = cohort_info,
@@ -91,8 +78,8 @@ workflow trial {
        pb_conda_image = pb_conda_image
   }
 
-  #call sample/sample.trial.wdl for all samples defined in this family
-  call sample.trial.sample_family {
+  #call sample/sample.agape.wdl for all samples defined in this family
+  call sample.agape.sample_family {
     input:
       person_sample_names      = smrtcells_cohort.person_sample_names,
       person_sample            = smrtcells_cohort.person_bams,

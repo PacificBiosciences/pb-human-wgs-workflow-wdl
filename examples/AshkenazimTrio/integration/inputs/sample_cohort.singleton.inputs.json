@@ -7,7 +7,7 @@
   ],
 
   
-  "sample_trial.last_reference":[
+  "sample_agape.last_reference":[
     [
       {
         "name": "hg38_last_reference",
@@ -23,7 +23,7 @@
     ]
   ],
   
-  "sample_cohort.affected_person_sample": [
+  "sample_cohort.person_sample": [
     [
       {
         "name": "m64011_181218_235052",
@@ -58,13 +58,7 @@
     ]
   ],
 
-  "sample_cohort.unaffected_person_sample_names": [
-  ],
-
-  "sample_cohort.unaffected_person_sample": [
-  ],
-
-  "sample_cohort.affected_person_jellyfish_input": [
+  "sample_cohort.person_jellyfish_input": [
     [
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181218_235052.count.jf",
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181227_224151.count.jf",
@@ -73,8 +67,5 @@
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64018_190129_193747.count.jf",
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64020_190123_225958.count.jf"
     ]
-  ],
-
-  "sample_cohort.unaffected_person_jellyfish_input": [
   ]
 }

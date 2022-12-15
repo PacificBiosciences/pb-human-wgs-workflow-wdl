@@ -1,12 +1,14 @@
 {
-  "trial.cohort_name": "AshkenazimTrio",
-  "trial.allyaml": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.yaml",
-  "trial.ped": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.ped",
-  "trial.cohort_info": {
-    "affected_persons": [
+  "agape.cohort_name": "AshkenazimTrio",
+  "agape.allyaml": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.yaml",
+  "agape.ped": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.ped",
+  "agape.cohort_info": [
       {
+        "affected": true,
         "name": "HG002_NA24385_son",
         "parents": [
+          "HG003_NA24149_father",
+          "HG004_NA24143_mother"
         ],
         "smrtcells": [
           {
@@ -41,12 +43,51 @@
           }
         ]
       }
+      {
+        "affected": false,
+        "name": "HG003_NA24149_father",
+        "smrtcells": [
+          {
+            "name": "m54262U_191105_163601",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG003_NA24149_father/PacBio_CCS_Google_15kb/m54262U_191105_163601.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64017_191109_034853",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG003_NA24149_father/PacBio_CCS_Google_15kb/m64017_191109_034853.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64017_191110_150028",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG003_NA24149_father/PacBio_CCS_Google_15kb/m64017_191110_150028.fastq.gz",
+            "isUbam": false
+          }
+        ]
+      },
+      {
+        "affected": false,
+        "name": "HG004_NA24143_mother",
+        "smrtcells": [
+          {
+            "name": "m64017_191107_163840",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG004_NA24143_mother/PacBio_CCS_Google_15kb/m64017_191107_163840.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64017_191112_165230",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG004_NA24143_mother/PacBio_CCS_Google_15kb/m64017_191112_165230.fastq.gz",
+            "isUbam": false
+          },
+          {
+            "name": "m64017_191113_230503",
+            "path": "/datasetgiab/dataset/data/AshkenazimTrio/HG004_NA24143_mother/PacBio_CCS_Google_15kb/m64017_191113_230503.fastq.gz",
+            "isUbam": false
+          }
+        ]
+      }
     ],
-    "unaffected_persons": [
-    ]
-  },
 
-  "sample_trial.last_reference":[
+  "sample_agape.last_reference":[
     [
       {
         "name": "hg38_last_reference",

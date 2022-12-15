@@ -3,7 +3,7 @@
 
   "cohort.slivar.allyaml": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.yaml",
   "cohort.slivar.ped": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.ped",
-  "cohort.pbsv.affected_person_svsigs": [
+  "cohort.pbsv.person_svsigs": [
     [
       [
         "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/m64011_181218_235052.hg38.chr1.svsig.gz",
@@ -205,10 +205,7 @@
         "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/m64018_190129_193747.hg38.chrM.svsig.gz",
         "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/m64020_190123_225958.hg38.chrM.svsig.gz"
       ]
-    ]
-  ],
-
-  "cohort.pbsv.unaffected_person_svsigs": [
+    ],
     [
       [
         "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/m54262U_191105_163601.hg38.chr1.svsig.gz",
@@ -465,14 +462,11 @@
     ]
   ],
 
-  "cohort.glnexus.affected_person_gvcfs": [
+  "cohort.glnexus.person_gvcfs": [
     {
       "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/HG002_NA24385_son.hg38.deepvariant.g.vcf.gz",
       "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/HG002_NA24385_son.hg38.deepvariant.g.vcf.gz.tbi"
     }
-  ],
-
-  "cohort.glnexus.unaffected_person_gvcfs": [
     {
       "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/HG003_NA24149_father.hg38.deepvariant.g.vcf.gz",
       "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/HG003_NA24149_father.hg38.deepvariant.g.vcf.gz.tbi"
@@ -483,7 +477,7 @@
     }
   ],
 
-  "cohort.glnexus.affected_person_bams": [
+  "cohort.glnexus.person_bams": [
     [
       {
         "name": "m64011_181218_235052",
@@ -516,9 +510,6 @@
         "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64020_190123_225958.hg38.bam.bai"
       }
     ]
-  ],
-
-  "cohort.glnexus.unaffected_person_bams": [
     [
       {
         "name": "m54262U_191105_163601",
@@ -555,14 +546,11 @@
     ]
   ],
 
-  "cohort.affected_person_deepvariant_phased_vcf_gz": [
+  "cohort.person_deepvariant_phased_vcf_gz": [
     {
       "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/HG002_NA24385_son.hg38.deepvariant.phased.vcf.gz",
       "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/HG002_NA24385_son.hg38.deepvariant.phased.vcf.gz.tbi"
-    }
-  ],
-
-  "cohort.unaffected_person_deepvariant_phased_vcf_gz": [
+    },
     {
       "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/HG003_NA24149_father.hg38.deepvariant.phased.vcf.gz",
       "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/HG003_NA24149_father.hg38.deepvariant.phased.vcf.gz.tbi"
@@ -572,5 +560,4 @@
       "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/HG004_NA24143_mother.hg38.deepvariant.phased.vcf.gz.tbi"
     }
   ]
-
 }
