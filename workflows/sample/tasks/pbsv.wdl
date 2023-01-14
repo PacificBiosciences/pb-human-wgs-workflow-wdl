@@ -3,7 +3,6 @@ version 1.0
 import "../../common/structs.wdl"
 import "pbsv_discover.wdl" as pbsv_discover
 import "common.wdl" as common
-import "../../common/separate_data_and_index_files.wdl"
 
 
 task pbsv_call {
@@ -127,24 +126,22 @@ workflow pbsv {
   }
 
   scatter(call_pbsv_vcf in pbsv_call.pbsv_vcf) {
-    call common.bgzip_vcf {
+    call common.bgzip_vcf as bgzip_vcf{
       input :
         vcf_input = call_pbsv_vcf,
         pb_conda_image = pb_conda_image
     }
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files {
-    input:
-      indexed_data_array = bgzip_vcf.vcf_gz_output,
-  }
+  Array[File] separate_data_and_index_files_datafiles = bgzip_vcf.vcf_gz_data
+  Array[File] separate_data_and_index_files_indexfiles = bgzip_vcf.vcf_gz_index
 
   call bcftools_concat_pbsv_vcf {
    input:
       sample_name = sample_name,
       reference_name = reference.name,
-      calls = separate_data_and_index_files.datafiles,
-      indices = separate_data_and_index_files.indexfiles,
+      calls = separate_data_and_index_files_datafiles,
+      indices = separate_data_and_index_files_indexfiles,
       pb_conda_image = pb_conda_image
   }
 

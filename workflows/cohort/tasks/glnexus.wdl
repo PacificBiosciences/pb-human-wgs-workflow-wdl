@@ -2,7 +2,6 @@ version 1.0
 
 import "../../common/structs.wdl"
 import "common_bgzip_vcf.wdl" as bgzip_vcf
-import "../../common/separate_data_and_index_files.wdl"
 
 task glnexus_task {
   input {
@@ -309,17 +308,19 @@ workflow glnexus {
     String glnexus_image
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files as gather_person_gvcfs {
-    input:
-      indexed_data_array = person_gvcfs
+  scatter (person_gvcf in person_gvcfs) {
+    File pvcf = person_gvcf.datafile
+    File ptbi = person_gvcf.indexfile
   }
+  Array[File] gather_person_gvcfs_datafiles = pvcf
+  Array[File] gather_person_gvcfs_indexfiles = ptbi
 
   call glnexus_task {
     input:
       cohort_name = cohort_name,
       reference_name = reference.name,
-      person_gvcfs = gather_person_gvcfs.datafiles,
-      person_gvcfs_index = gather_person_gvcfs.indexfiles,
+      person_gvcfs = gather_person_gvcfs_datafiles,
+      person_gvcfs_index = gather_person_gvcfs_indexfiles,
       glnexus_image = glnexus_image
   }
 
@@ -349,11 +350,13 @@ workflow glnexus {
   }
 
   scatter (sample_bams in person_bams) {
-    call separate_data_and_index_files.separate_data_and_index_files as gather_person_bams_and_bais  {
-      input:
-        indexed_data_array = sample_bams
+    scatter (sampbam in sample_bams){
+      File sbam = sampbam.datafile
+      File sbai = sampbam.indexfile
     }
   }
+  Array[Array[File]] gather_person_bams_datafiles = sbam
+  Array[Array[File]] gather_person_bams_indexfiles = sbai
 
   scatter (region_num in range(length(regions))) {
     call whatshap_phase {
@@ -361,8 +364,8 @@ workflow glnexus {
         cohort_name = cohort_name,
         reference = reference,
         vcf = bgzip_vcf.vcf_gz_output[region_num],
-        phaseinput = flatten(gather_person_bams_and_bais.datafiles),
-        phaseinputindex = flatten(gather_person_bams_and_bais.indexfiles),
+        phaseinput = flatten(gather_person_bams_datafiles),
+        phaseinputindex = flatten(gather_person_bams_indexfiles),
         chromosome = regions[region_num],
         pb_conda_image = pb_conda_image
     }

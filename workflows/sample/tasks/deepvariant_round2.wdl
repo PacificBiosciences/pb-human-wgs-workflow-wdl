@@ -1,8 +1,6 @@
 version 1.0
 
 import "../../common/structs.wdl"
-import "../../common/separate_data_and_index_files.wdl"
-
 
 task make_examples_round2 {
   input {
@@ -239,16 +237,18 @@ workflow deepvariant_round2 {
     String pb_conda_image
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files {
-    input:
-      indexed_data_array = whatshap_bams,
+  scatter (whatshap_bam in whatshap_bams) {
+    File wtbam = whatshap_bam.datafile
+    File wtbai = whatshap_bam.indexfile
   }
-
+  Array[File] separate_data_and_index_files_datafiles = wtbam
+  Array[File] separate_data_and_index_files_indexfiles = wtbai
+ 
   call make_examples_round2 {
     input:
       sample_name = sample_name,
-      bams = separate_data_and_index_files.datafiles,
-      bais = separate_data_and_index_files.indexfiles,
+      bams = separate_data_and_index_files_datafiles,
+      bais = separate_data_and_index_files_indexfiles,
       reference = reference,
       deepvariant_image = deepvariant_image
   }

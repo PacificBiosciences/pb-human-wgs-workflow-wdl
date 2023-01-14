@@ -1,8 +1,6 @@
 version 1.0
 
 import "../../common/structs.wdl"
-import "../../common/separate_data_and_index_files.wdl"
-
 
 task make_examples_round1 {
   input {
@@ -175,16 +173,18 @@ workflow deepvariant_round1 {
     String deepvariant_image
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files {
-    input:
-      indexed_data_array = sample,
+  scatter (movie in sample) {
+      File mvbam = movie.datafile
+      File mvbai = movie.indexfile
   }
-
+  Array[File] separate_data_and_index_files_datafiles = mvbam
+  Array[File] separate_data_and_index_files_indexfiles = mvbai
+ 
   call make_examples_round1 {
     input:
       sample_name = sample_name,
-      bams = separate_data_and_index_files.datafiles,
-      bais = separate_data_and_index_files.indexfiles,
+      bams = separate_data_and_index_files_datafiles,
+      bais = separate_data_and_index_files_indexfiles,
       reference = reference,
       deepvariant_image = deepvariant_image
   }

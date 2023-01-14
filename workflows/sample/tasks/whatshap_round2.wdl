@@ -3,7 +3,6 @@ version 1.0
 import "../../common/structs.wdl"
 import "common.wdl" as common
 import "samtools_index_bam.wdl" as samtools_common
-import "../../common/separate_data_and_index_files.wdl"
 
 
 task split_deepvariant_vcf_round2 {
@@ -331,33 +330,33 @@ workflow whatshap_round2 {
     }
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files as whatshap_phase_phaseinput {
-    input:
-      indexed_data_array = sample,
+  scatter (movie in sample) {
+    File whatshap_round2bam = movie.datafile
+    File whatshap_round2bai = movie.indexfile
   }
-
+  Array[File]  whatshap_phase_phaseinput_bams = whatshap_round2bam
+  Array[File]  whatshap_phase_phaseinput_bais = whatshap_round2bai
+ 
   scatter (region_num in range(length(regions))) {
     call whatshap_phase_round2 {
       input:
         reference = reference,
         vcf = common.vcf_gz[region_num],
-        phaseinput = whatshap_phase_phaseinput.datafiles,
-        phaseinputindex = whatshap_phase_phaseinput.indexfiles,
+        phaseinput = whatshap_phase_phaseinput_bams,
+        phaseinputindex = whatshap_phase_phaseinput_bais,
         chromosome = regions[region_num],
         sample_name = sample_name,
         pb_conda_image = pb_conda_image
     }
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files as whatshap_phased_gvcf {
-    input:
-      indexed_data_array = whatshap_phase_round2.deepvariant_phased_vcf_gz,
-  }
+  Array[File] whatshap_phased_gvcf_datafiles = whatshap_phase_round2.deepvariant_phased_vcf_gz_data 
+  Array[File] whatshap_phased_gvcf_indexfiles = whatshap_phase_round2.deepvariant_phased_vcf_gz_index
 
   call whatshap_bcftools_concat_round2 {
     input:
-      calls = whatshap_phased_gvcf.datafiles,
-      indices = whatshap_phased_gvcf.indexfiles,
+      calls = whatshap_phased_gvcf_datafiles,
+      indices = whatshap_phased_gvcf_indexfiles,
       sample_name = sample_name,
       reference_name = reference.name,
       pb_conda_image = pb_conda_image
@@ -392,17 +391,20 @@ workflow whatshap_round2 {
     }
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files as deepvariant_haplotagged_bam_data_and_index_files {
-    input:
-      indexed_data_array = deepvariant_haplotagged_bam_indexing.bam
+  Array[IndexedData] hapbams = deepvariant_haplotagged_bam_indexing.bam
+  scatter (hapbam in hapbams){
+    File haplotaggedbam = hapbam.datafile
+    File haplotaggedbai = hapbam.indexfile
   }
-
+  Array[File] deepvariant_haplotagged_bam_datafiles = haplotaggedbam
+  Array[File] deepvariant_haplotagged_bam_indexfiles = haplotaggedbai
+ 
   call merge_haplotagged_bams {
     input:
       sample_name = sample_name,
       reference_name = reference.name,
-      deepvariant_haplotagged_bams = deepvariant_haplotagged_bam_data_and_index_files.datafiles,
-      deepvariant_haplotagged_bais = deepvariant_haplotagged_bam_data_and_index_files.indexfiles,
+      deepvariant_haplotagged_bams = deepvariant_haplotagged_bam_datafiles,
+      deepvariant_haplotagged_bais = deepvariant_haplotagged_bam_indexfiles,
       pb_conda_image = pb_conda_image
   }
 

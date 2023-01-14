@@ -3,8 +3,6 @@ version 1.0
 import "../../common/structs.wdl"
 import "common.wdl" as common
 import "samtools_index_bam.wdl" as samtools_common
-import "../../common/separate_data_and_index_files.wdl"
-
 
 task split_deepvariant_vcf_round1 {
   input {
@@ -229,10 +227,12 @@ workflow whatshap_round1 {
     }
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files as whatshap_phase_phaseinput {
-    input:
-      indexed_data_array = sample,
+  scatter (movie in sample) {
+    File whatshap_r1bam = movie.datafile
+    File whatshap_r1bai = movie.indexfile
   }
+  Array[File] whatshap_phase_phaseinput_datafiles = whatshap_r1bam
+  Array[File] whatshap_phase_phaseinput_indexfiles = whatshap_r1bai
 
   scatter (region_num in range(length(regions))) {
     call whatshap_phase_round1 {
@@ -240,24 +240,22 @@ workflow whatshap_round1 {
         sample_name = sample_name,
         reference = reference,
         vcf = common.vcf_gz[region_num],
-        phaseinput = whatshap_phase_phaseinput.datafiles,
-        phaseinputindex = whatshap_phase_phaseinput.indexfiles,
+        phaseinput = whatshap_phase_phaseinput_datafiles,
+        phaseinputindex = whatshap_phase_phaseinput_indexfiles,
         chromosome = regions[region_num],
         pb_conda_image = pb_conda_image
     }
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files as whatshap_phased_gvcf {
-    input:
-      indexed_data_array = whatshap_phase_round1.deepvariant_phased_vcf_gz,
-  }
+  Array[File] whatshap_phased_gvcf_data = whatshap_phase_round1.deepvariant_phased_vcf_gz_data 
+  Array[File] whatshap_phased_gvcf_index = whatshap_phase_round1.deepvariant_phased_vcf_gz_index
 
   call whatshap_bcftools_concat_round1 {
     input:
       sample_name = sample_name,
       reference_name = reference.name,
-      calls = whatshap_phased_gvcf.datafiles,
-      indices = whatshap_phased_gvcf.indexfiles,
+      calls = whatshap_phased_gvcf_data,
+      indices = whatshap_phased_gvcf_index,
       pb_conda_image = pb_conda_image
   }
 
