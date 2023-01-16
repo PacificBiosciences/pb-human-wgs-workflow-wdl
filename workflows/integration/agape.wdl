@@ -47,7 +47,7 @@ workflow agape {
     Boolean run_jellyfish = false                         #default is to NOT run jellyfish
 
     Boolean trioeval = false                              #default is to NOT run trioeval
-    Boolean triobin = false                              #default is to NOT run triobin
+    Boolean triobin = true                              #default is to run triobin
 
     File tg_list
     File tg_bed

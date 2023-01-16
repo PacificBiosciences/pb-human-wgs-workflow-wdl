@@ -1,6 +1,6 @@
 version 1.0
 
-task gfa2stats {
+task gfa_asm_single {
   input {
     String log_gfa = "gfa2fa.log"
     String log_bgzip = "bgzip_fasta.log"

@@ -1,7 +1,7 @@
 version 1.0
 
-import "../common/structs.wdl"
-import "tasks/gfa2stats.wdl" as gfa2stats
+import "../../common/structs.wdl"
+import "gfa_asm_single.wdl"
 
 workflow gfa2asm {
   input {
@@ -25,7 +25,7 @@ workflow gfa2asm {
   }
 
   scatter (gfa in gfa_strs){ 
-    call gfa2stats.gfa2stats as gfa_stats {
+    call gfa_asm_single.gfa_asm_single as task_gfa_asm {
       input:
         gfa = gfa_map[gfa],
         index = reference.indexfile,
@@ -34,8 +34,8 @@ workflow gfa2asm {
   }
 
   output {
-    File hap1_fasta_gz = gfa_stats.fasta_gz[0] 
-    File hap2_fasta_gz = gfa_stats.fasta_gz[1]
+    File hap1_fasta_gz = task_gfa_asm.fasta_gz[0] 
+    File hap2_fasta_gz = task_gfa_asm.fasta_gz[1]
   }
 }
 

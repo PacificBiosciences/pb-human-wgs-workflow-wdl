@@ -2,7 +2,7 @@ version 1.0
 
 import "../../common/structs.wdl"
 import "hifiasm.wdl" as hifiasm
-
+import "gfa_asm_single.wdl" as gfa_asm_single
 
 task hifiasm_trio_assemble {
   input {
@@ -170,34 +170,24 @@ workflow hifiasm_trio {
         pb_conda_image = pb_conda_image
     }
 
-    call hifiasm.gfa2fa as gfa2fa_hap1_p_ctg {
+    call gfa_asm_single.gfa_asm_single as gfa_asm_hap1_p_ctg {
       input:
         gfa = hifiasm_trio_assemble.hap1_p_ctg,
+        index = target.indexfile,
         pb_conda_image = pb_conda_image
     }
 
-    call hifiasm.gfa2fa as gfa2fa_hap2_p_ctg {
+    call gfa_asm_single.gfa_asm_single as gfa_asm_hap2_p_ctg {
       input:
         gfa = hifiasm_trio_assemble.hap2_p_ctg,
-        pb_conda_image = pb_conda_image
-    }
-
-    call hifiasm.bgzip_fasta as bgzip_fasta_hap1_p_ctg {
-      input:
-        fasta = gfa2fa_hap1_p_ctg.fasta,
-        pb_conda_image = pb_conda_image
-    }
-
-    call hifiasm.bgzip_fasta as bgzip_fasta_hap2_p_ctg {
-      input:
-        fasta = gfa2fa_hap2_p_ctg.fasta,
+        index = target.indexfile,
         pb_conda_image = pb_conda_image
     }
 
    if (trioeval) {
       call yak_trioeval as yak_trioeval_hap1_p_ctg  {
         input:
-          fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
+          fasta_gz = gfa_asm_hap1_p_ctg.fasta_gz,
           parent1_yak = yak_parent1.right,
           parent2_yak = yak_parent2.right,
           pb_conda_image = pb_conda_image
@@ -205,7 +195,7 @@ workflow hifiasm_trio {
 
       call yak_trioeval as yak_trioeval_hap2_p_ctg  {
         input:
-          fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
+          fasta_gz = gfa_asm_hap2_p_ctg.fasta_gz,
           parent1_yak = yak_parent1.right,
           parent2_yak = yak_parent2.right,
           pb_conda_image = pb_conda_image
@@ -215,7 +205,7 @@ workflow hifiasm_trio {
     if (triobin) {
       call yak_triobin as yak_triobin_hap1_p_ctg  {
         input:
-          fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
+          fasta_gz = gfa_asm_hap1_p_ctg.fasta_gz,
           parent1_yak = yak_parent1.right,
           parent2_yak = yak_parent2.right,
           pb_conda_image = pb_conda_image
@@ -223,26 +213,13 @@ workflow hifiasm_trio {
 
       call yak_triobin as yak_triobin_hap2_p_ctg  {
         input:
-          fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
+          fasta_gz = gfa_asm_hap2_p_ctg.fasta_gz,
           parent1_yak = yak_parent1.right,
           parent2_yak = yak_parent2.right,
           pb_conda_image = pb_conda_image
       }
     }
 
-    call hifiasm.asm_stats as asm_stats_hap1_p_ctg  {
-      input:
-        fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
-        index = target.indexfile,
-        pb_conda_image = pb_conda_image
-    }
-
-    call hifiasm.asm_stats as asm_stats_hap2_p_ctg  {
-      input:
-        fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
-        index = target.indexfile,
-        pb_conda_image = pb_conda_image
-    }
 
     call hifiasm.align_hifiasm {
       input:
@@ -250,8 +227,8 @@ workflow hifiasm_trio {
         target = target,
         reference_name = reference_name,
         query = [
-          bgzip_fasta_hap1_p_ctg.fasta_gz,
-          bgzip_fasta_hap2_p_ctg.fasta_gz
+          gfa_asm_hap1_p_ctg.fasta_gz,
+          gfa_asm_hap2_p_ctg.fasta_gz
         ],
         pb_conda_image = pb_conda_image
     }

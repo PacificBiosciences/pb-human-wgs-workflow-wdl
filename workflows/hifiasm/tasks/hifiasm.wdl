@@ -1,7 +1,7 @@
 version 1.0
 
 import "../../common/structs.wdl"
-
+import "gfa2asm.wdl" as gfa2asm
 
 task hifiasm_assemble {
   input {
@@ -49,114 +49,6 @@ task hifiasm_assemble {
     preemptible: true
     maxRetries: 3
     memory: "~{memory}" + " GB"
-    cpu: "~{threads}"
-    disk: disk_size + " GB"
-  }
-}
-
-task gfa2fa {
-  input {
-    String log_name = "gfa2fa.log"
-    File gfa
-    String fasta_name = "~{basename(gfa)}.fasta"
-    String pb_conda_image
-    Int threads = 4
-  }
-
-  Float multiplier = 3.25
-  Int disk_size = ceil(multiplier * size(gfa, "GB")) + 20
-
-  command <<<
-    echo requested disk_size =  ~{disk_size}
-    echo
-    source ~/.bashrc
-    conda activate gfatools
-    echo "$(conda info)"
-
-    (gfatools gfa2fa ~{gfa} > ~{fasta_name}) 2> ~{log_name}
-  >>>
-  output {
-    File fasta = "~{fasta_name}"
-    File log = "~{log_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
-    cpu: "~{threads}"
-    disk: disk_size + " GB"
-  }
-}
-
-task bgzip_fasta {
-  input {
-    Int threads = 4
-    String log_name = "bgzip_fasta.log"
-    File fasta
-    String fasta_gz_name = "~{basename(fasta)}.gz"
-    String pb_conda_image
-  }
-
-  Float multiplier = 3.25
-  Int disk_size = ceil(multiplier * size(fasta, "GB")) + 20
-
-  command <<<
-    echo requested disk_size =  ~{disk_size}
-    echo
-    source ~/.bashrc
-    conda activate htslib
-    echo "$(conda info)"
-
-    (bgzip --threads ~{threads} ~{fasta} -c > ~{fasta_gz_name}) > ~{log_name} 2>&1
-  >>>
-
-  output {
-    File fasta_gz = "~{fasta_gz_name}"
-    File log = "~{log_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
-    cpu: "~{threads}"
-    disk: disk_size + " GB"
-  }
-}
-
-task asm_stats {
-  input {
-    String log_name = "asm_stats.log"
-    File fasta_gz
-    File index
-
-    String fasta_stats_txt_name = "~{basename(fasta_gz)}.stats.txt"
-    String pb_conda_image
-    Int threads = 4
-  }
-
-  Float multiplier = 3.25
-  Int disk_size = ceil(multiplier * (size(fasta_gz, "GB") + size(index, "GB"))) + 20
-
-  command <<<
-    echo requested disk_size =  ~{disk_size}
-    echo
-    source ~/.bashrc
-    conda activate k8
-    echo "$(conda info)"
-
-    (k8 /opt/pb/scripts/calN50/calN50.js -f ~{index} ~{fasta_gz} > ~{fasta_stats_txt_name}) > ~{log_name} 2>&1
-  >>>
-  output {
-    File fasta_stats_txt = "~{fasta_stats_txt_name}"
-    File log = "~{log_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
     cpu: "~{threads}"
     disk: disk_size + " GB"
   }
@@ -230,99 +122,14 @@ workflow hifiasm {
       pb_conda_image = pb_conda_image
   }
 
-  call gfa2fa as gfa2fa_hap1_p_ctg {
+  call gfa2asm.gfa2asm as gfa2asm {
     input:
-      gfa = hifiasm_assemble.hap1_p_ctg,
-      index = target.indexfile,
-      pb_conda_image = pb_conda_image
-  }
-
-  call gfa2fa as gfa2fa_hap2_p_ctg {
-    input:
-      gfa = hifiasm_assemble.hap2_p_ctg,
-      pb_conda_image = pb_conda_image
-  }
-
-  call gfa2fa as gfa2fa_p_ctg {
-    input:
-      gfa = hifiasm_assemble.p_ctg,
-      pb_conda_image = pb_conda_image
-  }
-
-  call gfa2fa as gfa2fa_p_utg {
-    input:
-      gfa = hifiasm_assemble.p_utg,
-      pb_conda_image = pb_conda_image
-  }
-
-  call gfa2fa as gfa2fa_r_utg {
-    input:
-      gfa = hifiasm_assemble.r_utg,
-      pb_conda_image = pb_conda_image
-  }
-
-  call bgzip_fasta as bgzip_fasta_hap1_p_ctg {
-    input:
-      fasta = gfa2fa_hap1_p_ctg.fasta,
-      pb_conda_image = pb_conda_image
-  }
-
-  call bgzip_fasta as bgzip_fasta_hap2_p_ctg {
-    input:
-      fasta = gfa2fa_hap2_p_ctg.fasta,
-      pb_conda_image = pb_conda_image
-  }
-
-  call bgzip_fasta as bgzip_fasta_p_ctg {
-    input:
-      fasta = gfa2fa_p_ctg.fasta,
-      pb_conda_image = pb_conda_image
-  }
-
-  call bgzip_fasta as bgzip_fasta_p_utg {
-    input:
-      fasta = gfa2fa_p_utg.fasta,
-      pb_conda_image = pb_conda_image
-  }
-
-  call bgzip_fasta as bgzip_fasta_r_utg {
-    input:
-      fasta = gfa2fa_r_utg.fasta,
-      pb_conda_image = pb_conda_image
-  }
-
-  call asm_stats as asm_stats_hap1_p_ctg  {
-    input:
-      fasta_gz = bgzip_fasta_hap1_p_ctg.fasta_gz,
-      index = target.indexfile,
-      pb_conda_image = pb_conda_image
-  }
-
-  call asm_stats as asm_stats_hap2_p_ctg  {
-    input:
-      fasta_gz = bgzip_fasta_hap2_p_ctg.fasta_gz,
-      index = target.indexfile,
-      pb_conda_image = pb_conda_image
-  }
-
-  call asm_stats as asm_stats_p_ctg  {
-    input:
-      fasta_gz = bgzip_fasta_p_ctg.fasta_gz,
-      index = target.indexfile,
-      pb_conda_image = pb_conda_image
-  }
-
-  call asm_stats as asm_stats_p_utg  {
-    input:
-      fasta_gz = bgzip_fasta_p_utg.fasta_gz,
-      index = target.indexfile,
-      pb_conda_image = pb_conda_image
-  }
-
-  call asm_stats as asm_stats_r_utg  {
-    input:
-      fasta_gz = bgzip_fasta_r_utg.fasta_gz,
-      index = target.indexfile,
+      hap1_p_ctg_gfa = hifiasm_assemble.hap1_p_ctg,
+      hap2_p_ctg_gfa = hifiasm_assemble.hap2_p_ctg,
+      p_ctg_gfa = hifiasm_assemble.p_ctg,
+      p_utg_gfa = hifiasm_assemble.p_utg,
+      r_utg_gfa = hifiasm_assemble.r_utg,
+      reference = target,
       pb_conda_image = pb_conda_image
   }
 
@@ -332,8 +139,8 @@ workflow hifiasm {
       target = target,
       reference_name = reference_name,
       query = [
-        bgzip_fasta_hap1_p_ctg.fasta_gz,
-        bgzip_fasta_hap2_p_ctg.fasta_gz
+        gfa2asm.hap1_fasta_gz,
+        gfa2asm.hap2_fasta_gz
       ],
       pb_conda_image = pb_conda_image
   }
