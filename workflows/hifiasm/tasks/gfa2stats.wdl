@@ -8,8 +8,8 @@ task gfa2stats {
     File gfa
     File index
     String fasta_name = "~{basename(gfa)}.fasta"
-    String fasta_gz_name = "~{fasta_name}.gz"
-    String fasta_stats_txt_name = "~{fasta_gz_name}.stats.txt"
+    String fasta_gz_name = "~{basename(gfa)}.fasta.gz"
+    String fasta_stats_txt_name = "~{basename(gfa)}.fasta.gz.stats.txt"
 
     String pb_conda_image
     Int threads = 4
