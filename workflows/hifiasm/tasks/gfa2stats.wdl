@@ -1,6 +1,5 @@
 version 1.0
 
-
 task gfa2stats {
   input {
     String log_gfa = "gfa2fa.log"
@@ -27,6 +26,16 @@ task gfa2stats {
     echo "$(conda info)"
 
     (gfatools gfa2fa ~{gfa} > ~{fasta_name}) 2> ~{log_gfa}
+
+    conda activate htslib
+    echo "$(conda info)"
+
+    (bgzip --threads ~{threads} ~{fasta_name} -c > ~{fasta_gz_name}) > ~{log_bgzip} 2>&1
+
+    conda activate k8
+    echo "$(conda info)"
+
+    (k8 /opt/pb/scripts/calN50/calN50.js -f ~{index} ~{fasta_gz_name} > ~{fasta_stats_txt_name}) > ~{log_asm} 2>&1
   >>>
 
   output {
