@@ -233,6 +233,7 @@ workflow hifiasm {
   call gfa2fa as gfa2fa_hap1_p_ctg {
     input:
       gfa = hifiasm_assemble.hap1_p_ctg,
+      index = target.indexfile,
       pb_conda_image = pb_conda_image
   }
 
