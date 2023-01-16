@@ -18,7 +18,6 @@ workflow gfa2asm {
   }
 
   output {
-    File hap_gz = gfa2stats.fasta_gz
   }
 }
 
