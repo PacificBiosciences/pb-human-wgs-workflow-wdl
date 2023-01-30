@@ -35,6 +35,5 @@ workflow smrtcells_cohort {
     Array[String] person_sample_names            = if defined(smrtcells_person.sample_names)     then smrtcells_person.sample_names      else []
     Array[Array[String]] person_parents_names            = if defined(smrtcells_person.parents_names)     then smrtcells_person.parents_names      else []
     Array[Array[File?]] person_movie_modimers     = if defined(smrtcells_person.movie_modimers)  then smrtcells_person.movie_modimers   else []
-    Array[Pair[String, Array[File]]] fasta_info = smrtcells_person.sample_fasta
   }
 }

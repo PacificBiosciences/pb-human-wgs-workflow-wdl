@@ -54,13 +54,13 @@ workflow smrtcells {
       pb_conda_image = pb_conda_image
   }
 
-  call fasta_conversion.fasta_conversion  {
-    input:
-      movie = smrtcell_info,
-      pb_conda_image = pb_conda_image
-  }
-
   if(run_jellyfish) {
+    call fasta_conversion.fasta_conversion  {
+      input:
+        movie = smrtcell_info,
+        pb_conda_image = pb_conda_image
+    }
+
     call jellyfish.jellyfish {
       input:
         smrtcell_info = smrtcell_info,
@@ -74,6 +74,5 @@ workflow smrtcells {
     IndexedData bam = align_ubam_or_fastq.bam
     File? count_jf   = jellyfish.count_jf
     File? movie_modimers = jellyfish.modimers_tsv
-    File movie_fasta = fasta_conversion.movie_fasta
   }
 }

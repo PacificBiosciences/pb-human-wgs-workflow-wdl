@@ -38,7 +38,6 @@ workflow smrtcells_person {
     String sample_names  = sample.name
     Array[File?] movie_modimers = smrtcells.movie_modimers
     Array[String] parents_names = sample.parents
-    Pair[String, Array[File]] sample_fasta = (sample.name, smrtcells.movie_fasta)
   }
 }
 

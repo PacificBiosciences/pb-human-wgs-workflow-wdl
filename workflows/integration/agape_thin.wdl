@@ -7,6 +7,7 @@ version 1.0
 
 import "../smrtcells/smrtcells.agape.wdl"
 import "../sample/sample.agape.wdl"
+import "../fasta/fasta_agape.wdl"
 import "../cohort/cohort.wdl"
 import "../common/structs.wdl"
 import "../hifiasm/sample_hifiasm.cohort.wdl"
@@ -94,11 +95,16 @@ workflow agape {
       run_jellyfish = run_jellyfish
   }
 
+  call fasta_agape.fasta_cohort as fasta_cohort {
+    input:
+      cohort_info = cohort_info,
+      pb_conda_image = pb_conda_image
+  }
 
   #run sample-level hifiasm -- call hifiasm/sample_hifiasm.cohort.wdl for all samples
   call sample_hifiasm.cohort.sample_hifiasm_cohort {
      input:
-       fasta_info = smrtcells_cohort.fasta_info,
+       fasta_info = fasta_cohort.fasta_info,
        reference = reference,
        pb_conda_image = pb_conda_image
   }
@@ -170,8 +176,8 @@ workflow agape {
   if (trio_yak){
     call trio_hifiasm.cohort.trio_hifiasm_cohort {
       input:
-       fasta_info = smrtcells_cohort.fasta_info,
-       person_parents_names = smrtcells_cohort.person_parents_names,
+       fasta_info = fasta_cohort.fasta_info,
+       person_parents_names = fasta_cohort.person_parents_names,
        parents_list = parents_list,
        pb_conda_image = pb_conda_image,
        reference = reference,
