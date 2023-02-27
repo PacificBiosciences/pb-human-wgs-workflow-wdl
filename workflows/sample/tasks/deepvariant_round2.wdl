@@ -154,7 +154,7 @@ task postprocess_variants_round2 {
        nonvariant_site_tfrecord=$(echo "${paths[$record_num]}")
        echo $nonvariant_site_tfrecord
        record_num_formatted=$(printf '%05d'  $record_num)
-       cp $nonvariant_site_tfrecord nonvariant_site-$record_num_formatted-of-$total_records_formatted.tfrecord
+       cp $nonvariant_site_tfrecord nonvariant_site-$record_num_formatted-of-$total_records_formatted.tfrecord.gz
     done
 
     (
@@ -162,7 +162,7 @@ task postprocess_variants_round2 {
         --ref ~{reference.datafile} \
         --infile ~{tfrecords} \
         --outfile ~{vcf_name} \
-        --nonvariant_site_tfrecord_path nonvariant_site@$total_records_formatted.tfrecord \
+        --nonvariant_site_tfrecord_path nonvariant_site@$total_records_formatted.tfrecord.gz \
         --gvcf_outfile ~{gvcf_name} \
         --sample_name=~{sample_name}
     ) > ~{log_name} 2>&1
