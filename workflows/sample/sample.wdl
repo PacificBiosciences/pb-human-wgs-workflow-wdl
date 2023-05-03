@@ -1,37 +1,22 @@
 version 1.0
 
-#import "./tasks/common.wdl" as common
-#import "./tasks/pbsv.wdl" as pbsv
-#import "./tasks/deepvariant_round1.wdl" as deepvariant_round1
-#import "./tasks/deepvariant_round2.wdl" as deepvariant_round2
-#import "./tasks/jellyfish.wdl" as jellyfish
-#import "./tasks/check_kmer_consistency.wdl" as check_kmer_consistency
-#import "./tasks/mosdepth.wdl" as mosdepth
-#import "./tasks/hifiasm.wdl" as hifiasm
-#import "./tasks/whatshap_round1.wdl" as whatshap_round1
-#import "./tasks/whatshap_round2.wdl" as whatshap_round2
-#import "../common/structs.wdl"
-
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/common.wdl" as common
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/pbsv.wdl" as pbsv
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/deepvariant_round1.wdl" as deepvariant_round1
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/deepvariant_round2.wdl" as deepvariant_round2
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/jellyfish.wdl" as jellyfish
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/check_kmer_consistency.wdl" as check_kmer_consistency
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/mosdepth.wdl" as mosdepth
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/hifiasm.wdl" as hifiasm
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/whatshap_round1.wdl" as whatshap_round1
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/whatshap_round2.wdl" as whatshap_round2
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/sample/tasks/tandem_genotypes.wdl" as tandem_genotypes
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "tasks/common.wdl" as common
+import "tasks/pbsv.wdl" as pbsv
+import "tasks/deepvariant_round1.wdl" as deepvariant_round1
+import "tasks/deepvariant_round2.wdl" as deepvariant_round2
+import "tasks/jellyfish.wdl" as jellyfish
+import "tasks/check_kmer_consistency.wdl" as check_kmer_consistency
+import "tasks/mosdepth.wdl" as mosdepth
+import "tasks/whatshap_round1.wdl" as whatshap_round1
+import "tasks/whatshap_round2.wdl" as whatshap_round2
+import "tasks/tandem_genotypes.wdl" as tandem_genotypes
+import "../common/structs.wdl"
 
 workflow sample {
   input {
     String sample_name
     Array[IndexedData] sample
-    Array[IndexedData] sample_ubam
     Array[File?] jellyfish_input
-    Array[File?] movie_modimers
     Array[String] regions
     IndexedData reference
 
@@ -39,6 +24,7 @@ workflow sample {
     File chr_lengths
 
     File ref_modimers
+    Array[File?] movie_modimers
 
     String pb_conda_image
     String deepvariant_image
@@ -63,7 +49,7 @@ workflow sample {
       pb_conda_image = pb_conda_image
   }
 
-  call deepvariant_round1.deepvariant_round1 {
+ call deepvariant_round1.deepvariant_round1 {
     input:
       sample_name = sample_name,
       sample = sample,
@@ -119,7 +105,8 @@ workflow sample {
           pb_conda_image = pb_conda_image
       }
     }
-   call check_kmer_consistency.check_kmer_consistency {
+
+   call check_kmer_consistency.check_kmer_consistency { #run if run_jellyfish is true
       input:
         sample_name = sample_name,
         ref_modimers = ref_modimers,
@@ -140,14 +127,6 @@ workflow sample {
       haplotagged_bai = whatshap_round2.deepvariant_haplotagged.indexfile,
   }
 
-  call hifiasm.hifiasm {
-    input:
-      sample_name = sample_name,
-      sample = sample_ubam,
-      target = reference,
-      reference_name = reference.name,
-      pb_conda_image = pb_conda_image
-  }
 
   output {
     IndexedData gvcf = deepvariant_round2.gvcf
@@ -158,9 +137,6 @@ workflow sample {
 
     File? jellyfish_output = jellyfish.jellyfish_output
     File? log = jellyfish.log
-
-    File? check_kmer_consistency_output = check_kmer_consistency.check_kmer_consistency_output_name
-    File? check_kmer_consistency_log = check_kmer_consistency.log
 
     File sample_tandem_genotypes = tandem_genotypes.sample_tandem_genotypes
     File sample_tandem_genotypes_absolute = tandem_genotypes.sample_tandem_genotypes_absolute

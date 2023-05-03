@@ -1,15 +1,8 @@
 {
-  "trial.cohort_name": "AshkenazimTrio",
-  "trial.allyaml": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.yaml",
-  "trial.ped": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.ped",
-  "trial.cohort_info": {
-    "affected_persons": [
+  "smrtcells_agape.cohort": [
       {
+        "affected": true,
         "name": "HG002_NA24385_son",
-        "parents": [
-          "HG003_NA24149_father",
-          "HG004_NA24143_mother"
-        ],
         "smrtcells": [
           {
             "name": "m64011_181218_235052",
@@ -42,10 +35,9 @@
             "isUbam": false
           }
         ]
-      }
-    ],
-    "unaffected_persons": [
+      },
       {
+        "affected": false,
         "name": "HG003_NA24149_father",
         "smrtcells": [
           {
@@ -65,7 +57,8 @@
           }
         ]
       },
-      {
+     {
+        "affected": false,
         "name": "HG004_NA24143_mother",
         "smrtcells": [
           {
@@ -85,22 +78,6 @@
           }
         ]
       }
-    ]
-  },
 
-  "sample_trial.last_reference":[
-    [
-      {
-        "name": "hg38_last_reference",
-       
-        "last_reference_bck": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.bck",
-        "last_reference_des": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.des",
-        "last_reference_prj": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.prj",
-        "last_reference_sds": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.sds",
-        "last_reference_ssp": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.ssp",
-        "last_reference_suf": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.suf",
-        "last_reference_tis": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.tis"
-      }
     ]
-  ]
 }

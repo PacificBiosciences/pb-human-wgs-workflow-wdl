@@ -1,10 +1,7 @@
 version 1.0
 
-#import "../../common/structs.wdl"
-#import "./common_bgzip_vcf.wdl" as bgzip_vcf
-
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/common_bgzip_vcf.wdl" as bgzip_vcf
+import "../../common/structs.wdl"
+import "common_bgzip_vcf.wdl" as bgzip_vcf
 
 
 task bcftools_norm {

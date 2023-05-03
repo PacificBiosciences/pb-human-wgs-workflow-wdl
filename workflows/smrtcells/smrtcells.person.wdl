@@ -1,10 +1,13 @@
 version 1.0
 
-#import "./smrtcells.wdl" as smrtcells
-#import "../common/structs.wdl"
+# A simplified data structure, Array[SampleInfo], is used here, and unffacted/affected lines are all removed by Charlie Bi
+# Whenever affected/unaffected appears, it is removed and rewritten with one line of new code
+#
+# fasta_conversion's ourtput is returned here
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/smrtcells/smrtcells.wdl" as smrtcells
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
+import "smrtcells.wdl" as smrtcells
+import "../common/structs.wdl"
+
 
 workflow smrtcells_person {
   input {
@@ -30,11 +33,11 @@ workflow smrtcells_person {
   }
 
   output {
-    Array[IndexedData] ubams     = smrtcells.ubam
     Array[IndexedData] bams     = smrtcells.bam
     Array[File?] jellyfish_count = smrtcells.count_jf
     String sample_names  = sample.name
     Array[File?] movie_modimers = smrtcells.movie_modimers
-    Array[String?] parents_names = sample.parents
+    Array[String] parents_names = sample.parents
   }
 }
+

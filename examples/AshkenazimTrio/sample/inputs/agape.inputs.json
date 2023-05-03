@@ -1,9 +1,11 @@
 {
-  "sample_trial.affected_person_sample_names": [
-    "HG002_NA24385_son"
+  "sample_agape.person_sample_names": [
+    "HG002_NA24385_son",
+    "HG003_NA24149_father",
+    "HG004_NA24143_mother"
   ],
 
-  "sample_trial.affected_person_sample": [
+  "sample_agape.person_sample": [
     [
       {
         "name": "m64011_181218_235052",
@@ -35,31 +37,7 @@
         "datafile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64020_190123_225958.hg38.bam",
         "indexfile": "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64020_190123_225958.hg38.bam.bai"
       }
-    ]
-  ],
-
-  "sample_trial.last_reference":[
-    [
-      {
-        "name": "hg38_last_reference",
-       
-        "last_reference_bck": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.bck",
-        "last_reference_des": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.des",
-        "last_reference_prj": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.prj",
-        "last_reference_sds": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.sds",
-        "last_reference_ssp": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.ssp",
-        "last_reference_suf": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.suf",
-        "last_reference_tis": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.tis"
-      }
-    ]
-  ],
-
-  "sample_trial.unaffected_person_sample_names": [
-    "HG003_NA24149_father",
-    "HG004_NA24143_mother"
-  ],
-
-  "sample_trial.unaffected_person_sample": [
+    ],
     [
       {
         "name": "m54262U_191105_163601",
@@ -96,7 +74,23 @@
     ]
   ],
 
-  "sample_trial.affected_person_jellyfish_input": [
+  "sample_agape.last_reference":[
+    [
+      {
+        "name": "hg38_last_reference",
+       
+        "last_reference_bck": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.bck",
+        "last_reference_des": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.des",
+        "last_reference_prj": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.prj",
+        "last_reference_sds": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.sds",
+        "last_reference_ssp": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.ssp",
+        "last_reference_suf": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.suf",
+        "last_reference_tis": "/datasetpbhumanwgs/dataset/reference/human_GRCh38_no_alt_analysis_set.RY32.lastdb.tis"
+      }
+    ]
+  ],
+
+  "sample_agape.person_jellyfish_input": [
     [
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181218_235052.count.jf",
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64011_181227_224151.count.jf",
@@ -104,10 +98,7 @@
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64017_190116_171555.count.jf",
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64018_190129_193747.count.jf",
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG002_NA24385_son/m64020_190123_225958.count.jf"
-    ]
-  ],
-
-  "sample_trial.unaffected_person_jellyfish_input": [
+    ],
     [
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG003_NA24149_father/m54262U_191105_163601.count.jf",
       "/datasetpbhumandemodata/dataset/AshkenazimTrio/sample/HG003_NA24149_father/m64017_191109_034853.count.jf",

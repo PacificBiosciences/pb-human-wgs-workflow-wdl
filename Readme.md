@@ -53,12 +53,12 @@ ________________________________________
 # Starting a run 
 ## Quick Start Option (Recommended): Download & Edit the Trial Inputs & Trigger Files
 This method will allow you to get started quickly. We have included a demo dataset (from the Genomics Data Lake) with this workflow to demonstrate use cases.
-1.	Download the smrtcells trial input JSON.
+1.	Download the smrtcells agape input JSON.
 2.	Open the file in your favorite text editor. A couple of options that work well are Visual Studio Code or Notepad++.
 3.	The JSON file is labeled with various input fields you can define. You will need to specify a sample name, 1 or more SMRT cells, the paths to the raw data files, and if they are BAM files or not.
 	'''
     {
-	 "smrtcells_trial.cohort": {
+	 "smrtcells_agape.cohort": {
 	     "affected_persons": [
 	     {
 	     "name": "HG002_NA24385_son",  
@@ -88,18 +88,18 @@ If you choose **NOT** to do this, an alternative way of specifying the path to y
 5. Download & open your Trigger file in your editor.
     '''
     {
-    "WorkflowUrl": "smrtcells/smrtcells.trial.wdl"
+    "WorkflowUrl": "smrtcells/smrtcells.agape.wdl"
     "WorkflowInputsUrls": [
-        "smrtcells/inputs/AshkenazimTrio/trial.singleton.inputs.json",
-        "smrtcells/inputs/defaultsettings.trial.inputs.json",
-        "smrtcells/inputs/docker.trial.inputs.json",
-        "smrtcells/inputs/reference.trial.inputs.json"
+        "smrtcells/inputs/AshkenazimTrio/agape.singleton.inputs.json",
+        "smrtcells/inputs/defaultsettings.agape.inputs.json",
+        "smrtcells/inputs/docker.agape.inputs.json",
+        "smrtcells/inputs/reference.agape.inputs.json"
         ],
      "WorkflowOptionsUrl": null,
      "WorkflowDependenciesUrl": null
     }
     '''
-6. You'll want to replace the path to your trial data input file (with the path to the input JSON that you just uploaded). Save this file locally.
+6. You'll want to replace the path to your agape data input file (with the path to the input JSON that you just uploaded). Save this file locally.
 7. Upload the trigger file to the workflow/new container in your file.
 
 **Congratulations**- you've started your analysis!

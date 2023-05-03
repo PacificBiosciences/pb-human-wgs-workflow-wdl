@@ -1,8 +1,13 @@
 {
-  "smrtcells_sample_trial.cohort_info": {
-    "affected_persons": [
+  "agape.cohort_name": "AshkenazimTrio",
+  "agape.allyaml": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.yaml",
+  "agape.ped": "/datasetpbhumandemodata/dataset/AshkenazimTrio/cohort/AshkenazimTrio.ped",
+  "agape.cohort_info": [
       {
+        "affected": true,
         "name": "HG002_NA24385_son",
+        "parents": [
+        ],
         "smrtcells": [
           {
             "name": "m64011_181218_235052",
@@ -37,11 +42,7 @@
         ]
       }
     ],
-    "unaffected_persons": [
-    ]
-  },
-  
-  "sample_trial.last_reference":[
+  "sample_agape.last_reference":[
     [
       {
         "name": "hg38_last_reference",

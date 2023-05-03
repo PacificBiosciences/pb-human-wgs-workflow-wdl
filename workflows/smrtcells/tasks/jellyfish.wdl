@@ -1,78 +1,7 @@
 version 1.0
 
-#import "../../common/structs.wdl"
+import "../../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-
-task samtools_fasta {
-  input {
-    SmrtcellInfo smrtcell_info
-    Int threads = 4
-    String log_name = "samtools_fasta.log"
-    String jellyfish_fasta_name = "~{smrtcell_info.name}.jellyfish.fasta"
-    String pb_conda_image
-  }
-
-  Float multiplier = 3.25
-  Int disk_size = ceil(multiplier * size(smrtcell_info.path, "GB")) + 20
-
-  command <<<
-    echo requested disk_size =  ~{disk_size}
-    echo
-    source ~/.bashrc
-    conda activate samtools
-    echo "$(conda info)"
-
-    (samtools fasta -@ 3 ~{smrtcell_info.path} > ~{jellyfish_fasta_name}) > ~{log_name} 2>&1
-  >>>
-  output {
-    File jellyfish_fasta = "~{jellyfish_fasta_name}"
-    File log = "~{log_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
-    cpu: "~{threads}"
-    disk: disk_size + " GB"
-  }
-}
-
-task seqtk_fastq_to_fasta {
-  input {
-    SmrtcellInfo smrtcell_info
-    String log_name = "seqtk_fastq_to_fasta.log"
-    String jellyfish_fasta_name = "~{smrtcell_info.name}.jellyfish.fasta"
-    String pb_conda_image
-    Int threads = 4
-  }
-
-  Float multiplier = 3.25
-  Int disk_size = ceil(multiplier * size(smrtcell_info.path, "GB")) + 20
-
-  command <<<
-    echo requested disk_size =  ~{disk_size}
-    echo
-    source ~/.bashrc
-    conda activate seqtk
-    echo "$(conda info)"
-
-    (seqtk seq -A ~{smrtcell_info.path} > ~{jellyfish_fasta_name}) > ~{log_name} 2>&1
-  >>>
-  output {
-    File jellyfish_fasta = "~{jellyfish_fasta_name}"
-    File log = "~{log_name}"
-  }
-  runtime {
-    docker: "~{pb_conda_image}"
-    preemptible: true
-    maxRetries: 3
-    memory: "14 GB"
-    cpu: "~{threads}"
-    disk: disk_size + " GB"
-  }
-}
 
 task jellyfish_count {
   input {
@@ -160,33 +89,16 @@ task dump_modimers {
 workflow jellyfish {
   input {
     SmrtcellInfo smrtcell_info
+    File movie_fasta
     Int kmer_length
     String pb_conda_image
-  }
-
-  if (smrtcell_info.isUbam)
-  {
-    call samtools_fasta {
-      input:
-        smrtcell_info = smrtcell_info,
-        pb_conda_image = pb_conda_image
-    }
-  }
-
-  if (!smrtcell_info.isUbam)
-  {
-    call seqtk_fastq_to_fasta {
-      input:
-        smrtcell_info = smrtcell_info,
-        pb_conda_image = pb_conda_image
-    }
   }
 
   call jellyfish_count {
     input:
       smrtcell_info = smrtcell_info,
       kmer_length = kmer_length,
-      jellyfish_fasta = if smrtcell_info.isUbam then samtools_fasta.jellyfish_fasta else seqtk_fastq_to_fasta.jellyfish_fasta,
+      jellyfish_fasta = movie_fasta,
       pb_conda_image = pb_conda_image
   }
 

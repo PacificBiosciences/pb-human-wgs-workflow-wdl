@@ -1,8 +1,7 @@
 version 1.0
 
-#import "../../common/structs.wdl"
+import "../../common/structs.wdl"
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
 
 task samtools_index_bam {
   input {
@@ -18,7 +17,7 @@ task samtools_index_bam {
     conda activate samtools
     echo "$(conda info)"
 
-    cp ~{bam_datafile} ~{bam_datafile_name}
+    ln -s ~{bam_datafile} ~{bam_datafile_name} #note -- use ln -s to replace 'cp'
     (samtools index -@ 3 ~{bam_datafile_name}) > ~{log_name} 2>&1
   >>>
   output {

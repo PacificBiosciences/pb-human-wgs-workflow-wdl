@@ -1,5 +1,7 @@
 version 1.0
 
+# modified struct SampleInfo, new structs (PacBioInfo/PacBioSampInfo) added by Charlie Bi
+
 struct IndexedData {
   String? name
   File datafile
@@ -25,11 +27,21 @@ struct SmrtcellInfo {
 
 struct SampleInfo {
   String name
-  Array[String?] parents
+  Boolean? affected
+  Array[String] parents
   Array[SmrtcellInfo] smrtcells
 }
 
-struct CohortInfo {
-  Array[SampleInfo] affected_persons
-  Array[SampleInfo] unaffected_persons
+struct PacBioInfo {
+  String name
+  String path
+  Array[String] movie
+}
+
+struct PacBioSampInfo {
+  String name
+  Array[String] parents
+  Boolean? affected
+  String path
+  Array[String] movies
 }

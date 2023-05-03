@@ -1,11 +1,12 @@
 version 1.0
 
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/pbsv.wdl" as pbsv
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/glnexus.wdl" as glnexus
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/cohort/tasks/slivar.wdl" as slivar
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl" as separateaffected
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl" as separateunaffected
+# to simplify Venkat's code by replacing affected/unaffected with unified data structure by Charlie Bi
+
+import "tasks/pbsv.wdl" as pbsv
+import "tasks/glnexus.wdl" as glnexus
+import "tasks/slivar.wdl" as slivar
+import "../common/structs.wdl"
+
 
 workflow cohort {
   input {
@@ -13,17 +14,13 @@ workflow cohort {
     IndexedData reference
     Array[String] regions
 
-    Array[IndexedData] affected_person_deepvariant_phased_vcf_gz
-    Array[IndexedData] unaffected_person_deepvariant_phased_vcf_gz
+    Array[IndexedData] person_deepvariant_phased_vcf_gz
 
-    Array[IndexedData] affected_person_gvcfs
-    Array[IndexedData] unaffected_person_gvcfs
+    Array[IndexedData] person_gvcfs
 
-    Array[Array[Array[File]]] affected_person_svsigs
-    Array[Array[Array[File]]] unaffected_person_svsigs
+    Array[Array[Array[File]]] person_svsigs
 
-    Array[Array[IndexedData]] affected_person_bams
-    Array[Array[IndexedData]] unaffected_person_bams
+    Array[Array[IndexedData]] person_bams
 
     String pb_conda_image
     String glnexus_image
@@ -44,41 +41,32 @@ workflow cohort {
     File clinvar_lookup
   }
 
-  Int num_samples = length(affected_person_deepvariant_phased_vcf_gz) + length(unaffected_person_deepvariant_phased_vcf_gz)
+  Int num_samples = length(person_deepvariant_phased_vcf_gz)
   Boolean singleton = if num_samples == 1 then true else false
 
-  call pbsv.pbsv {
-    input:
-      cohort_name = cohort_name,
-      reference = reference,
-      pb_conda_image = pb_conda_image,
-      affected_person_svsigs = affected_person_svsigs,
-      unaffected_person_svsigs = unaffected_person_svsigs
-  }
-
   if (singleton) {
-      if (length(affected_person_deepvariant_phased_vcf_gz) == 1) {
-        IndexedData singleton_affected_person_slivar_input = affected_person_deepvariant_phased_vcf_gz[0]
+      if (length(person_deepvariant_phased_vcf_gz) == 1) {
+        IndexedData singleton_slivar_input = person_deepvariant_phased_vcf_gz[0]
       }
-
-      if (length(unaffected_person_deepvariant_phased_vcf_gz) == 1) {
-        IndexedData singleton_unaffected_person_slivar_input = unaffected_person_deepvariant_phased_vcf_gz[0]
-      }
-
-      IndexedData? singleton_slivar_input = if defined(singleton_affected_person_slivar_input) then singleton_affected_person_slivar_input else singleton_unaffected_person_slivar_input
   }
 
 
   if (!singleton) {
+    call pbsv.pbsv {
+      input:
+        cohort_name = cohort_name,
+        reference = reference,
+        pb_conda_image = pb_conda_image,
+        person_svsigs = person_svsigs
+    }
+
     call glnexus.glnexus {
       input:
         cohort_name = cohort_name,
         regions = regions,
         reference = reference,
-        affected_person_gvcfs = affected_person_gvcfs,
-        unaffected_person_gvcfs = unaffected_person_gvcfs,
-        affected_person_bams = affected_person_bams,
-        unaffected_person_bams = unaffected_person_bams,
+        person_gvcfs = person_gvcfs,
+        person_bams = person_bams,
         pb_conda_image = pb_conda_image,
         glnexus_image = glnexus_image,
         chr_lengths = chr_lengths
@@ -109,7 +97,7 @@ workflow cohort {
   }
 
   output {
-    IndexedData pbsv_vcf    = pbsv.pbsv_vcf
+    IndexedData? pbsv_vcf    = pbsv.pbsv_vcf
     IndexedData filt_vcf    = slivar.filt_vcf
     IndexedData comphet_vcf = slivar.filt_vcf
     File filt_tsv           = slivar.filt_tsv

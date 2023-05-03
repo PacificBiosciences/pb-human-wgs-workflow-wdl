@@ -1,10 +1,6 @@
 version 1.0
 
-#import "../../common/structs.wdl"
-#import "../../common/separate_data_and_index_files.wdl"
-
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/structs.wdl"
-import "https://raw.githubusercontent.com/PacificBiosciences/pb-human-wgs-workflow-wdl/main/workflows/common/separate_data_and_index_files.wdl"
+import "../../common/structs.wdl"
 
 task make_examples_round2 {
   input {
@@ -158,7 +154,7 @@ task postprocess_variants_round2 {
        nonvariant_site_tfrecord=$(echo "${paths[$record_num]}")
        echo $nonvariant_site_tfrecord
        record_num_formatted=$(printf '%05d'  $record_num)
-       cp $nonvariant_site_tfrecord nonvariant_site-$record_num_formatted-of-$total_records_formatted.tfrecord
+       cp $nonvariant_site_tfrecord nonvariant_site-$record_num_formatted-of-$total_records_formatted.tfrecord.gz
     done
 
     (
@@ -166,7 +162,7 @@ task postprocess_variants_round2 {
         --ref ~{reference.datafile} \
         --infile ~{tfrecords} \
         --outfile ~{vcf_name} \
-        --nonvariant_site_tfrecord_path nonvariant_site@$total_records_formatted.tfrecord \
+        --nonvariant_site_tfrecord_path nonvariant_site@$total_records_formatted.tfrecord.gz \
         --gvcf_outfile ~{gvcf_name} \
         --sample_name=~{sample_name}
     ) > ~{log_name} 2>&1
@@ -241,16 +237,18 @@ workflow deepvariant_round2 {
     String pb_conda_image
   }
 
-  call separate_data_and_index_files.separate_data_and_index_files {
-    input:
-      indexed_data_array = whatshap_bams,
+  scatter (whatshap_bam in whatshap_bams) {
+    File wtbam = whatshap_bam.datafile
+    File wtbai = whatshap_bam.indexfile
   }
-
+  Array[File] separate_data_and_index_files_datafiles = wtbam
+  Array[File] separate_data_and_index_files_indexfiles = wtbai
+ 
   call make_examples_round2 {
     input:
       sample_name = sample_name,
-      bams = separate_data_and_index_files.datafiles,
-      bais = separate_data_and_index_files.indexfiles,
+      bams = separate_data_and_index_files_datafiles,
+      bais = separate_data_and_index_files_indexfiles,
       reference = reference,
       deepvariant_image = deepvariant_image
   }
